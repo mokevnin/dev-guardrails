@@ -77,7 +77,7 @@ The `Lint` workflow runs markdownlint-cli2, lychee, jactionlint on this reposito
 
 ## Removing or replacing a tool
 
-Open a pull request that edits the entry and `tools.json`. For a removal, link the evidence (archived repository, announced end of life, unfixed critical issue). For a replacement, include the comparison required above, and say what a user of the old tool has to change.
+Open a pull request that edits the entry and `tools.json`. For a removal, link the evidence (archived repository, announced end of life, unfixed critical issue). For a replacement, include the comparison required above, and say what a user of the old tool has to change. Add a row to [docs/not-adopted.md](docs/not-adopted.md) for the tool that was rejected or replaced.
 
 ## Conduct
 
