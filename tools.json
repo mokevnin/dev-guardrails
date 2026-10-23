@@ -19,7 +19,9 @@
       "repo": "astral-sh/ruff",
       "category": "Python",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://docs.astral.sh/ruff/"],
+      "sources": [
+        "https://docs.astral.sh/ruff/"
+      ],
       "rationale": "Linter and formatter in one fast binary; replaces Flake8, isort, pyupgrade and Black. Autofix, JSON/SARIF output, non-zero exit on findings.",
       "limitations": "No type checking and no custom-rule plugin API. Pair with a type checker if you need one."
     },
@@ -28,7 +30,9 @@
       "repo": "golangci/golangci-lint",
       "category": "Go",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://golangci-lint.run/"],
+      "sources": [
+        "https://golangci-lint.run/"
+      ],
       "rationale": "Runs dozens of Go linters and the formatter in one pass with shared caching. v2 config, autofix, JSON/SARIF output. Custom analyzers can be built in with `golangci-lint custom`.",
       "limitations": "Enable linters deliberately: the default set is small, and enabling everything produces noise. GPL-3.0 licensed binary."
     },
@@ -37,7 +41,9 @@
       "repo": "rust-lang/rust-clippy",
       "category": "Rust",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://doc.rust-lang.org/clippy/"],
+      "sources": [
+        "https://doc.rust-lang.org/clippy/"
+      ],
       "rationale": "The official Rust linter, shipped with the toolchain. `cargo clippy -- -D warnings` fails CI on any finding.",
       "limitations": "Versioned with the Rust toolchain through rustup, not through GitHub releases. Rust only."
     },
@@ -46,7 +52,9 @@
       "repo": "rubocop/rubocop",
       "category": "Ruby",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://docs.rubocop.org/rubocop/"],
+      "sources": [
+        "https://docs.rubocop.org/rubocop/"
+      ],
       "rationale": "The standard Ruby linter and formatter, with autocorrect, JSON output and custom cops. Extensions cover Rails, RSpec and performance.",
       "limitations": "Slower than Rust-based linters; use its server mode or cache locally. Extensions are separate gems."
     },
@@ -56,7 +64,9 @@
       "category": "Shell",
       "stable_exception": true,
       "last_reviewed": "2026-10-23",
-      "sources": ["https://www.shellcheck.net/wiki/"],
+      "sources": [
+        "https://www.shellcheck.net/wiki/"
+      ],
       "rationale": "Finds bugs and portability problems in sh, bash, dash and ksh scripts. JSON and diff output, non-zero exit code.",
       "limitations": "Stable-tool exception: the last release is v0.11.0 (2025-08-04), but the repository is still receiving commits. Does not support zsh. jactionlint already runs it on `run:` steps."
     },
@@ -65,7 +75,9 @@
       "repo": "conventional-changelog/commitlint",
       "category": "Git conventions",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://commitlint.js.org/"],
+      "sources": [
+        "https://commitlint.js.org/"
+      ],
       "rationale": "Enforces Conventional Commits on a message, a range (`--from/--to`) or a hook. Needed if releases or changelogs are generated from commits.",
       "limitations": "Requires Node. Checks format only, not whether the message is accurate. Compared on 2026-10-23 with cocogitto (last push 2026-04) and crate-ci/committed (185 stars, last release 2026-02): neither is clearly better, so Node remains the main cost."
     },
@@ -74,7 +86,9 @@
       "repo": "DavidAnson/markdownlint-cli2",
       "category": "Documentation",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://github.com/DavidAnson/markdownlint-cli2"],
+      "sources": [
+        "https://github.com/DavidAnson/markdownlint-cli2"
+      ],
       "rationale": "Config-file-driven Markdown linter with autofix and a maintained GitHub Action. Actively released through npm.",
       "limitations": "Style and structure only; no prose or spelling checks. Versioned through npm tags rather than GitHub releases. Compared on 2026-10-23 with rumdl (Rust, markdownlint-compatible, v0.3.0, licence not detected): promising and fast, but pre-1.0, so kept as a candidate to re-review."
     },
@@ -83,7 +97,9 @@
       "repo": "lycheeverse/lychee",
       "category": "Documentation",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://lychee.cli.rs/"],
+      "sources": [
+        "https://lychee.cli.rs/"
+      ],
       "rationale": "Fast link checker for Markdown, HTML and plain text, with caching, retries and a GitHub Action.",
       "limitations": "Network checks can be flaky: set a GitHub token so github.com links do not hit rate limits, and cache results."
     },
@@ -92,7 +108,9 @@
       "repo": "crate-ci/typos",
       "category": "Documentation",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://github.com/crate-ci/typos"],
+      "sources": [
+        "https://github.com/crate-ci/typos"
+      ],
       "rationale": "Source-code-aware spell checker built on a list of known misspellings, so false positives are rare and it needs little configuration. Fast, has autofix.",
       "limitations": "Finds only known misspellings. For project dictionaries and many natural languages, cspell is the alternative; it is not recommended alongside typos."
     },
@@ -101,7 +119,9 @@
       "repo": "webpro-nl/knip",
       "category": "Unused code and dependencies (JS/TS)",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://knip.dev/"],
+      "sources": [
+        "https://knip.dev/"
+      ],
       "rationale": "Finds unused files, exports and dependencies, with plugins for most frameworks and test runners. Non-zero exit on findings.",
       "limitations": "Monorepos and unusual entry points need configuration. Never run with `--fix` unattended."
     },
@@ -110,7 +130,9 @@
       "repo": "osprey-oss/deptry",
       "category": "Unused code and dependencies (Python)",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://deptry.com/"],
+      "sources": [
+        "https://deptry.com/"
+      ],
       "rationale": "Finds unused, missing and transitive dependencies in a Python project from its imports.",
       "limitations": "Static import analysis: dynamic imports are missed. The repository moved to the osprey-oss organization; the latest release is 0.25.1 (2026-03-18)."
     },
@@ -119,9 +141,25 @@
       "repo": "ast-grep/ast-grep",
       "category": "Custom rules",
       "last_reviewed": "2026-10-23",
-      "sources": ["https://ast-grep.github.io/"],
+      "sources": [
+        "https://ast-grep.github.io/"
+      ],
       "rationale": "Project-specific syntax rules as YAML, with `ast-grep test` for rule fixtures and snapshots, so rules are themselves tested. Works for many languages with one tool.",
       "limitations": "Syntactic matching only; no data-flow or taint analysis. Semgrep and its fork Opengrep cover that; see the under-review list."
+    },
+    {
+      "id": "schemalens",
+      "repo": "mokevnin/schemalens",
+      "category": "Databases",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/mokevnin/schemalens#readme",
+        "https://github.com/mokevnin/schemalens/blob/main/docs/rules/README.md",
+        "https://github.com/djezzzl/database_consistency",
+        "https://atlasgo.io/declarative/diff"
+      ],
+      "rationale": "Checks consistency between an ORM model and the live schema through 18 rules (indexes, constraints, nullability), exits 1 on findings, emits JSON and SARIF, supports a baseline and ships an agent skill.",
+      "limitations": "Conflict of interest: maintained by the owner of this repository. Created 2026-10-20, v0.1.3, one maintainer, 0 stars. Go models only (ent, gorm, bun adapters). Atlas was compared only on documentation: its schema diff covers structure and drift, and an exit-code mode for it was not found in the docs, not ruled out."
     }
   ]
 }

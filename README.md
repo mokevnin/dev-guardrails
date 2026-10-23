@@ -32,6 +32,10 @@ Each entry is backed by a record in [`tools.json`](tools.json): date of the last
 
 - **[golangci-lint](https://github.com/golangci/golangci-lint)**: one runner for the Go linters and the formatter, with `golangci-lint custom` for your own analyzers. *Limits:* choose linters deliberately; GPL-3.0.
 
+### Databases
+
+- **[schemalens](https://github.com/mokevnin/schemalens)**: compares a Go model (ent, gorm, bun) with the live PostgreSQL, MySQL or SQLite schema and reports every disagreement as a structured finding, with JSON and SARIF output, a baseline and an agent skill. Checks things a structural diff does not: missing foreign-key indexes, constraints the model assumes but the database does not enforce, nullable columns for required fields. *Limits:* **maintained by the owner of this repository**; created 2026-10-20, v0.1.x, one maintainer, no outside users yet. Go models only. Compared with `database_consistency` (the Ruby/ActiveRecord original) and Atlas (structural diff and drift, a different job); no Go equivalent was found.
+
 ### Rust
 
 - **[Clippy](https://github.com/rust-lang/rust-clippy)**: the official linter; run `cargo clippy -- -D warnings`. *Limits:* tied to the toolchain version.

@@ -66,7 +66,7 @@ Then add a record to `tools.json`:
 | `last_reviewed` | Date (`YYYY-MM-DD`) you did the currency check. |
 | `sources` | URLs or repository paths used for the decision. |
 | `rationale` | Why it was chosen. |
-| `stable_exception` | Optional `true` for a finished tool with old releases; mute the release-age flag. Explain it in `limitations`. |
+| `stable_exception` | Optional `true` for a finished tool with old releases; mute the push-age and release-age flags. Explain it in `limitations`. |
 | `limitations` | What it does not do. |
 
 Run `node scripts/check-registry.mjs` to validate the file.

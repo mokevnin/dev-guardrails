@@ -78,6 +78,9 @@ We did not run jactionlint and zizmor side by side on a shared corpus, and did n
 
 ## Re-review triggers
 
+- Decision confirmed by the repository owner on 2026-10-23: jactionlint stays the only default recommendation.
+- Re-review by **2027-04-23**, or earlier on any trigger below.
+
 - A release of zizmor or jactionlint that changes rule coverage.
 - jactionlint inactivity for 60 days.
 - An independent comparison.

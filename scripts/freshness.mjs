@@ -2,7 +2,8 @@
 // a quiet repository can be finished, and an active one can still be the wrong choice.
 import { appendFileSync, readFileSync } from 'node:fs'
 
-const PUSH_DAYS = 90
+// Matches CONTRIBUTING.md: activity older than 30 days is a reason to look closer.
+const PUSH_DAYS = 30
 const RELEASE_DAYS = 365
 const REVIEW_DAYS = 180
 const { tools } = JSON.parse(readFileSync('tools.json', 'utf8'))
@@ -24,7 +25,7 @@ for (const tool of tools) {
   } else {
     if (repo.archived) flags.push('ARCHIVED')
     if (repo.full_name.toLowerCase() !== tool.repo.toLowerCase()) flags.push(`renamed to ${repo.full_name}`)
-    if (days(repo.pushed_at) > PUSH_DAYS) flags.push(`no push for ${days(repo.pushed_at)} days`)
+    if (!tool.stable_exception && days(repo.pushed_at) > PUSH_DAYS) flags.push(`no push for ${days(repo.pushed_at)} days`)
     const release = await api(`repos/${tool.repo}/releases/latest`)
     if (!release.status && !tool.stable_exception && days(release.published_at) > RELEASE_DAYS) flags.push(`last release ${days(release.published_at)} days ago`)
   }
@@ -44,4 +45,17 @@ const lines = [
 const report = lines.join('\n')
 console.log(report)
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${report}\n`)
+// A red cron run is easy to miss, so the report goes to one tracking issue:
+// opened or updated when something is flagged, closed when nothing is.
+const TITLE = 'Tool freshness report'
+const slug = process.env.GITHUB_REPOSITORY
+if (slug && token) {
+  const send = (path, method, body) =>
+    fetch(`https://api.github.com/${path}`, { method, headers, body: JSON.stringify(body) })
+  const open = await api(`repos/${slug}/issues?state=open&per_page=100`)
+  const existing = Array.isArray(open) ? open.find((issue) => issue.title === TITLE && !issue.pull_request) : undefined
+  if (flagged.length > 0 && existing) await send(`repos/${slug}/issues/${existing.number}`, 'PATCH', { body: report })
+  else if (flagged.length > 0) await send(`repos/${slug}/issues`, 'POST', { title: TITLE, body: report })
+  else if (existing) await send(`repos/${slug}/issues/${existing.number}`, 'PATCH', { state: 'closed', state_reason: 'completed' })
+}
 process.exit(flagged.length > 0 ? 1 : 0)

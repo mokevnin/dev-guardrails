@@ -39,12 +39,11 @@ Not rejected: these are in [Under review](../README.md#under-review) because we 
 | Item | Reason |
 |---|---|
 | hk, vacuum, squawk, oxfmt, govulncheck, OpenSSF Scorecard, go-test-coverage | Not compared with alternatives yet, so not recommended. |
-| schemalens | A young project (v0.1.3) by this repository's owner. It needs the same review as any other tool. |
 | mise, release-please | Toolchain and release automation, not enforcement. |
 | CodeQL | Not checked against the other security scanners. |
 | pinact, zizmor next to jactionlint | Overlap, see above. |
 
-What we did take: typos, ast-grep rules with tests, Dependabot `cooldown`, and the patterns in [patterns.md](patterns.md).
+schemalens was adopted after the same review with its conflict of interest stated in the entry. What we did take: typos, ast-grep rules with tests, Dependabot `cooldown`, and the patterns in [patterns.md](patterns.md).
 
 ## Adding to this file
 
