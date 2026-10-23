@@ -7,7 +7,7 @@ Reviewed 2026-10-23. Decision: **recommend jactionlint alone by default.** Add z
 | | [jactionlint](https://github.com/jdx/jactionlint) | [actionlint](https://github.com/rhysd/actionlint) | [zizmor](https://github.com/zizmorcore/zizmor) |
 |---|---|---|---|
 | Purpose | Correctness, security and policy | Correctness (syntax, expressions, shellcheck) | Security audits |
-| Repository created | 2026-10-05 | n/a (original project) | n/a |
+| Repository created | 2026-10-05 | 2021-05-25 | 2024-08-19 |
 | Last push | 2026-10-21 | 2026-07-16 | 2026-10-23 |
 | Latest release | v2.3.0 (2026-10-21), 7 releases | v1.7.12 (2026-03-30) | v1.31.1 (2026-10-15) |
 | Stars | 280 | 4.3k | 6.8k |

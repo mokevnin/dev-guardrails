@@ -72,4 +72,4 @@ jobs:
 
       # This repository recommends jactionlint, so it checks itself with it.
       - name: Lint workflows
-        run: pipx run jactionlint==2.3.0
+        uses: jdx/jactionlint@a65ab044e916760429068fe5794b8306abdfcbb9 # v2.3.0

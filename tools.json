@@ -1,5 +1,5 @@
 {
-  "$comment": "Registry of recommended tools. The README is written from this file; scripts/check-registry.mjs and the weekly freshness workflow read it. See CONTRIBUTING.md.",
+  "$comment": "Registry of recommended tools. The README is hand-written and cross-checked against this file by scripts/check-registry.mjs; the weekly freshness workflow reads it. See CONTRIBUTING.md.",
   "tools": [
     {
       "id": "jactionlint",
@@ -67,7 +67,7 @@
       "last_reviewed": "2026-10-23",
       "sources": ["https://commitlint.js.org/"],
       "rationale": "Enforces Conventional Commits on a message, a range (`--from/--to`) or a hook. Needed if releases or changelogs are generated from commits.",
-      "limitations": "Requires Node. Checks format only, not whether the message is accurate."
+      "limitations": "Requires Node. Checks format only, not whether the message is accurate. Compared on 2026-10-23 with cocogitto (last push 2026-04) and crate-ci/committed (185 stars, last release 2026-02): neither is clearly better, so Node remains the main cost."
     },
     {
       "id": "markdownlint-cli2",
@@ -76,7 +76,7 @@
       "last_reviewed": "2026-10-23",
       "sources": ["https://github.com/DavidAnson/markdownlint-cli2"],
       "rationale": "Config-file-driven Markdown linter with autofix and a maintained GitHub Action. Actively released through npm.",
-      "limitations": "Style and structure only; no prose or spelling checks. Versioned through npm tags rather than GitHub releases."
+      "limitations": "Style and structure only; no prose or spelling checks. Versioned through npm tags rather than GitHub releases. Compared on 2026-10-23 with rumdl (Rust, markdownlint-compatible, v0.3.0, licence not detected): promising and fast, but pre-1.0, so kept as a candidate to re-review."
     },
     {
       "id": "lychee",
