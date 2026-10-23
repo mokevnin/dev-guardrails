@@ -1,0 +1,12 @@
+config:
+  default: true
+  MD013: false # prose is not wrapped
+  MD033: false # allow inline HTML
+  MD060: false # compact table delimiter rows
+  MD041: false # the pull request template starts with a section, not a title
+  MD024:
+    siblings_only: true
+globs:
+  - "**/*.md"
+ignores:
+  - node_modules

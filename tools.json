@@ -1,0 +1,127 @@
+{
+  "$comment": "Registry of recommended tools. The README is written from this file; scripts/check-registry.mjs and the weekly freshness workflow read it. See CONTRIBUTING.md.",
+  "tools": [
+    {
+      "id": "jactionlint",
+      "repo": "jdx/jactionlint",
+      "category": "GitHub Actions",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/jdx/jactionlint/blob/main/docs/zizmor-parity.md",
+        "https://github.com/jdx/jactionlint/blob/main/docs/actionlint.md",
+        "research/github-actions.md"
+      ],
+      "rationale": "One binary for correctness (actionlint checks), security (zizmor audits) and policy (pinning, permissions, timeouts). Has --fix and --diff, SARIF, baselines.",
+      "limitations": "Created 2026-10-05, single maintainer, 7 releases. Parity with zizmor is self-reported. No pre-commit config audit, no LSP, no offline archived-uses."
+    },
+    {
+      "id": "ruff",
+      "repo": "astral-sh/ruff",
+      "category": "Python",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://docs.astral.sh/ruff/"],
+      "rationale": "Linter and formatter in one fast binary; replaces Flake8, isort, pyupgrade and Black. Autofix, JSON/SARIF output, non-zero exit on findings.",
+      "limitations": "No type checking and no custom-rule plugin API. Pair with a type checker if you need one."
+    },
+    {
+      "id": "golangci-lint",
+      "repo": "golangci/golangci-lint",
+      "category": "Go",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://golangci-lint.run/"],
+      "rationale": "Runs dozens of Go linters and the formatter in one pass with shared caching. v2 config, autofix, JSON/SARIF output. Custom analyzers can be built in with `golangci-lint custom`.",
+      "limitations": "Enable linters deliberately: the default set is small, and enabling everything produces noise. GPL-3.0 licensed binary."
+    },
+    {
+      "id": "clippy",
+      "repo": "rust-lang/rust-clippy",
+      "category": "Rust",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://doc.rust-lang.org/clippy/"],
+      "rationale": "The official Rust linter, shipped with the toolchain. `cargo clippy -- -D warnings` fails CI on any finding.",
+      "limitations": "Versioned with the Rust toolchain through rustup, not through GitHub releases. Rust only."
+    },
+    {
+      "id": "rubocop",
+      "repo": "rubocop/rubocop",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://docs.rubocop.org/rubocop/"],
+      "rationale": "The standard Ruby linter and formatter, with autocorrect, JSON output and custom cops. Extensions cover Rails, RSpec and performance.",
+      "limitations": "Slower than Rust-based linters; use its server mode or cache locally. Extensions are separate gems."
+    },
+    {
+      "id": "shellcheck",
+      "repo": "koalaman/shellcheck",
+      "category": "Shell",
+      "stable_exception": true,
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://www.shellcheck.net/wiki/"],
+      "rationale": "Finds bugs and portability problems in sh, bash, dash and ksh scripts. JSON and diff output, non-zero exit code.",
+      "limitations": "Stable-tool exception: the last release is v0.11.0 (2025-08-04), but the repository is still receiving commits. Does not support zsh. jactionlint already runs it on `run:` steps."
+    },
+    {
+      "id": "commitlint",
+      "repo": "conventional-changelog/commitlint",
+      "category": "Git conventions",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://commitlint.js.org/"],
+      "rationale": "Enforces Conventional Commits on a message, a range (`--from/--to`) or a hook. Needed if releases or changelogs are generated from commits.",
+      "limitations": "Requires Node. Checks format only, not whether the message is accurate."
+    },
+    {
+      "id": "markdownlint-cli2",
+      "repo": "DavidAnson/markdownlint-cli2",
+      "category": "Documentation",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://github.com/DavidAnson/markdownlint-cli2"],
+      "rationale": "Config-file-driven Markdown linter with autofix and a maintained GitHub Action. Actively released through npm.",
+      "limitations": "Style and structure only; no prose or spelling checks. Versioned through npm tags rather than GitHub releases."
+    },
+    {
+      "id": "lychee",
+      "repo": "lycheeverse/lychee",
+      "category": "Documentation",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://lychee.cli.rs/"],
+      "rationale": "Fast link checker for Markdown, HTML and plain text, with caching, retries and a GitHub Action.",
+      "limitations": "Network checks can be flaky: set a GitHub token so github.com links do not hit rate limits, and cache results."
+    },
+    {
+      "id": "typos",
+      "repo": "crate-ci/typos",
+      "category": "Documentation",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://github.com/crate-ci/typos"],
+      "rationale": "Source-code-aware spell checker built on a list of known misspellings, so false positives are rare and it needs little configuration. Fast, has autofix.",
+      "limitations": "Finds only known misspellings. For project dictionaries and many natural languages, cspell is the alternative; it is not recommended alongside typos."
+    },
+    {
+      "id": "knip",
+      "repo": "webpro-nl/knip",
+      "category": "Unused code and dependencies (JS/TS)",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://knip.dev/"],
+      "rationale": "Finds unused files, exports and dependencies, with plugins for most frameworks and test runners. Non-zero exit on findings.",
+      "limitations": "Monorepos and unusual entry points need configuration. Never run with `--fix` unattended."
+    },
+    {
+      "id": "deptry",
+      "repo": "osprey-oss/deptry",
+      "category": "Unused code and dependencies (Python)",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://deptry.com/"],
+      "rationale": "Finds unused, missing and transitive dependencies in a Python project from its imports.",
+      "limitations": "Static import analysis: dynamic imports are missed. The repository moved to the osprey-oss organization; the latest release is 0.25.1 (2026-03-18)."
+    },
+    {
+      "id": "ast-grep",
+      "repo": "ast-grep/ast-grep",
+      "category": "Custom rules",
+      "last_reviewed": "2026-10-23",
+      "sources": ["https://ast-grep.github.io/"],
+      "rationale": "Project-specific syntax rules as YAML, with `ast-grep test` for rule fixtures and snapshots, so rules are themselves tested. Works for many languages with one tool.",
+      "limitations": "Syntactic matching only; no data-flow or taint analysis. Semgrep and its fork Opengrep cover that; see the under-review list."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# GITHUB_TOKEN is read from the environment, which avoids github.com rate limits.
+max_concurrency = 8
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+cache = true
+max_cache_age = "1d"
+accept = ["200..=204", "429"]
+exclude_path = ["LICENSE"]
