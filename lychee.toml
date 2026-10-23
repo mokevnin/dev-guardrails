@@ -8,4 +8,5 @@ max_cache_age = "1d"
 accept = ["200..=204", "429"]
 exclude_path = ["LICENSE"]
 # Links to this repository itself 404 until the commit is pushed.
-exclude = ["^https://github.com/mokevnin/dev-guardrails/"]
+# npmjs.com answers CI with 403 (bot protection); those links work in a browser.
+exclude = ["^https://github.com/mokevnin/dev-guardrails/", "^https://www.npmjs.com/"]
