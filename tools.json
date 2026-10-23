@@ -1,5 +1,5 @@
 {
-  "$comment": "Registry of recommended tools. The README is hand-written and cross-checked against this file by scripts/check-registry.mjs; the weekly freshness workflow reads it. See CONTRIBUTING.md.",
+  "$comment": "Registry of recommended tools. The README is hand-written and cross-checked against this file by scripts/check-registry.ts; the weekly freshness workflow reads it. See CONTRIBUTING.md.",
   "tools": [
     {
       "id": "jactionlint",

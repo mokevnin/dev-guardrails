@@ -13,7 +13,7 @@ Details: [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-a-pull-request).
 - [ ] **Overlap:** overlap with existing recommendations checked.
 - [ ] **Why:** reason to add or replace is explained.
 - [ ] **Limits:** significant limitations stated.
-- [ ] **Style:** README entry follows the format, `tools.json` updated, `node scripts/check-registry.mjs` passes.
+- [ ] **Style:** README entry follows the format, `tools.json` updated, `npm run check:registry` passes.
 
 ## Evidence
 

@@ -1,16 +1,18 @@
 // Validates tools.json and checks that README.md and the registry agree.
 import { readFileSync } from 'node:fs'
+import { readTools, type Tool } from './registry.ts'
 
-const FIELDS = ['id', 'repo', 'category', 'last_reviewed', 'sources', 'rationale', 'limitations']
-const { tools } = JSON.parse(readFileSync('tools.json', 'utf8'))
+const REQUIRED = ['id', 'repo', 'category', 'last_reviewed', 'sources', 'rationale', 'limitations'] as const
+
+const tools = readTools()
 const readme = readFileSync('README.md', 'utf8')
-const errors = []
-const ids = new Set()
+const errors: string[] = []
+const ids = new Set<string>()
 
 for (const tool of tools) {
   const name = tool.id ?? '(no id)'
-  for (const field of FIELDS) {
-    const value = tool[field]
+  for (const field of REQUIRED) {
+    const value: Tool[typeof field] | undefined = tool[field]
     if (value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
       errors.push(`${name}: missing "${field}"`)
     }

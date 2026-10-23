@@ -89,6 +89,7 @@ These categories matter but have **no recommendation yet**: the candidates have 
 - [`tools.json`](tools.json) records the last review date, sources, rationale and limitations of each tool.
 - A [weekly workflow](.github/workflows/freshness.yml) flags archived repositories, old pushes and stale releases. It is a signal, not a verdict: a quiet repository can be a finished one, and a busy one can be the wrong choice.
 - Replacements need a written comparison. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- [`research/`](research/) holds working notes per stack (JavaScript, Python/Ruby/PHP, Go/Rust/JVM/.NET, cross-cutting). They are research leads: several tools there were compared on documentation only and are **not** recommendations until they appear in the list above.
 - Tools we looked at and did not take are in [docs/not-adopted.md](docs/not-adopted.md).
 - Reusable setup patterns (hooks, CI, generated-code gates) are in [docs/patterns.md](docs/patterns.md).
 

@@ -1,0 +1,4 @@
+[default.extend-words]
+# Tool names, not misspellings.
+Sherif = "Sherif"
+Synopsys = "Synopsys"

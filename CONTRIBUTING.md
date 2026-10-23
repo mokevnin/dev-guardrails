@@ -69,7 +69,7 @@ Then add a record to `tools.json`:
 | `stable_exception` | Optional `true` for a finished tool with old releases; mute the push-age and release-age flags. Explain it in `limitations`. |
 | `limitations` | What it does not do. |
 
-Run `node scripts/check-registry.mjs` to validate the file.
+Run `npm ci && npm run check:registry` to validate the file. Scripts in this repository are written in TypeScript (`scripts/`, run directly by Node 24 and checked with `npm run typecheck`).
 
 ## Checks
 
