@@ -929,6 +929,22 @@
       "details": "research/ecosystem-gaps.md"
     },
     {
+      "id": "dialyxir",
+      "name": "Dialyxir",
+      "repo": "jeremyjh/dialyxir",
+      "category": "Elixir",
+      "last_reviewed": "2026-10-24",
+      "sources": [
+        "https://github.com/jeremyjh/dialyxir",
+        "https://hex.pm/packages/dialyxir",
+        "research/ecosystem-gaps.md",
+        "research/fixtures/dialyxir/run.py"
+      ],
+      "rationale": "runs Dialyzer from Mix: the check that each `@spec` matches its code (invalid contracts, functions with no local return). The Elixir 1.20 compiler infers types and fails on plain type errors, but does not read `@spec` (tested). `mix dialyzer` exits 2 on a warning, `--format github` annotates pull requests and an ignore file baselines old warnings.",
+      "limitations": "worth it where the project writes `@spec`. The first run builds the PLT (about 2.5 minutes for a toy project in the test), later runs take seconds, so cache the PLT in CI. No JSON or SARIF output; Assay offers both and incremental runs but is far smaller. What only Dialyzer catches shrinks as the compiler's type system grows.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
       "id": "diff-cover",
       "name": "diff-cover",
       "repo": "Bachmann1234/diff_cover",
