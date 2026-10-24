@@ -30,6 +30,19 @@ Test custom rules. `ast-grep test` runs rule fixtures and snapshots; keep them i
 
 Keep suppressions narrow (path and rule, not a whole directory), and record why. Prefer a baseline over disabling a rule when adopting a check on an old code base.
 
+## Review dates on exceptions
+
+The reason for a suppression is often an argument that can stop being true: "this bucket is a public static host", "no SSH server uses this package". A suppressed finding reports nothing, so nothing tells you when that happens.
+
+Give every suppression a review date and fail the build when it has passed. Some tools have this built in: OSV-Scanner's `ignoreUntil` stops ignoring a vulnerability after the date. Others do not: a Checkov inline skip (`checkov:skip=<id>:<comment>`) has no expiry, so a date written there is only a comment. For those, a short script in CI does the job:
+
+- every suppression has a date, in one fixed format (for example `(review YYYY-MM-DD)`);
+- the date is real (`2026-02-31` must fail; JavaScript's `Date` silently reads it as 2 March);
+- the date has not passed;
+- the reason is more than a word, because most tools accept any text, even one character.
+
+Run that script on a schedule as well as on pull requests. A date expires on the calendar, not in a diff, so a job that runs only when the suppressed files change can miss it for a long time. Read each suppression from a fixed list of places rather than by walking the whole repository with an exclusion list: an exclusion list is how a scanner reads nothing and still passes.
+
 ## Dependabot cooldown
 
 A `cooldown` with `default-days` in `dependabot.yml` delays updates to freshly published versions, which reduces exposure to compromised releases. jactionlint checks this (`dependabot-cooldown`). Renovate's equivalent is `minimumReleaseAge`.
