@@ -118,7 +118,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Architecture | **go-arch-lint** | fe3dback/go-arch-lint | 616 | 1.19.0, 2026-09-07 | MIT |
 | Architecture | arch-go | arch-go/arch-go (moved from fdaines) | 280 | 2.1.2, 2026-02-03 | MIT |
 | Nil panics | NilAway | uber-go/nilaway | 3926 | no releases (tags only) | Apache-2.0 |
-| Dead code | deadcode | golang/tools (`cmd/deadcode`) | 8008 | none (x/tools) | BSD-3-Clause |
+| Dead code | deadcode | golang/tools (`cmd/deadcode`) | 8008 | x/tools v0.52.0, 2026-10-10 | BSD-3-Clause |
 | SQL queries | sqlc (`sqlc vet`, `sqlc diff`) | sqlc-dev/sqlc | 18406 | 1.31.1, 2026-04-22 | MIT |
 | Release config | GoReleaser (`goreleaser check`) | goreleaser/goreleaser | 16117 | 2.19.0, 2026-10-22 | MIT |
 | Formatting | gofumpt | mvdan/gofumpt | 4101 | 0.12.0, 2026-09-07 | BSD-3-Clause |
@@ -129,7 +129,11 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 - **go-arch-lint** is the better Go architecture tool today (2x the stars, monthly cadence; arch-go moved repositories and is smaller). Both are small, so confidence is low-medium; keep as a proposal with that flag, and note ArchUnit-like Go rules are also possible with ast-grep (listed).
 - **gofumpt**: do not add. `golangci-lint fmt` has `gofumpt` as a formatter (listed in the golangci-lint formatter docs); edit the golangci-lint entry.
 - **NilAway**: strong tool (Uber), but it has no releases and runs as a golangci-lint private plugin or standalone, which is heavy to set up. Keep in Under review.
-- **deadcode**: reject as an enforcer. Its source exits non-zero only on load errors, not on findings (read of `deadcode.go`: unverified by running); it needs a script around it.
+- **deadcode**: reject as an enforcer. Verified by running v0.52.0 (Go 1.26) on a four-function module (2026-10-24): it prints `unreachable func: unused` and exits 0, so it reports and does not fail. The script around it is one line, `out=$(deadcode -test ./...); [ -z "$out" ]`. Two flags decide whether the output is usable, both checked in the same run:
+  - without `-test`, a function in a non-test file that only tests call is reported as dead;
+  - without `-tags`, a function that only a build-tagged test calls (`//go:build integration`) is reported as dead, the same blindness golangci-lint has without `run.build-tags`. Pass every tag the test suite uses.
+
+  It still cannot see a function whose only caller is its own test: `-test` makes that one reachable. Keep it out of the list (it does not fail a build by itself); a wrapper is enough if you want it.
 - **sqlc vet** (CEL lint rules for queries) and **`goreleaser check`** are checks inside tools you already use. Document in patterns when the project uses sqlc or GoReleaser; not entries.
 
 ## Rust
