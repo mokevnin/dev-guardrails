@@ -35,6 +35,9 @@ Reasons used below:
 | [vulture](https://github.com/jendrikseipp/vulture) | Heuristic dead-code finder that needs a whitelist; Ruff covers unused imports and variables. | A reliable cross-module dead-code tool. |
 | [go-test-coverage](https://github.com/vladopajic/go-test-coverage) | Narrow, one main maintainer, GPL-3.0. A coverage floor can be set with `go test` and a short script (see [patterns](patterns.md)). | A wider user base. |
 | [cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks) | Useful only for published libraries; not a general guardrail. | A library-focused section. |
+| [Spectral](https://github.com/stoplightio/spectral) and [Redocly CLI](https://github.com/Redocly/redocly-cli) | Overlap with vacuum, which reads Spectral rulesets as a native binary. Both are actively released and far more downloaded (about 7 and 10 million npm downloads a month). | You depend on custom JavaScript rule functions, or on Redocly's bundling and docs tooling. |
+| [SQLFluff](https://github.com/sqlfluff/sqlfluff) | Superseded for plain SQL linting by sqruff, a Rust tool with SQLFluff-style rules. SQLFluff is still the larger project (10k stars) and active. | You need dbt or Jinja templating, or a dialect sqruff lacks. |
+| [openapi-changes](https://github.com/pb33f/openapi-changes) | Smaller alternative to oasdiff (361 stars). | A feature oasdiff lacks. |
 
 ## Held back (Unverified)
 
@@ -44,7 +47,7 @@ Not rejected: these are in [Under review](../README.md#under-review) because we 
 - **TruffleHog and Kingfisher.** Alternatives to Betterleaks; TruffleHog is AGPL-3.0.
 - **Biome.** The other Rust JS toolchain; Oxlint with oxfmt is recommended.
 - **Semgrep and Opengrep.** Needed only for data-flow rules; ast-grep covers syntax rules.
-- **Hook runners** (hk, prek, pre-commit, Lefthook), **Docker, Terraform, Kubernetes, API contracts, SQL, architecture, YAML, supply chain.** See the table in the README.
+- **Hook runners** (hk, prek, pre-commit, Lefthook), **IaC and Kubernetes security, architecture, YAML, supply chain.** See the table in the README.
 
 ## Seen in sphericon, not taken
 

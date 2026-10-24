@@ -21,6 +21,7 @@ export const CATEGORY_ORDER = [
   'Swift',
   'Shell',
   'Databases',
+  'API contracts',
   'Custom rules',
   'Secrets',
   'Vulnerabilities',
