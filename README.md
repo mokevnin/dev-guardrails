@@ -26,6 +26,10 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[jactionlint](https://github.com/jdx/jactionlint)**: lints workflows, composite actions and `dependabot.yml` for correctness, security and policy in one binary. It is a fork of actionlint whose security rules follow the audits of zizmor, so you do not need `actionlint` or `zizmor` next to it by default. `--fix` repairs what has a mechanical fix; with `--online` it also pins tags to commit SHAs. *Limits:* created in October 2026 and run by one maintainer; parity with zizmor is self-reported. If you need an established second implementation, offline archived-action detection, pre-commit config audits or an LSP, add [zizmor](https://github.com/zizmorcore/zizmor). [Details](research/github-actions.md).
 
+### GitLab CI
+
+- **[Plumber](https://github.com/getplumber/plumber)**: CI/CD security scanner for GitLab CI (and GitHub Actions): checks `.gitlab-ci.yml`, resolved includes and project settings such as branch protection, and reports to the terminal, JSON, SARIF and GitLab SAST. Runs locally, in Docker or as a GitLab CI component. The only widely adopted GitLab pipeline scanner found: 829 stars, 30 releases, v0.7.11 on 2026-10-21, MPL-2.0, used by projects such as Delve and Resty. *Limits:* Created 2026-01-19 and pre-1.0. A security and compliance scanner, not a syntax checker: use GitLab's own CI Lint (also `glab ci lint`) for syntax. Its exit codes were not checked here. For GitHub Actions we recommend jactionlint instead.
+
 ### JavaScript and TypeScript
 
 - **[Knip](https://github.com/webpro-nl/knip)**: unused files, exports and dependencies. *Limits:* monorepos need configuration; never run `--fix` unattended.

@@ -10,6 +10,7 @@ export const END = '<!-- tools:end -->'
 // README headings, in order. A category used in tools.json must be listed here.
 export const CATEGORY_ORDER = [
   'GitHub Actions',
+  'GitLab CI',
   'JavaScript and TypeScript',
   'Python',
   'Go',

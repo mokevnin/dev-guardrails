@@ -17,6 +17,18 @@
       "details": "research/github-actions.md"
     },
     {
+      "id": "plumber",
+      "name": "Plumber",
+      "repo": "getplumber/plumber",
+      "category": "GitLab CI",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/getplumber/plumber#readme"
+      ],
+      "rationale": "CI/CD security scanner for GitLab CI (and GitHub Actions): checks `.gitlab-ci.yml`, resolved includes and project settings such as branch protection, and reports to the terminal, JSON, SARIF and GitLab SAST. Runs locally, in Docker or as a GitLab CI component. The only widely adopted GitLab pipeline scanner found: 829 stars, 30 releases, v0.7.11 on 2026-10-21, MPL-2.0, used by projects such as Delve and Resty.",
+      "limitations": "Created 2026-01-19 and pre-1.0. A security and compliance scanner, not a syntax checker: use GitLab's own CI Lint (also `glab ci lint`) for syntax. Its exit codes were not checked here. For GitHub Actions we recommend jactionlint instead."
+    },
+    {
       "id": "ruff",
       "name": "Ruff",
       "repo": "astral-sh/ruff",

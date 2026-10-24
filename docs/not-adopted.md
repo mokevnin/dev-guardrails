@@ -38,6 +38,9 @@ Reasons used below:
 | [Spectral](https://github.com/stoplightio/spectral) and [Redocly CLI](https://github.com/Redocly/redocly-cli) | Overlap with vacuum, which reads Spectral rulesets as a native binary. Both are actively released and far more downloaded (about 7 and 10 million npm downloads a month). | You depend on custom JavaScript rule functions, or on Redocly's bundling and docs tooling. |
 | [SQLFluff](https://github.com/sqlfluff/sqlfluff) | Superseded for plain SQL linting by sqruff, a Rust tool with SQLFluff-style rules. SQLFluff is still the larger project (10k stars) and active. | You need dbt or Jinja templating, or a dialect sqruff lacks. |
 | [openapi-changes](https://github.com/pb33f/openapi-changes) | Smaller alternative to oasdiff (361 stars). | A feature oasdiff lacks. |
+| [gitlab-ci-local](https://github.com/firecow/gitlab-ci-local) | Runs GitLab pipelines locally for debugging (4.1k stars, active); it does not enforce a standard. | A guardrail mode. |
+| [glsec](https://github.com/predictor2718/glsec) | Created 2026-10-15, no stars and no adopters yet; Plumber covers the same ground with real usage. | Adoption and a comparison with Plumber. |
+| [gitlab-lint](https://github.com/elijah-roberts/gitlab-lint) | Stale (last push 2024-03) and only a syntax check through the GitLab API. | None. |
 
 ## Held back (Unverified)
 
