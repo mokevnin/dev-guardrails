@@ -34,6 +34,17 @@ The [pull request template](.github/PULL_REQUEST_TEMPLATE.md) mirrors this list.
 7. **Limits.** State the significant limitations and conditions of use.
 8. **Style.** Follow the README format below and update `tools.json`.
 
+## Local checks
+
+This repository uses its own recommendations: [mise](https://mise.jdx.dev/) pins the tools and [hk](https://hk.jdx.dev/) runs the checks.
+
+```sh
+mise install
+mise run setup   # npm ci and the git hooks
+mise run check   # every check, the same set CI runs
+mise run fix     # apply automatic fixes
+```
+
 ## Selection criteria
 
 A tool is better when it:

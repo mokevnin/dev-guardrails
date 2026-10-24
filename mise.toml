@@ -1,0 +1,21 @@
+# One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
+[tools]
+node = "24"
+hk = "2.8.1"
+pkl = "0.32.2"
+rumdl = "0.3.0"
+typos = "1.51.1"
+lychee = "0.24.2"
+jactionlint = "2.3.0"
+
+[tasks.setup]
+description = "Install npm dependencies and the git hooks"
+run = ["npm ci", "hk install"]
+
+[tasks.check]
+description = "Run every check, the same set CI runs"
+run = "hk check --all"
+
+[tasks.fix]
+description = "Apply the automatic fixes"
+run = "hk fix --all"

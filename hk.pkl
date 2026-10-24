@@ -1,0 +1,42 @@
+amends "package://github.com/jdx/hk/releases/download/v2.8.1/hk@2.8.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.8.1/hk@2.8.1#/Builtins.pkl"
+
+// The commit hook skips the network-bound link check; `check` and CI run everything.
+local fast = new Mapping<String, Step> {
+    ["rumdl"] = Builtins.rumdl
+    ["typos"] = Builtins.typos
+    ["jactionlint"] = Builtins.jactionlint
+    ["registry"] {
+        glob = List("tools.json", "tools.schema.json", "README.md", "scripts/*.ts", "package.json")
+        check = "npm run --silent check:registry && npm run --silent readme -- --check"
+    }
+    ["typecheck"] {
+        glob = List("scripts/*.ts", "tsconfig.json")
+        check = "npm run --silent typecheck"
+    }
+}
+
+local all = (fast) {
+    ["lychee"] {
+        glob = List("**/*.md")
+        check = "lychee --config lychee.toml --no-progress {{ files }}"
+    }
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = fast
+    }
+    ["pre-push"] {
+        steps = all
+    }
+    ["check"] {
+        steps = all
+    }
+    ["fix"] {
+        fix = true
+        steps = all
+    }
+}
