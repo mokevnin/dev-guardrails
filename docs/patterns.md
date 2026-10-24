@@ -12,7 +12,7 @@ A hook is a convenience. A check that exists only in a hook is not enforced.
 
 ## One toolchain file
 
-Pin the versions of all tools in one file that both developers and CI read, such as a `mise.toml`. CI then runs exactly what the hook ran. Add one aggregate task (`check`) that runs every check, and call that from CI.
+Pin the versions of all tools in one file that both developers and CI read, such as a `mise.toml` (it also installs hk and the linters hk runs). CI then runs exactly what the hook ran (`hk check --all`). Add one aggregate task (`check`) that runs every check, and call that from CI.
 
 ## Generated code gate
 

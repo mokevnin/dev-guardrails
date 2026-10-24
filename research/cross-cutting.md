@@ -74,16 +74,16 @@ Limits: TFLint needs `tflint --init` to fetch plugin binaries from GitHub (suppl
 
 | Tool | Last release | Last push | Licence | Stars | Created |
 |---|---|---|---|---|---|
-| [prek](https://github.com/j178/prek) | v0.5.7, 2026-10-21 | 2026-10-23 | MIT | 8.7k | 2024-10 |
 | [pre-commit](https://github.com/pre-commit/pre-commit) | v4.7.0, 2026-10-13 | 2026-10-20 | MIT | 15.7k | 2014 |
 | [Lefthook](https://github.com/evilmartians/lefthook) | v2.2.2, 2026-10-13 | 2026-10-21 | MIT | 8.9k | 2019 |
 | [hk](https://github.com/jdx/hk) | v2.8.1, 2026-10-23 | 2026-10-23 | MIT | 1.3k | 2025-01 |
+| [prek](https://github.com/j178/prek) | v0.5.7, 2026-10-21 | 2026-10-23 | MIT | 8.7k | 2024-10 |
 
-**Recommendation: prek.** README: single Rust binary, drop-in compatible with `.pre-commit-config.yaml` and the whole pre-commit hook ecosystem (so agnix, check-jsonschema, typos, Hadolint, etc. work unchanged), faster, workspace mode for monorepos, auto-installed toolchains with checksum verification. Listed adopters (README links): CPython, Apache Airflow, FastAPI, Home Assistant.
+**Recommendation: hk** (owner decision: mise and its tools are our recommended toolchain). README and docs: steps are written once in `hk.pkl` (Pkl) and run in the hook (`hk check`, `hk fix`) and in CI (`hk check --all`); independent steps run in parallel, and read/write file locks stop fixers from colliding; installed with `mise use hk`.
 
-Why not the others: pre-commit is the fallback if you need maximum stability (11 years old, actively maintained, but slower and Python-based). Lefthook runs local commands in parallel with no hook-repo ecosystem (good for Node/Go shops that already install tools themselves). hk has file locks for parallel fixers and Pkl config, but is smaller, needs mise, and does not install the linters (README).
+Why not the others: prek is a faster drop-in for pre-commit with a much larger user base (8.7k stars against 1.3k), the fallback for projects without mise that want the pre-commit hook catalogue. pre-commit is the maximum-stability fallback (11 years old, but slower and Python-based). Lefthook runs local commands in parallel with no hook-repo ecosystem.
 
-Limits: prek is pre-1.0 (0.x), so behaviour can change. Hooks are bypassable with `--no-verify`: always run the same checks in CI (`prek run --all-files`). Not verified: benchmark claims, hk vs Lefthook parity.
+Limits: hk is smaller than prek and Lefthook, does not install the linters (they must be on `PATH`; pin them in `mise.toml`), and has no pre-commit catalogue. Hooks are bypassable with `--no-verify`: always run `hk check --all` in CI. Not verified: the speed benchmark (published by hk's author), hk vs Lefthook parity.
 
 ## 5. YAML, JSON and config files
 
@@ -216,7 +216,7 @@ Ready to paste into the matching categories (new categories: Secrets, Vulnerabil
 
 ### Git hooks
 
-- **[prek](https://github.com/j178/prek)**: single-binary runner that is a drop-in for `.pre-commit-config.yaml` and the pre-commit hook ecosystem, faster, with monorepo workspaces. *Limits:* pre-1.0; hooks can be bypassed, so run the same checks in CI. pre-commit is the conservative fallback, Lefthook suits teams with locally installed tools.
+- **[hk](https://github.com/jdx/hk)**: runs Git hooks and project checks from one `hk.pkl` in parallel with file locks, with the same steps in CI. Installed with mise. *Limits:* smaller than prek and Lefthook; does not install linters; hooks can be bypassed, so run `hk check --all` in CI. prek is the fallback without mise, pre-commit the conservative one.
 
 ### Config files
 
@@ -307,13 +307,13 @@ Ready to paste into the matching categories (new categories: Secrets, Vulnerabil
     "limitations": "Manifests only. Overlaps with Checkov and Trivy config. Last release 2026-03-10; non-bot commits continue (2026-09)."
   },
   {
-    "id": "prek",
-    "repo": "j178/prek",
+    "id": "hk",
+    "repo": "jdx/hk",
     "category": "Git hooks",
-    "last_reviewed": "2026-10-23",
-    "sources": ["https://github.com/j178/prek#readme", "research/cross-cutting.md"],
-    "rationale": "Single Rust binary, drop-in for pre-commit configs and its hook ecosystem, faster, monorepo workspaces, checksum-verified toolchain installs.",
-    "limitations": "Pre-1.0 (v0.5.7). Hooks can be bypassed; run the same checks in CI. pre-commit is the conservative fallback; Lefthook for locally installed tools."
+    "last_reviewed": "2026-10-24",
+    "sources": ["https://github.com/jdx/hk", "https://hk.jdx.dev/", "research/cross-cutting.md"],
+    "rationale": "Git hooks and project checks from one hk.pkl, parallel with file locks, same steps in CI; installed with mise, our recommended toolchain.",
+    "limitations": "1.3k stars. Does not install linters (pin them in mise.toml). No pre-commit hook catalogue. Hooks can be bypassed; run hk check --all in CI. prek is the fallback without mise."
   },
   {
     "id": "check-jsonschema",

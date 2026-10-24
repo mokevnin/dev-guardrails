@@ -38,16 +38,16 @@ Recommendation: fallow should replace dependency-cruiser (architecture and cycle
 
 Recommendation: ty, as the pick that belongs with Ruff and uv (same vendor, same install path, 41M downloads, 5x Pyrefly). It is explicitly beta with `0.0.x` versioning and breaking changes allowed. Pyrefly declared itself stable at 1.0 and is the safer answer if you refuse beta tools. mypy still has 4x ty's downloads, so it is not "dead", just older and slower. Limits: ty beta (rule and CLI churn); Pyrefly is Meta-driven with a smaller user base. Confidence: medium-low (a defensible tie; I pick ty by popularity and the Ruff/uv ecosystem). If the owner prefers a stable API, choose Pyrefly instead.
 
-## 4. Git hooks: prek vs hk vs pre-commit vs Lefthook
+## 4. Git hooks: hk vs prek vs pre-commit vs Lefthook
 
 | Candidate | Stars | Downloads/month | Last release | Licence |
 |---|---|---|---|---|
-| [prek](https://github.com/j178/prek) (Rust) | 8.7k | PyPI 16.4M, npm @j178/prek 0.49M, crates* 9.1k | v0.5.7, 2026-10-21 | MIT |
 | [hk](https://github.com/jdx/hk) (Rust) | 1.3k | crates* 1.5k (npm `hk` 31, unrelated) | v2.8.1, 2026-10-23 | MIT |
+| [prek](https://github.com/j178/prek) (Rust) | 8.7k | PyPI 16.4M, npm @j178/prek 0.49M, crates* 9.1k | v0.5.7, 2026-10-21 | MIT |
 | [pre-commit](https://github.com/pre-commit/pre-commit) | 15.7k | PyPI 145.6M | v4.7.0, 2026-10-13 | MIT |
 | [Lefthook](https://github.com/evilmartians/lefthook) (Go) | 8.9k | npm 22.3M + 0.83M | v2.2.2, 2026-10-13 | MIT |
 
-Recommendation: prek. Drop-in for the `.pre-commit-config.yaml` ecosystem (so the whole hook catalogue works), one Rust binary, no Python needed, adoption already 11% of pre-commit's. hk is nicely designed (parallel with file locks, Pkl config, same steps in hooks and CI) but has roughly 1/6 prek's stars and 1/6 its crates downloads, requires mise-style setup, and its built-in linters need installed executables. Limits: prek is pre-1.0 and does not implement every pre-commit edge feature (not verified in detail). Lefthook remains the pick for non-Python repos wanting a plain YAML runner. Confidence: medium-high.
+Recommendation: hk (owner decision: mise and its tools are our recommended toolchain). One `hk.pkl` runs the same steps in the hook and in CI (`hk check --all`), in parallel with read/write file locks, and is installed and pinned with `mise use hk` next to the linters it runs. It is smaller than prek (1.3k stars against 8.7k, about a sixth of its crates downloads), does not install linters (they must be on `PATH`, which mise solves), and does not reuse the pre-commit hook catalogue. prek stays the fallback for projects without mise that want that catalogue; Lefthook remains the plain YAML runner. Confidence: medium (adoption gap accepted for toolchain fit).
 
 ## 5. Secrets: Betterleaks vs Kingfisher vs ripsecrets vs Gitleaks vs TruffleHog
 
@@ -125,7 +125,7 @@ Recommendations:
 
 ## 11. Task runners, bundlers, runtimes (only if enforcement-relevant)
 
-just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k stars; `deno lint`/`deno fmt` only for Deno projects), rolldown (14.0k stars, npm 443.7M, MIT), `@typescript/native-preview` (25.4M, already covered by our TypeScript 7 pick): none is an enforcement tool. No entries. mise matters only as an installer for hk.
+just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k stars; `deno lint`/`deno fmt` only for Deno projects), rolldown (14.0k stars, npm 443.7M, MIT), `@typescript/native-preview` (25.4M, already covered by our TypeScript 7 pick): none is an enforcement tool. No entries. mise is not an enforcement tool but is recommended as the toolchain installer for hk and the linters (see the Toolchain entry).
 
 ## Changes to our current picks
 
@@ -138,7 +138,7 @@ just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k sta
 | import-linter | Keep | tach is pre-1.0 and 4.6x smaller | medium-low |
 | jactionlint | Keep (owner decision) | zizmor is 6.8k stars but owner decided | n/a |
 | rumdl, ruff, mago, typos, lychee, ast-grep, squawk | Keep | confirmed active; rumdl is MIT despite NOASSERTION | high |
-| Under review: Git hooks | Resolve to prek | 8.7k stars and 16M PyPI vs hk 1.3k | medium-high |
+| Under review: Git hooks | Resolve to hk, with mise | owner decision: mise and its tools are recommended; prek has 8.7k stars against hk's 1.3k | medium |
 | Under review: Python types | Resolve to ty (or Pyrefly if stable API is required) | ty has 5x downloads, 2.8x stars, but beta | medium-low |
 | Under review: Biome | Close as "Superseded/Overlap" | see section 1 | medium-high |
 | Under review: SQL style, TOML, YAML style | Leave open | no clear winner | low |
@@ -147,7 +147,8 @@ just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k sta
 ## Proposed README entries
 
 - **[fallow](https://github.com/fallow-rs/fallow)**: finds unused files, exports and dependencies, circular imports, layer and boundary violations (presets: bulletproof, layered, hexagonal, feature-sliced), duplication and complexity in JavaScript and TypeScript, in one Rust binary with `fix`, a changed-files PR gate that exits non-zero, an LSP and an MCP server. Chosen as one tool instead of knip plus dependency-cruiser. *Limits:* created March 2026; framework plugin coverage and false-positive rate not verified by us; knip has far more users and plugins.
-- **[prek](https://github.com/j178/prek)**: runs Git hooks from the existing `.pre-commit-config.yaml` in one Rust binary, in parallel, with no Python install, so hooks and CI run the same checks. Chosen over pre-commit (slower, needs Python) and hk (a fifth of the adoption). *Limits:* pre-1.0; not every pre-commit feature is covered (not verified).
+- **[hk](https://github.com/jdx/hk)**: runs Git hooks and project checks from one `hk.pkl` in parallel with file locks, and runs the same steps in CI. Installed with mise. Chosen as the primary runner because mise and its tools are our recommended toolchain. *Limits:* 1.3k stars; does not install linters; does not reuse pre-commit hooks.
+- **[mise](https://github.com/jdx/mise)**: pins tool versions and runs tasks in one `mise.toml`. *Limits:* installer and task runner only.
 - **[ty](https://github.com/astral-sh/ty)**: Python type checker from the Ruff and uv team, in Rust, with a language server; fails the build on type errors. Chosen over Pyrefly and mypy for adoption (41M PyPI downloads a month) and fit with Ruff. *Limits:* beta, `0.0.x` versions with breaking changes; use Pyrefly (stable 1.x) if you need a stable API.
 - **[cargo-machete](https://github.com/bnjbvr/cargo-machete)**: finds dependencies in `Cargo.toml` that the code does not use and fails the build; `--fix` removes them. Chosen for speed and adoption over cargo-shear and cargo-udeps (which needs nightly). *Limits:* regex-based, so macros can give false positives; ignore list needed; use cargo-shear if that bites.
 
@@ -169,18 +170,31 @@ just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k sta
     "details": "research/rust-native.md"
   },
   {
-    "id": "prek",
-    "name": "prek",
-    "repo": "j178/prek",
-    "category": "Git hooks",
-    "last_reviewed": "2026-10-23",
+    "id": "mise",
+    "name": "mise",
+    "repo": "jdx/mise",
+    "category": "Toolchain",
+    "last_reviewed": "2026-10-24",
     "sources": [
-      "https://github.com/j178/prek",
-      "https://pypistats.org/packages/prek",
+      "https://github.com/jdx/mise",
+      "https://mise.jdx.dev/"
+    ],
+    "rationale": "Pins the versions of tools (and hk, and the linters hk runs) in one `mise.toml` and runs tasks, so developers, hooks and CI use identical versions; `mise run check` is the single entry point. By the author of hk and jactionlint; 35.3k stars, MIT.",
+    "limitations": "It is an installer and task runner, not a checker, so it enforces nothing by itself. Tools installed from GitHub releases or language registries still need version pinning and review like any dependency."
+  },
+  {
+    "id": "hk",
+    "name": "hk",
+    "repo": "jdx/hk",
+    "category": "Git hooks",
+    "last_reviewed": "2026-10-24",
+    "sources": [
+      "https://github.com/jdx/hk",
+      "https://hk.jdx.dev/",
       "research/rust-native.md"
     ],
-    "rationale": "runs Git hooks from the existing `.pre-commit-config.yaml` in one Rust binary, in parallel, with no Python install, so hooks and CI run the same checks. 8.7k stars and 16.4M PyPI downloads a month, against hk's 1.3k stars.",
-    "limitations": "pre-1.0 (v0.5.7); not every pre-commit feature is covered (not verified). hk fits mise-based projects; Lefthook fits repos that want a plain runner.",
+    "rationale": "Runs Git hooks and project checks from one `hk.pkl` (Pkl) file, in parallel, with read/write file locks so fixers do not collide. The same steps run in the hook (`hk check`, `hk fix`) and in CI (`hk check --all`). Installed and version-pinned through mise (`mise use hk`), which we recommend; v2.8.1 on 2026-10-23, MIT.",
+    "limitations": "1.3k stars, against 8.7k for prek and 8.9k for Lefthook. Does not install linters: they must be on `PATH`, so pin them in `mise.toml`. Config is Pkl, not `.pre-commit-config.yaml`, so the pre-commit hook catalogue is not reused. Hooks can be bypassed (`--no-verify`), so run `hk check --all` in CI. `hk fix` leaves fixes unstaged unless `--stage` is passed; installing hooks globally needs Git 2.54 or newer. The speed benchmark on hk's site is the author's own.",
     "details": "research/rust-native.md"
   },
   {
@@ -219,7 +233,7 @@ just (36.4k stars, crates* 559k, CC0), mise (35.3k stars, MIT), Deno (108.7k sta
 
 ## Not verified
 
-- fallow accuracy, framework coverage and speed claims, prek feature parity, ty and Pyrefly diagnostics quality, sqruff dialect coverage: README and metadata only.
+- fallow accuracy, framework coverage and speed claims, hk against Lefthook parity, ty and Pyrefly diagnostics quality, sqruff dialect coverage: README and metadata only.
 - dependency-cruiser and import-linter figures were not re-measured; taken from our existing entries.
 - crates* = crates.io `recent_downloads` (about 90 days), not 30 days. Kingfisher's main channels (GitHub releases, `kingfisher-bin` on PyPI) were not measured. TruffleHog, Gitleaks and Betterleaks real-world usage are not comparable on download numbers.
 - The web search for Rust rewrites of ShellCheck, hadolint, commitlint and gitleaks returned nothing useful; "none found" there means my GitHub name probes and that one search, not an exhaustive check.

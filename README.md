@@ -158,9 +158,13 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[agnix](https://github.com/agent-sh/agnix)**: lints CLAUDE.md, AGENTS.md, SKILL.md, hooks and MCP configs for Claude Code, Codex, Cursor, Copilot, OpenCode and Kiro, with `--fix`. Tested: errors exit 1; warnings exit 0 unless `--strict` is passed. *Limits:* created January 2026, one main maintainer; rules track fast-changing vendor formats. [Details](research/cross-cutting.md).
 
+### Toolchain
+
+- **[mise](https://github.com/jdx/mise)**: Pins the versions of tools (and hk, and the linters hk runs) in one `mise.toml` and runs tasks, so developers, hooks and CI use identical versions; `mise run check` is the single entry point. By the author of hk and jactionlint; 35.3k stars, MIT. *Limits:* It is an installer and task runner, not a checker, so it enforces nothing by itself. Tools installed from GitHub releases or language registries still need version pinning and review like any dependency.
+
 ### Git hooks
 
-- **[prek](https://github.com/j178/prek)**: Single-binary Rust runner that is a drop-in for `.pre-commit-config.yaml` and the pre-commit hook ecosystem, with monorepo workspaces. Chosen over pre-commit and hk: 8.7k stars and about 16 million PyPI downloads a month against hk's 1.3k stars; v0.5.7 on 2026-10-21. *Limits:* Pre-1.0. Hooks can be bypassed (`--no-verify`), so run the same checks in CI. hk (jdx) is the other Rust runner and fits mise-based projects; pre-commit (15.7k stars) is the conservative fallback.
+- **[hk](https://github.com/jdx/hk)**: Runs Git hooks and project checks from one `hk.pkl` (Pkl) file, in parallel, with read/write file locks so fixers do not collide. The same steps run in the hook (`hk check`, `hk fix`) and in CI (`hk check --all`). Installed and version-pinned through mise (`mise use hk`), which we recommend; v2.8.1 on 2026-10-23, MIT. *Limits:* 1.3k stars, against 8.7k for prek and 8.9k for Lefthook. Does not install linters: they must be on `PATH`, so pin them in `mise.toml`. Config is Pkl, not `.pre-commit-config.yaml`, so the pre-commit hook catalogue is not reused. Hooks can be bypassed (`--no-verify`), so run `hk check --all` in CI. `hk fix` leaves fixes unstaged unless `--stage` is passed; installing hooks globally needs Git 2.54 or newer. The speed benchmark on hk's site is the author's own. [Details](research/rust-native.md).
 
 ### Git conventions
 

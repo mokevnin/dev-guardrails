@@ -35,6 +35,7 @@ export const CATEGORY_ORDER = [
   'Config files',
   'Policy',
   'Agent configuration',
+  'Toolchain',
   'Git hooks',
   'Git conventions',
   'Documentation',
