@@ -188,6 +188,7 @@ These categories matter but have **no recommendation yet**: the candidates were 
 | JavaScript / TypeScript extras | Biome, publint, arethetypeswrong | Oxlint with oxfmt is recommended; Biome is the other Rust toolchain. publint and arethetypeswrong apply only to published libraries. |
 | Ruby security | Brakeman | Free for non-commercial use only; commercial use needs a paid licence. |
 | PHP dependencies | composer-dependency-analyser | Last release November 2025; `composer audit` is built in. |
+| PHP metric budgets | PHPMD | [Executed comparison with Mago](research/phpmd-mago.md): NPath, LOC, coupling and public-surface budgets add specific policies; cyclomatic complexity and member/parameter counts overlap. Consider a narrow companion ruleset, not another general linter. |
 | Kotlin, .NET, Elixir extras | ktlint, Konsist, Roslynator, Meziantou.Analyzer, ArchUnitNET, Dialyxir | Stable releases are old or pre-1.0, or they overlap the picks above. |
 | Container images | Trivy, Grype | Trivy's GitHub Action and a release were compromised in March 2026 ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)); no clear winner yet. |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
