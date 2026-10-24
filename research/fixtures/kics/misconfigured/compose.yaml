@@ -1,0 +1,8 @@
+services:
+  app:
+    image: alpine:3.23
+    privileged: true
+    network_mode: host
+    pid: host
+    volumes:
+      - /:/host

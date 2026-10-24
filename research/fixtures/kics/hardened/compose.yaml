@@ -1,0 +1,14 @@
+services:
+  app:
+    image: alpine:3.23
+    user: "65534:65534"
+    read_only: true
+    privileged: false
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: on-failure
+    pids_limit: 64
+    mem_limit: 128m
+    cpus: 0.5
+    healthcheck:
+      test: ["CMD", "true"]
