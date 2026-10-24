@@ -2,12 +2,14 @@ import { readFileSync } from 'node:fs'
 
 export interface Tool {
   id: string
+  name: string
   repo: string
   category: string
   last_reviewed: string
   sources: string[]
   rationale: string
   limitations: string
+  details?: string
   stable_exception?: boolean
 }
 

@@ -21,14 +21,23 @@ Reasons used below:
 | [detect-secrets](https://github.com/Yelp/detect-secrets) | Stale: last release v1.5.0 on 2024-05-06. | A new release and a comparison with the other secret scanners. |
 | [rumdl](https://github.com/rvben/rumdl) | Candidate to re-review: pre-1.0 (v0.3.0), licence not detected. | A 1.0 release with rule parity against markdownlint. |
 | [cocogitto](https://github.com/cocogitto/cocogitto), [committed](https://github.com/crate-ci/committed) | Not clearly better than commitlint. Last release 2026-03-04 and 2026-02-25. | Active development and a single-binary advantage that matters to you. |
+| [Bandit](https://github.com/PyCQA/bandit) | Overlap with the Ruff `S` rules. | You need custom Bandit plugins. |
+| [pydocstyle](https://github.com/PyCQA/pydocstyle) | Archived 2023-11-03; Ruff `D` rules replace it. | None. |
+| [Psalm](https://github.com/vimeo/psalm) | PHPStan has the wider extension set; Psalm 7.0 was still a release candidate when reviewed. | A stable 7.0 and a comparison on your codebase. |
+| qossmic/deptrac | Archived and moved; use [deptrac/deptrac](https://github.com/deptrac/deptrac). | None. |
+| [phpcpd](https://github.com/sebastianbergmann/phpcpd) | Archived 2023-01-10. | None. |
+| [Brakeman](https://github.com/presidentbeef/brakeman) | Licence is non-commercial only (Brakeman Public Use License); commercial use needs a paid licence. Kept in [Under review](../README.md#under-review). | A licence change, or your use being non-commercial. |
+| [Atlas](https://github.com/ariga/atlas) migration lint | Checks that matter for locks and downtime (`PG1xx`, `PG3xx`) are labelled Atlas Pro; extra checks need `atlas login` ([analyzers](https://atlasgo.io/lint/analyzers)). squawk covers PostgreSQL lock safety without that. | The checks you need move to the free edition. |
+| [Gitleaks](https://github.com/gitleaks/gitleaks) | Latest release v8.30.1 (2026-03-21); Betterleaks is recommended instead and reads the same kind of config. | A new Gitleaks release line and a comparison. |
+| [cargo-audit](https://github.com/rustsec/rustsec) | cargo-deny covers the RustSec advisory check and more. | You only want advisories and no policy file. |
 
 ## Held back (Unverified)
 
 Not rejected: these are in [Under review](../README.md#under-review) because we have not compared the candidates properly.
 
-- **Trivy.** In March 2026 trivy-action tags and a release were compromised ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)). It was fixed, but the overlap with OSV-Scanner, Hadolint and Checkov still needs a decision.
-- **Gitleaks and TruffleHog.** Gitleaks' last release is from March 2026; TruffleHog is AGPL-3.0.
-- **ESLint, Biome, Oxlint.** Three active tools with different coverage.
+- **Trivy.** In March 2026 trivy-action tags and a release were compromised ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)). OSV-Scanner is recommended for lockfile vulnerabilities; for container images and IaC security Trivy, Grype and Checkov are still compared.
+- **TruffleHog and Kingfisher.** Alternatives to Betterleaks; TruffleHog is AGPL-3.0.
+- **Biome and Oxlint.** ESLint with Prettier is recommended; Oxlint is the fast alternative but exits 0 on warnings by default, and oxfmt is pre-1.0.
 - **Semgrep and Opengrep.** Needed only for data-flow rules; ast-grep covers syntax rules.
 - **Hook runners** (hk, prek, pre-commit, Lefthook), **Docker, Terraform, Kubernetes, API contracts, SQL, architecture, YAML, supply chain.** See the table in the README.
 

@@ -50,26 +50,22 @@ Not every point is required, but they decide close calls. Automated signals (a n
 
 ## Entry format
 
-Add an entry to the right category in `README.md`:
-
-```markdown
-- **[Name](https://github.com/owner/repo)**: what it enforces, and why it was chosen. *Limits:* the important constraints.
-```
-
-Keep it to a few sentences. Longer comparisons go in `research/<topic>.md` and are linked from the entry.
-
-Then add a record to `tools.json`:
+The README list is **generated from `tools.json`**. Do not edit the entries in `README.md` by hand. Add or change a record, then run `npm ci && npm run readme`.
 
 | Field | Meaning |
 |---|---|
-| `id`, `repo`, `category` | Name, `owner/repo` on GitHub, category as in the README. |
+| `id`, `name`, `repo` | Slug, display name, `owner/repo` on GitHub. |
+| `category` | The README heading. A new one must also be added to `CATEGORY_ORDER` in `scripts/readme.ts`. |
 | `last_reviewed` | Date (`YYYY-MM-DD`) you did the currency check. |
 | `sources` | URLs or repository paths used for the decision. |
-| `rationale` | Why it was chosen. |
-| `stable_exception` | Optional `true` for a finished tool with old releases; mute the push-age and release-age flags. Explain it in `limitations`. |
-| `limitations` | What it does not do. |
+| `rationale` | One or two sentences: what it enforces and why it was chosen over the alternatives. |
+| `limitations` | What it does not do, in a sentence or two; shown after "Limits:". |
+| `details` | Optional path of a longer comparison in `research/`. |
+| `stable_exception` | Optional `true` for a finished tool with old releases; mutes the push-age and release-age flags. Explain it in `limitations`. |
 
-Run `npm ci && npm run check:registry` to validate the file. Scripts in this repository are written in TypeScript (`scripts/`, run directly by Node 24 and checked with `npm run typecheck`).
+Say in `rationale` or `limitations` what you ran and what you only read: a tool you tested is stronger evidence than one described by its README. Longer comparisons go in `research/<topic>.md`.
+
+`npm run check:registry` validates `tools.json` against `tools.schema.json` and fails if `README.md` is out of date. Scripts are TypeScript (`scripts/`), run directly by Node 24 and checked with `npm run typecheck`.
 
 ## Checks
 
