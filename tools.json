@@ -903,14 +903,17 @@
       "name": "Credo",
       "repo": "rrrene/credo",
       "category": "Elixir",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-24",
       "sources": [
         "https://github.com/rrrene/credo",
         "https://hex.pm/packages/credo",
-        "research/ecosystem-gaps.md"
+        "https://github.com/elixir-vibe/ex_slop",
+        "https://hex.pm/packages/ex_slop",
+        "research/ecosystem-gaps.md",
+        "research/fixtures/ex-slop/run.py"
       ],
-      "rationale": "the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`.",
-      "limitations": "style and smell rules, not type checking.",
+      "rationale": "the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`. Where agents write the code, add the [ExSlop](https://github.com/elixir-vibe/ex_slop) plugin: Credo checks for what code generators over-produce (blanket `rescue`, `try` around a function that has a safe variant, N+1 queries, narrator docs and comments, roundabout `Enum` pipelines). Its findings fail the same `mix credo` run and come out in its JSON and SARIF (tested).",
+      "limitations": "style and smell rules, not type checking. ExSlop is young (created 2026-03, v0.4.x, one organisation); its `plugins:` line enables nothing when `.credo.exs` has an explicit `checks.enabled` list, so append `ExSlop.recommended_checks()` there instead.",
       "details": "research/ecosystem-gaps.md"
     },
     {

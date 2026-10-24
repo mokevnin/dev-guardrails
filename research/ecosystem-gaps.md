@@ -222,10 +222,18 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Phoenix security | **Sobelow** | **sobelow/sobelow** (old nccgroup repo stale since 2024) | 66 (new repo) | 1.7M | 0.16.0, 2026-09-30 | Apache-2.0 |
 | Dialyzer wrapper | Dialyxir | jeremyjh/dialyxir | 1796 | 2.9M | 1.4.8, 2026-09-05 | Apache-2.0 |
 | Advisories | mix_audit | mirego/mix_audit | 383 | 1.5M | 2.1.5, 2025-06-09 | BSD-3-Clause |
+| Generated-code slop (Credo plugin) | **ExSlop** | elixir-vibe/ex_slop | 171 | 313k | 0.4.5, 2026-09-22 | MIT |
+| Generated-code slop (standalone) | Credence | Cinderella-Man/credence | 78 | 16k | 0.8.1, 2026-07-02 | MIT (Hex metadata; no licence file on GitHub) |
 
 **Recommendations:**
 
 - **Credo**: the standard linter (`mix credo --strict`, JSON output, custom checks). Formatting is built in (`mix format --check-formatted`), as is `mix compile --warnings-as-errors` (and Elixir 1.20 adds more type-system warnings to the compiler). Confidence high.
+- **ExSlop: add, as a Credo plugin inside the Credo entry** (as the RuboCop entry lists its plugins), not as a tool of its own: it runs in `mix credo`, so it adds checks but no runner. It targets what code generators over-produce and experienced Elixir developers rarely write: blanket `rescue`, `try` around a function with a non-raising variant, `Repo.all` then `Enum.filter`, queries inside `Enum.map`, narrator docs and comments, roundabout `Enum` pipelines.
+  - Run on 2026-10-24 (Elixir 1.20.1, credo 1.7.19, ex_slop 0.4.5, [fixture](fixtures/ex-slop/run.py)): on code with six such patterns, `mix credo --strict` reported each through an ExSlop check (`BlanketRescue`, `TryRescueWithSafeAlternative`, `FilterNil`, `LengthComparison`, `SortThenReverse`, `NarratorDoc`) and exited 28; on the idiomatic rewrite it exited 0. `--format json` and `--format sarif` carry the findings. On a 60-file Phoenix application that already passed `credo --strict`, the plugin's 31 default checks reported nothing.
+  - Read, not run: the plugin enables 31 of its 40 checks and leaves noisier ones (such as `StepComment`) opt-in; an explicit `checks.enabled` list in `.credo.exs` discards them, and ExSlop warns about that. A few semantic-performance checks overlap Credo's own refactors on purpose.
+  - Currency: created 2026-03-07, 11 releases, v0.4.5 on 2026-09-22 fixed seven false-positive reports five days after they were filed ([ex_slop#16](https://github.com/elixir-vibe/ex_slop/pull/16)); no open issues; MIT.
+  - Alternative: **Credence**, a standalone semantic linter for generated Elixir. It overlaps only ExSlop's performance checks (ExSlop credits it for those), needs its own runner next to Credo, and is far less used (16k against 313k Hex downloads in 90 days). Reject.
+  - Limits: young and maintained by one organisation; heuristic checks on doc and comment content can misfire, so pin the version. Confidence medium.
 - **Sobelow**: the Phoenix security scanner. It is alive (v0.16.0 on 2026-09-30 from the new `sobelow/sobelow` repo), so the earlier "old releases" worry is resolved. `--exit low|medium|high` makes it fail the build, `--format sarif|json` for tooling (README). Limits: Phoenix and Plug only; the new repo has few stars because it was moved. Confidence medium-high.
 - **Dialyxir: no clear winner.** Dialyzer is slow (PLT builds) and gradual typing in the compiler is evolving; use it if you already do.
 - **Reject:** mix_audit (overlap: osv-scanner reads `mix.lock`; `mix hex.audit` covers retired packages, unverified by us).

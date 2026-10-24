@@ -108,7 +108,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 ### Elixir
 
-- **[Credo](https://github.com/rrrene/credo)**: the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`. *Limits:* style and smell rules, not type checking. [Details](research/ecosystem-gaps.md).
+- **[Credo](https://github.com/rrrene/credo)**: the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`. Where agents write the code, add the [ExSlop](https://github.com/elixir-vibe/ex_slop) plugin: Credo checks for what code generators over-produce (blanket `rescue`, `try` around a function that has a safe variant, N+1 queries, narrator docs and comments, roundabout `Enum` pipelines). Its findings fail the same `mix credo` run and come out in its JSON and SARIF (tested). *Limits:* style and smell rules, not type checking. ExSlop is young (created 2026-03, v0.4.x, one organisation); its `plugins:` line enables nothing when `.credo.exs` has an explicit `checks.enabled` list, so append `ExSlop.recommended_checks()` there instead. [Details](research/ecosystem-gaps.md).
 - **[Sobelow](https://github.com/sobelow/sobelow)**: security scanner for Phoenix; `--exit` fails the build at a confidence level, SARIF output. Active again (0.16.0, 2026-09-30) after moving to this repository. *Limits:* Phoenix and Plug only; heuristic findings need a `.sobelow-skips` file. [Details](research/ecosystem-gaps.md).
 
 ### Shell
