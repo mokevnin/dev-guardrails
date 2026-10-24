@@ -41,6 +41,7 @@ Reasons used below:
 | [gitlab-ci-local](https://github.com/firecow/gitlab-ci-local) | Runs GitLab pipelines locally for debugging (4.1k stars, active); it does not enforce a standard. | A guardrail mode. |
 | [glsec](https://github.com/predictor2718/glsec) | Created 2026-10-15, no stars and no adopters yet; Plumber covers the same ground with real usage. | Adoption and a comparison with Plumber. |
 | [gitlab-lint](https://github.com/elijah-roberts/gitlab-lint) | Stale (last push 2024-03) and only a syntax check through the GitLab API. | None. |
+| [Dependabot](https://docs.github.com/en/code-security/dependabot) | GitHub-only. Renovate covers GitLab, Bitbucket and others with the same policy options. This repository still uses Dependabot because it is on GitHub only. | Your repositories are all on GitHub and you want zero setup. |
 
 ## Held back (Unverified)
 

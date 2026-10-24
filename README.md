@@ -105,6 +105,10 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[OSV-Scanner](https://github.com/google/osv-scanner)**: known vulnerabilities in lockfiles and SBOMs across many ecosystems, with call analysis to reduce noise. *Limits:* not an image scanner; if you scan container images use Trivy (never `trivy-action` by tag, pin to a version or digest after the March 2026 compromise) or Grype. [Details](research/cross-cutting.md#2-vulnerabilities-and-sca).
 
+### Dependency updates
+
+- **[Renovate](https://github.com/renovatebot/renovate)**: Dependency update bot that works on GitHub, GitLab, Bitbucket, Azure DevOps, Gitea and Forgejo, where Dependabot is GitHub-only. Policy lives in one config: pinning, grouping, and `minimumReleaseAge` to hold back freshly published versions. `renovate-config-validator` checks the config in CI. The most used of its kind: 22.8k stars, v44.181.0 on 2026-10-23, 1.7 million npm downloads a month. *Limits:* An update bot, not a gate: it opens pull requests and fails nothing by itself, so pair it with CI checks. AGPL-3.0 (using it, hosted or self-hosted, is fine; modifying and offering it as a service is not). Configuration is large; start from a shared preset. Dependabot is enough for a GitHub-only repository.
+
 ### Docker, Terraform and Kubernetes
 
 - **[Hadolint](https://github.com/hadolint/hadolint)**: Dockerfile best practices. *Limits:* GPL-3.0; security-focused IaC checks belong to Trivy or Checkov. [Details](research/cross-cutting.md).

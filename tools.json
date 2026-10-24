@@ -265,6 +265,20 @@
       "details": "research/cross-cutting.md#2-vulnerabilities-and-sca"
     },
     {
+      "id": "renovate",
+      "name": "Renovate",
+      "repo": "renovatebot/renovate",
+      "category": "Dependency updates",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/renovatebot/renovate#readme",
+        "https://docs.renovatebot.com/config-validation/",
+        "https://docs.renovatebot.com/configuration-options/"
+      ],
+      "rationale": "Dependency update bot that works on GitHub, GitLab, Bitbucket, Azure DevOps, Gitea and Forgejo, where Dependabot is GitHub-only. Policy lives in one config: pinning, grouping, and `minimumReleaseAge` to hold back freshly published versions. `renovate-config-validator` checks the config in CI. The most used of its kind: 22.8k stars, v44.181.0 on 2026-10-23, 1.7 million npm downloads a month.",
+      "limitations": "An update bot, not a gate: it opens pull requests and fails nothing by itself, so pair it with CI checks. AGPL-3.0 (using it, hosted or self-hosted, is fine; modifying and offering it as a service is not). Configuration is large; start from a shared preset. Dependabot is enough for a GitHub-only repository."
+    },
+    {
       "id": "hadolint",
       "name": "Hadolint",
       "repo": "hadolint/hadolint",

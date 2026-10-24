@@ -26,6 +26,7 @@ export const CATEGORY_ORDER = [
   'Custom rules',
   'Secrets',
   'Vulnerabilities',
+  'Dependency updates',
   'Docker, Terraform and Kubernetes',
   'Config files',
   'Policy',

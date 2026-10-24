@@ -32,7 +32,7 @@ Keep suppressions narrow (path and rule, not a whole directory), and record why.
 
 ## Dependabot cooldown
 
-A `cooldown` with `default-days` in `dependabot.yml` delays updates to freshly published versions, which reduces exposure to compromised releases. jactionlint checks this (`dependabot-cooldown`).
+A `cooldown` with `default-days` in `dependabot.yml` delays updates to freshly published versions, which reduces exposure to compromised releases. jactionlint checks this (`dependabot-cooldown`). Renovate's equivalent is `minimumReleaseAge`.
 
 ## Reporting versus enforcing
 
