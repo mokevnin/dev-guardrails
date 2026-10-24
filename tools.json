@@ -41,6 +41,19 @@
       "limitations": "no type checking, no custom-rule plugins. The `S` rules replace Bandit, `D` replaces pydocstyle (archived) and `C901` replaces xenon and radon; pair with vulture for dead code across modules."
     },
     {
+      "id": "ty",
+      "name": "ty",
+      "repo": "astral-sh/ty",
+      "category": "Python",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/astral-sh/ty#readme",
+        "research/rust-native.md"
+      ],
+      "rationale": "Rust-native Python type checker and language server from the authors of Ruff and uv. The most starred of the new checkers (19.9k stars) and downloaded as much as pyright (about 41 million PyPI downloads a month); v0.0.91 on 2026-10-22.",
+      "limitations": "Beta: 0.0.x, so new releases can add type errors; pin the version. mypy (160 million downloads) and pyright are the stable, battle-tested choices, and Pyrefly (Meta, stable 1.4, 7.1k stars) is the other Rust option."
+    },
+    {
       "id": "golangci-lint",
       "name": "golangci-lint",
       "repo": "golangci/golangci-lint",
@@ -124,6 +137,19 @@
       ],
       "rationale": "low-noise spell checking of source code and docs.",
       "limitations": "finds only known misspellings."
+    },
+    {
+      "id": "prek",
+      "name": "prek",
+      "repo": "j178/prek",
+      "category": "Git hooks",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/j178/prek#readme",
+        "research/rust-native.md"
+      ],
+      "rationale": "Single-binary Rust runner that is a drop-in for `.pre-commit-config.yaml` and the pre-commit hook ecosystem, with monorepo workspaces. Chosen over pre-commit and hk: 8.7k stars and about 16 million PyPI downloads a month against hk's 1.3k stars; v0.5.7 on 2026-10-21.",
+      "limitations": "Pre-1.0. Hooks can be bypassed (`--no-verify`), so run the same checks in CI. hk (jdx) is the other Rust runner and fits mise-based projects; pre-commit (15.7k stars) is the conservative fallback."
     },
     {
       "id": "knip",
@@ -405,6 +431,19 @@
       "rationale": "the official formatter; run `cargo fmt --check` in CI.",
       "limitations": "versioned with the Rust toolchain, not through GitHub releases; style options are few by design.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
+    },
+    {
+      "id": "cargo-machete",
+      "name": "cargo-machete",
+      "repo": "bnjbvr/cargo-machete",
+      "category": "Rust",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/bnjbvr/cargo-machete#readme",
+        "research/rust-native.md"
+      ],
+      "rationale": "Finds unused dependencies in Cargo.toml quickly and without compiling, so it runs on stable Rust in CI. The most used of the three tools compared (1.4k stars; cargo-udeps 2.1k stars needs nightly, cargo-shear 577).",
+      "limitations": "Text-based search, so it can report false positives and misses macro-generated uses; ignore them in Cargo.toml metadata. Not a replacement for cargo-deny, which covers advisories and licences."
     },
     {
       "id": "cargo-deny",

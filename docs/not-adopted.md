@@ -46,6 +46,10 @@ Reasons used below:
 | [glsec](https://github.com/predictor2718/glsec) | Created 2026-10-15, no stars and no adopters yet; Plumber covers the same ground with real usage. | Adoption and a comparison with Plumber. |
 | [gitlab-lint](https://github.com/elijah-roberts/gitlab-lint) | Stale (last push 2024-03) and only a syntax check through the GitLab API. | None. |
 | [Dependabot](https://docs.github.com/en/code-security/dependabot) | GitHub-only. Renovate covers GitLab, Bitbucket and others with the same policy options. This repository still uses Dependabot because it is on GitHub only. | Your repositories are all on GitHub and you want zero setup. |
+| [pre-commit](https://github.com/pre-commit/pre-commit) | prek is a faster drop-in for it. Still maintained (15.7k stars). | prek stops releasing, or you want the conservative option. |
+| [hk](https://github.com/jdx/hk) | A Rust runner too, but 1.3k stars against prek's 8.7k. Fits projects that already use mise. | You want pkl configuration and tight mise integration. |
+| [Pyrefly](https://github.com/facebook/pyrefly), [pyright](https://github.com/microsoft/pyright), [mypy](https://github.com/python/mypy) | ty has more stars and downloads than Pyrefly. pyright (40 million downloads) and mypy (160 million) are the stable choices. | ty stays in beta, or you need a stable 1.x today (Pyrefly). |
+| [cargo-udeps](https://github.com/est31/cargo-udeps), [cargo-shear](https://github.com/Boshen/cargo-shear) | cargo-udeps needs nightly (more accurate); cargo-shear is smaller (577 stars). One unused-dependency tool is enough. | You need accuracy over speed (cargo-udeps). |
 
 ## Held back (Unverified)
 
@@ -55,7 +59,7 @@ Not rejected: these are in [Under review](../README.md#under-review) because we 
 - **TruffleHog and Kingfisher.** Alternatives to Betterleaks; TruffleHog is AGPL-3.0.
 - **Biome.** The other Rust JS toolchain; Oxlint with oxfmt is recommended.
 - **Semgrep and Opengrep.** Needed only for data-flow rules; ast-grep covers syntax rules.
-- **Hook runners** (hk, prek, pre-commit, Lefthook), **IaC and Kubernetes security, architecture, YAML, supply chain.** See the table in the README.
+- **IaC and Kubernetes security, architecture, YAML, supply chain.** See the table in the README.
 
 ## Seen in sphericon, not taken
 

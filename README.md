@@ -40,6 +40,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 ### Python
 
 - **[Ruff](https://github.com/astral-sh/ruff)**: linter and formatter that replaces Flake8, isort, pyupgrade and Black. *Limits:* no type checking, no custom-rule plugins. The `S` rules replace Bandit, `D` replaces pydocstyle (archived) and `C901` replaces xenon and radon; pair with vulture for dead code across modules.
+- **[ty](https://github.com/astral-sh/ty)**: Rust-native Python type checker and language server from the authors of Ruff and uv. The most starred of the new checkers (19.9k stars) and downloaded as much as pyright (about 41 million PyPI downloads a month); v0.0.91 on 2026-10-22. *Limits:* Beta: 0.0.x, so new releases can add type errors; pin the version. mypy (160 million downloads) and pyright are the stable, battle-tested choices, and Pyrefly (Meta, stable 1.4, 7.1k stars) is the other Rust option.
 - **[deptry](https://github.com/osprey-oss/deptry)**: unused, missing and transitive dependencies. *Limits:* static analysis misses dynamic imports.
 - **[import-linter](https://github.com/seddonym/import-linter)**: import contracts (layers, forbidden, independence, protected) that fail CI. *Limits:* checks imports only; [tach](https://github.com/tach-org/tach) is the alternative for public-interface rules. [Details](research/stack-python-ruby-php.md).
 
@@ -52,6 +53,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[Clippy](https://github.com/rust-lang/rust-clippy)**: the official linter; run `cargo clippy -- -D warnings`. *Limits:* tied to the toolchain version.
 - **[rustfmt](https://github.com/rust-lang/rustfmt)**: the official formatter; run `cargo fmt --check` in CI. *Limits:* versioned with the Rust toolchain, not through GitHub releases; style options are few by design. [Details](research/stack-go-rust-jvm-dotnet.md).
+- **[cargo-machete](https://github.com/bnjbvr/cargo-machete)**: Finds unused dependencies in Cargo.toml quickly and without compiling, so it runs on stable Rust in CI. The most used of the three tools compared (1.4k stars; cargo-udeps 2.1k stars needs nightly, cargo-shear 577). *Limits:* Text-based search, so it can report false positives and misses macro-generated uses; ignore them in Cargo.toml metadata. Not a replacement for cargo-deny, which covers advisories and licences.
 - **[cargo-deny](https://github.com/EmbarkStudios/cargo-deny)**: one policy file for RustSec advisories, licences, banned or duplicate crates and allowed registries; non-zero exit on violation. It replaces `cargo-audit` for the advisory check. *Limits:* checks metadata only, not dependency source; needs a maintained `deny.toml`. [Details](research/stack-go-rust-jvm-dotnet.md).
 
 ### Ruby
@@ -127,6 +129,10 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[agnix](https://github.com/agent-sh/agnix)**: lints CLAUDE.md, AGENTS.md, SKILL.md, hooks and MCP configs for Claude Code, Codex, Cursor, Copilot, OpenCode and Kiro, with `--fix`. Tested: errors exit 1; warnings exit 0 unless `--strict` is passed. *Limits:* created January 2026, one main maintainer; rules track fast-changing vendor formats. [Details](research/cross-cutting.md).
 
+### Git hooks
+
+- **[prek](https://github.com/j178/prek)**: Single-binary Rust runner that is a drop-in for `.pre-commit-config.yaml` and the pre-commit hook ecosystem, with monorepo workspaces. Chosen over pre-commit and hk: 8.7k stars and about 16 million PyPI downloads a month against hk's 1.3k stars; v0.5.7 on 2026-10-21. *Limits:* Pre-1.0. Hooks can be bypassed (`--no-verify`), so run the same checks in CI. hk (jdx) is the other Rust runner and fits mise-based projects; pre-commit (15.7k stars) is the conservative fallback.
+
 ### Git conventions
 
 - **[commitlint](https://github.com/conventional-changelog/commitlint)**: Enforces Conventional Commits on a message, a hook or a CI range (`--from/--to`), with shareable configs. The standard by a wide margin: 18.8k stars, about 44 million npm downloads a month, v21.2.4 on 2026-10-18. Needed if releases or changelogs are generated from commits. *Limits:* Requires Node. Checks format only, not whether the message is accurate. Compared on 2026-10-23 with the Rust options cocogitto (1.2k stars, last push 2026-04), convco (329 stars) and committed (185 stars, last release 2026-02): none has the adoption or the release pace, so Node remains the main cost. Python projects without Node can use commitizen.
@@ -145,15 +151,14 @@ These categories matter but have **no recommendation yet**: the candidates were 
 
 | Category | Candidates | Why it is still open |
 |---|---|---|
+| JavaScript dead code and architecture | fallow, knip, dependency-cruiser | fallow is a Rust all-in-one (dead code, cycles, boundaries, duplication) and could replace both of our picks, but it is 7 months old, has 5.6 million npm downloads a month against knip's 69 million, and its plugin coverage is unverified. |
 | JavaScript / TypeScript extras | Biome, publint, arethetypeswrong, size-limit, syncpack, Stylelint, axe-core | Oxlint with oxfmt is recommended. Biome is the other Rust toolchain. The package-hygiene tools apply only to libraries. |
-| Python types | ty, Pyrefly, pyright, mypy | ty (Astral) and Pyrefly (Meta) are both Rust-based; ty is beta, so no clear winner yet. |
 | Ruby types, boundaries, security | Sorbet, Steep, Packwerk, Brakeman | Brakeman is free for non-commercial use only. Type checkers need a clearer comparison. |
 | PHP extras | Rector, composer-dependency-analyser | Mago is recommended; Rector (automated upgrades) is a different job. |
 | Kotlin, .NET, Elixir | ktlint, detekt, Konsist, Meziantou.Analyzer, ArchUnitNET, Credo, Sobelow, Dialyxir | Stable releases are old or pre-1.0, or confidence is low. |
 | Container images | Trivy, Grype | Trivy's GitHub Action and a release were compromised in March 2026 ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)); no clear winner yet. |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
 | Custom rules with data-flow | Opengrep, Semgrep | Opengrep is a community fork; its cross-file limits and licence trade-offs need a closer look. |
-| Git hooks | prek, hk, pre-commit, Lefthook | prek and hk are both Rust; prek is a drop-in for pre-commit, hk fits mise-based projects. Both are pre-1.0. |
 | Architecture, other ecosystems | go-arch-lint, arch-go, tach | No clear winner for Go; tach is a Rust option for Python. |
 | YAML style | yamllint | Not yet compared with schema validation. |
 | Licences and supply chain | REUSE, Scorecard, Syft, ScanCode Toolkit | Mostly reporting tools; need an enforcement angle. |
