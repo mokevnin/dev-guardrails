@@ -118,6 +118,6 @@ Run `php phpmd.phar analyze --ruleset phpmd.yml --format json src/` and propagat
 
 ## Decision
 
-Keep Mago as the default PHP toolchain. PHPMD adds a defensible, conditional option for **explicit metric budgets** demonstrated above; WMC needs special care because it partially overlaps an existing aggregate metric. Record this distinction under review rather than recommend two broad overlapping lint stacks. A registry recommendation would need agreement on the distinct job and a trial against a real codebase to calibrate thresholds, exceptions, parser coverage and false positives. Additional PHPMD rules such as numeric inheritance depth and public-only method counts remain outside this executed corpus.
+Keep Mago as the default PHP toolchain. PHPMD adds a defensible, conditional option for **explicit metric budgets** demonstrated above; WMC needs special care because it partially overlaps an existing aggregate metric. This is research only: PHPMD is not recommended and has no entry in the README, so as not to promote two broad overlapping lint stacks. A registry recommendation would need agreement on the distinct job and a trial against a real codebase to calibrate thresholds, exceptions, parser coverage and false positives. Additional PHPMD rules such as numeric inheritance depth and public-only method counts remain outside this executed corpus.
 
 No performance benchmark was performed. This experiment measures diagnostic coverage and blocking behavior on deliberately small synthetic inputs, not developer productivity or overall code quality.
