@@ -50,6 +50,13 @@ Reasons used below:
 | [hk](https://github.com/jdx/hk) | A Rust runner too, but 1.3k stars against prek's 8.7k. Fits projects that already use mise. | You want pkl configuration and tight mise integration. |
 | [Pyrefly](https://github.com/facebook/pyrefly), [pyright](https://github.com/microsoft/pyright), [mypy](https://github.com/python/mypy) | ty has more stars and downloads than Pyrefly. pyright (40 million downloads) and mypy (160 million) are the stable choices. | ty stays in beta, or you need a stable 1.x today (Pyrefly). |
 | [cargo-udeps](https://github.com/est31/cargo-udeps), [cargo-shear](https://github.com/Boshen/cargo-shear) | cargo-udeps needs nightly (more accurate); cargo-shear is smaller (577 stars). One unused-dependency tool is enough. | You need accuracy over speed (cargo-udeps). |
+| [bundler-audit](https://github.com/rubysec/bundler-audit), [pip-audit](https://github.com/pypa/pip-audit), mix_audit, [OWASP Dependency-Check](https://github.com/dependency-check/DependencyCheck) | Overlap with OSV-Scanner, which reads the lockfiles of all these ecosystems. | OSV-Scanner misses an ecosystem you use. |
+| [erb_lint](https://github.com/Shopify/erb_lint) | No release since 2025-01; Herb replaces it. | A new release. |
+| [Steep](https://github.com/soutaro/steep) | Sorbet has far more adoption (158 million gem downloads against 6.9 million). | You standardise on RBS signatures. |
+| [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) | No GitHub release since 2025-06, although commits continue; lab data varies between runs. | A release, or a performance-budget gate you need. |
+| [i18next-cli](https://github.com/i18next/i18next-cli) | i18next only and young (244 stars). | Wider adoption. |
+| [cargo-nextest](https://github.com/nextest-rs/nextest) | A test runner (faster, retries flaky tests), not a guardrail. | Not applicable. |
+| [cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) | Rust coverage floor; diff-cover reads its report and checks changed lines for every language. | You want only a Rust total threshold. |
 
 ## Held back (Unverified)
 

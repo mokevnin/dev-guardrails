@@ -624,6 +624,261 @@
       ],
       "rationale": "Rust-native SQL linter and formatter with SQLFluff-style rules, a `--dialect` per project and autofix. Chosen over SQLFluff as the fast single binary; v0.43.0 on 2026-10-22, Apache-2.0.",
       "limitations": "Pre-1.0 and far smaller than SQLFluff (1.4k against 10k stars, 9 million PyPI downloads a month). Check your dialect before switching, and keep SQLFluff if you need its dbt and Jinja templating. Style only: use squawk for migration safety."
+    },
+    {
+      "id": "strong-migrations",
+      "name": "strong_migrations",
+      "repo": "ankane/strong_migrations",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/ankane/strong_migrations",
+        "https://rubygems.org/gems/strong_migrations",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "stops unsafe Rails migrations (locking indexes, column drops, type changes) while they run and names the safe alternative; 4.4k stars, MIT, active. It checks Ruby migrations, so it does not overlap with squawk.",
+      "limitations": "PostgreSQL, MySQL and MariaDB only; runs only when migrations run, so CI must run them.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "bullet",
+      "name": "Bullet",
+      "repo": "flyerhzm/bullet",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/flyerhzm/bullet",
+        "https://rubygems.org/gems/bullet",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "detects N+1 queries and unused eager loading; with `Bullet.raise = true` in test the specs fail. The standard Rails tool (7.3k stars, 188M gem downloads).",
+      "limitations": "finds only what tests exercise.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "i18n-tasks",
+      "name": "i18n-tasks",
+      "repo": "glebm/i18n-tasks",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/glebm/i18n-tasks",
+        "https://rubygems.org/gems/i18n-tasks",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "`i18n-tasks health` fails on missing, unused and inconsistent translation keys and normalises locale files. The mature Rails option.",
+      "limitations": "Ruby and Rails; last release 2025-11.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "herb",
+      "name": "Herb",
+      "repo": "marcoroth/herb",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/marcoroth/herb",
+        "https://www.npmjs.com/package/@herb-tools/linter",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "HTML-aware ERB parser with linter and formatter; replaces erb_lint, which has had no release since 2025-01. 600k npm downloads a month.",
+      "limitations": "pre-1.0; formatter is experimental; the linter runs through npm.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "sorbet",
+      "name": "Sorbet",
+      "repo": "sorbet/sorbet",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/sorbet/sorbet",
+        "https://rubygems.org/gems/sorbet-runtime",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "fast static type checker for Ruby (used by Stripe and Shopify); with tapioca it types gems and Rails. Chosen over Steep for adoption (158M vs 6.9M gem downloads).",
+      "limitations": "needs `sig` annotations and gradual strictness levels; Steep with RBS is the other direction.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "packwerk",
+      "name": "Packwerk",
+      "repo": "Shopify/packwerk",
+      "category": "Ruby",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/Shopify/packwerk",
+        "https://github.com/rubyatscale/pks",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "enforces package dependency and privacy rules in a Rails monolith.",
+      "limitations": "needs modularisation work; [pks](https://github.com/rubyatscale/pks) is a Rust drop-in claiming 10-20x speed but is very small (10 stars, unverified).",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "django-upgrade",
+      "name": "django-upgrade",
+      "repo": "adamchainz/django-upgrade",
+      "category": "Python",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/adamchainz/django-upgrade",
+        "https://pypistats.org/packages/django-upgrade",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "rewrites code to the idioms of your target Django version, and fails CI when files would change.",
+      "limitations": "Django only; narrow by design.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "django-migration-linter",
+      "name": "django-migration-linter",
+      "repo": "3YOURMIND/django-migration-linter",
+      "category": "Python",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/3YOURMIND/django-migration-linter",
+        "https://pypistats.org/packages/django-migration-linter",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "flags Django migrations that are not backward compatible with the running code (`lintmigrations`); 3.4M downloads a month.",
+      "limitations": "Django only; not verified by running; does not replace squawk for lock analysis on SQL.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "syncpack",
+      "name": "syncpack",
+      "repo": "JamieMason/syncpack",
+      "category": "JavaScript and TypeScript",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/JamieMason/syncpack",
+        "https://www.npmjs.com/package/syncpack",
+        "https://github.com/QuiiBz/sherif",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "Rust tool that enforces one version of each dependency and consistent ranges across a monorepo; 11M downloads a month.",
+      "limitations": "monorepos only; package-manager catalogs reduce the need; sherif is the narrower alternative.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "stylelint",
+      "name": "Stylelint",
+      "repo": "stylelint/stylelint",
+      "category": "Web quality",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/stylelint/stylelint",
+        "https://www.npmjs.com/package/stylelint",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "CSS, SCSS and CSS-in-JS linter with autofix and custom rules; 44M downloads a month. Oxlint does no CSS.",
+      "limitations": "CSS only.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "axe-core",
+      "name": "axe-core",
+      "repo": "dequelabs/axe-core",
+      "category": "Web quality",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/dequelabs/axe-core",
+        "https://github.com/dequelabs/axe-core-npm",
+        "https://www.npmjs.com/package/@axe-core/playwright",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "accessibility rules that fail tests when run through `@axe-core/playwright` (53M downloads a month). Static JSX checks are in Oxlint.",
+      "limitations": "finds only the automatable part of WCAG; needs a browser test suite; MPL-2.0.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "size-limit",
+      "name": "size-limit",
+      "repo": "ai/size-limit",
+      "category": "Web quality",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/ai/size-limit",
+        "https://www.npmjs.com/package/size-limit",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "fails the build when a bundle is over its size or load-time budget.",
+      "limitations": "needs a build step and budgets chosen by you.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "rector",
+      "name": "Rector",
+      "repo": "rectorphp/rector",
+      "category": "PHP",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/rectorphp/rector",
+        "https://packagist.org/packages/rector/rector",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "automated upgrades and refactoring sets; `--dry-run` in CI shows pending changes. A different job from Mago.",
+      "limitations": "depends on the rule sets you choose; fail-on-diff behaviour read from the docs only.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "detekt",
+      "name": "detekt",
+      "repo": "detekt/detekt",
+      "category": "Kotlin",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/detekt/detekt",
+        "https://github.com/pinterest/ktlint",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF. The de facto standard.",
+      "limitations": "stable release 1.23.8 is from 2025-02 and 2.0 is in alpha; ktlint formatting comes through spotless.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "credo",
+      "name": "Credo",
+      "repo": "rrrene/credo",
+      "category": "Elixir",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/rrrene/credo",
+        "https://hex.pm/packages/credo",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`.",
+      "limitations": "style and smell rules, not type checking.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "sobelow",
+      "name": "Sobelow",
+      "repo": "sobelow/sobelow",
+      "category": "Elixir",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/sobelow/sobelow",
+        "https://hex.pm/packages/sobelow",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "security scanner for Phoenix; `--exit` fails the build at a confidence level, SARIF output. Active again (0.16.0, 2026-09-30) after moving to this repository.",
+      "limitations": "Phoenix and Plug only; heuristic findings need a `.sobelow-skips` file.",
+      "details": "research/ecosystem-gaps.md"
+    },
+    {
+      "id": "diff-cover",
+      "name": "diff-cover",
+      "repo": "Bachmann1234/diff_cover",
+      "category": "Tests and coverage",
+      "last_reviewed": "2026-10-23",
+      "sources": [
+        "https://github.com/Bachmann1234/diff_cover#readme",
+        "research/ecosystem-gaps.md"
+      ],
+      "rationale": "Language-independent coverage gate: reads Cobertura, Clover, JaCoCo and lcov reports and fails when the coverage of the lines changed in a pull request is under a threshold, which is stricter in practice than a global floor. Works for any stack that can emit one of those formats; about 24 million PyPI downloads a month, v10.6.0 on 2026-09-22, Apache-2.0.",
+      "limitations": "Needs a coverage report from your test runner (coverage.py, vitest/c8, JaCoCo, llvm-cov, go-cover, and so on). Not a replacement for each ecosystem's own total threshold; set both. The exact flag and exit code were not checked here. Smaller community (849 stars) than the coverage tools it reads."
     }
   ]
 }
