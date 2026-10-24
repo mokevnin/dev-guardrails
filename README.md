@@ -190,6 +190,7 @@ These categories matter but have **no recommendation yet**: the candidates were 
 | PHP dependencies | composer-dependency-analyser | Last release November 2025; `composer audit` is built in. |
 | Kotlin, .NET, Elixir extras | ktlint, Konsist, Roslynator, Meziantou.Analyzer, ArchUnitNET, Dialyxir | Stable releases are old or pre-1.0, or they overlap the picks above. |
 | Container images | Trivy, Grype | Trivy's GitHub Action and a release were compromised in March 2026 ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)); no clear winner yet. |
+| Image layer efficiency | Dive | CI waste thresholds work, but `--json` bypasses them in v0.13.1. Last release March 2025; unresolved extraction-security and Docker compatibility reports. [Executed checks and alternatives](research/dive.md). |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
 | Custom rules with data-flow | Opengrep, Semgrep | Opengrep is a community fork; its cross-file limits and licence trade-offs need a closer look. |
 | Architecture, other ecosystems | go-arch-lint, arch-go, tach | No clear winner for Go (go-arch-lint has 616 stars); tach is a Rust option for Python. |

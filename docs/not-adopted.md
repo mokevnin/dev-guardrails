@@ -63,6 +63,7 @@ Reasons used below:
 Not rejected: these are in [Under review](../README.md#under-review) because we have not compared the candidates properly.
 
 - **Trivy.** In March 2026 trivy-action tags and a release were compromised ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)). OSV-Scanner is recommended for lockfile vulnerabilities; for container images and IaC security Trivy, Grype and Checkov are still compared.
+- **Dive.** Its CI thresholds fill an image-layer efficiency gap, but v0.13.1 has a reproduced JSON/CI bypass, old releases and unresolved extraction-security and Docker compatibility reports. [Review and alternatives](../research/dive.md). Reconsider after maintenance and compatibility evidence improves; no stability exception is claimed.
 - **TruffleHog and Kingfisher.** Alternatives to Betterleaks; TruffleHog is AGPL-3.0.
 - **Biome.** The other Rust JS toolchain; Oxlint with oxfmt is recommended.
 - **Semgrep and Opengrep.** Needed only for data-flow rules; ast-grep covers syntax rules.
