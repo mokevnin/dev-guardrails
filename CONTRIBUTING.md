@@ -44,7 +44,8 @@ A tool is better when it:
 - can fix problems automatically where that is safe;
 - allows custom rules;
 - is fast and cheap to run;
-- covers more checks than the tool it competes with.
+- covers more checks than the tool it competes with;
+- is a fast native binary (often Rust) that does lint, format and analysis together, when one exists for the ecosystem. A newer all-in-one tool that is pre-1.0 can still beat an older stack of narrow tools; say what is immature about it in `limitations`.
 
 Not every point is required, but they decide close calls. Automated signals (a new release, no recent commits) are inputs, not verdicts. They do not replace a comparison.
 
@@ -69,7 +70,7 @@ Say in `rationale` or `limitations` what you ran and what you only read: a tool 
 
 ## Checks
 
-The `Lint` workflow runs markdownlint-cli2, lychee, jactionlint on this repository's own workflows, and the registry check. Run them locally before you push. Pin every action in this repository to a full commit SHA with a version comment.
+The `Lint` workflow runs rumdl, lychee, typos, jactionlint on this repository's own workflows, and the registry check. Run them locally before you push. Pin every action in this repository to a full commit SHA with a version comment.
 
 ## Removing or replacing a tool
 

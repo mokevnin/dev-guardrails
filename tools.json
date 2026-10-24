@@ -90,18 +90,6 @@
       "limitations": "needs Node; checks format, not accuracy."
     },
     {
-      "id": "markdownlint-cli2",
-      "name": "markdownlint-cli2",
-      "repo": "DavidAnson/markdownlint-cli2",
-      "category": "Documentation",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://github.com/DavidAnson/markdownlint-cli2"
-      ],
-      "rationale": "Markdown style and structure.",
-      "limitations": "no prose or spelling checks."
-    },
-    {
       "id": "lychee",
       "name": "lychee",
       "repo": "lycheeverse/lychee",
@@ -177,35 +165,18 @@
       "limitations": "**maintained by the owner of this repository**; created 2026-10-20, v0.1.x, one maintainer, no outside users yet. Go models only. Compared with `database_consistency` (the Ruby/ActiveRecord original) and Atlas (structural diff and drift, a different job); no Go equivalent was found."
     },
     {
-      "id": "eslint",
-      "name": "ESLint",
-      "repo": "eslint/eslint",
+      "id": "oxlint",
+      "name": "Oxlint and oxfmt",
+      "repo": "oxc-project/oxc",
       "category": "JavaScript and TypeScript",
       "last_reviewed": "2026-10-23",
       "sources": [
-        "https://eslint.org/blog/",
-        "https://typescript-eslint.io/",
         "https://oxc.rs/docs/guide/usage/linter.html",
-        "https://biomejs.dev/blog/biome-v2-6/",
-        "research/stack-javascript.md"
-      ],
-      "rationale": "linter for JavaScript, TypeScript, JSX, Vue, Svelte and Angular with `--fix`, JSON/SARIF-capable formatters, `--max-warnings 0` and stable custom rules; use typescript-eslint for type-aware rules. Chosen because no faster tool covers framework templates and custom rules as completely.",
-      "limitations": "slow on large repos; typescript-eslint does not support TypeScript 7 yet, so type-aware linting needs TypeScript 6.x. For speed-first repos without template linting see [Oxlint](https://github.com/oxc-project/oxc) (exits 0 on warnings unless `--deny-warnings`).",
-      "details": "research/stack-javascript.md"
-    },
-    {
-      "id": "prettier",
-      "name": "Prettier",
-      "repo": "prettier/prettier",
-      "category": "JavaScript and TypeScript",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://prettier.io/docs/",
         "https://oxc.rs/docs/guide/usage/formatter.html",
         "research/stack-javascript.md"
       ],
-      "rationale": "formatting for JS, TS, CSS, Markdown, JSON, YAML and more; `prettier --check` fails CI. Chosen as the reference output with the widest language coverage.",
-      "limitations": "slower than oxfmt and Biome; oxfmt is 0.x and kept as a candidate to re-review.",
+      "rationale": "Rust-native linter and formatter from the Oxc toolchain: Oxlint runs ESLint-compatible rules (type-aware ones need TypeScript 7), oxfmt is the Prettier-compatible formatter. One fast toolchain instead of ESLint plus Prettier; releases weekly (oxlint 1.89, oxfmt 0.74 on 2026-10-19).",
+      "limitations": "oxfmt is pre-1.0. Oxlint exits 0 on warnings, so pass `--deny-warnings` in CI (tested). Per its docs, Vue, Svelte and Angular template files are not linted and the plugin ecosystem is smaller than ESLint's: keep ESLint only where you depend on those.",
       "details": "research/stack-javascript.md"
     },
     {
@@ -383,20 +354,6 @@
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
     {
-      "id": "go-test-coverage",
-      "name": "go-test-coverage",
-      "repo": "vladopajic/go-test-coverage",
-      "category": "Go",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://github.com/vladopajic/go-test-coverage",
-        "research/stack-go-rust-jvm-dotnet.md"
-      ],
-      "rationale": "fails the build when total, per-package or per-file test coverage drops below a threshold, locally with no service, and can compare against the base branch.",
-      "limitations": "GPL-3.0, one main maintainer; measures coverage, not test quality.",
-      "details": "research/stack-go-rust-jvm-dotnet.md"
-    },
-    {
       "id": "rustfmt",
       "name": "rustfmt",
       "repo": "rust-lang/rustfmt",
@@ -423,21 +380,6 @@
       ],
       "rationale": "one policy file for RustSec advisories, licences, banned or duplicate crates and allowed registries; non-zero exit on violation. It replaces `cargo-audit` for the advisory check.",
       "limitations": "checks metadata only, not dependency source; needs a maintained `deny.toml`.",
-      "details": "research/stack-go-rust-jvm-dotnet.md"
-    },
-    {
-      "id": "cargo-semver-checks",
-      "name": "cargo-semver-checks",
-      "repo": "obi1kenobi/cargo-semver-checks",
-      "category": "Rust",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://github.com/obi1kenobi/cargo-semver-checks",
-        "https://crates.io/crates/cargo-semver-checks",
-        "research/stack-go-rust-jvm-dotnet.md"
-      ],
-      "rationale": "for libraries you publish, fails on API changes that break semver compared with the last release.",
-      "limitations": "libraries only; relies on unstable rustdoc JSON, so a new Rust release can lag.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
     {
@@ -515,20 +457,6 @@
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
     {
-      "id": "vulture",
-      "name": "vulture",
-      "repo": "jendrikseipp/vulture",
-      "category": "Python",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://github.com/jendrikseipp/vulture",
-        "research/stack-python-ruby-php.md"
-      ],
-      "rationale": "unused functions, classes and variables across modules, which Ruff cannot see.",
-      "limitations": "heuristic; needs a whitelist for framework entry points.",
-      "details": "research/stack-python-ruby-php.md"
-    },
-    {
       "id": "import-linter",
       "name": "import-linter",
       "repo": "seddonym/import-linter",
@@ -543,47 +471,30 @@
       "details": "research/stack-python-ruby-php.md"
     },
     {
-      "id": "phpstan",
-      "name": "PHPStan",
-      "repo": "phpstan/phpstan",
+      "id": "mago",
+      "name": "Mago",
+      "repo": "carthage-software/mago",
       "category": "PHP",
       "last_reviewed": "2026-10-23",
       "sources": [
-        "https://phpstan.org/",
-        "research/stack-python-ruby-php.md"
+        "https://github.com/carthage-software/mago#readme",
+        "https://mago.carthage.software/"
       ],
-      "rationale": "static analysis with levels and a baseline; the widest extension set (Larastan, Symfony, strict rules, dead-code detection). Chosen over Psalm (one active maintainer, 7.0 still in RC).",
-      "limitations": "no SARIF; use Larastan for Laravel.",
-      "details": "research/stack-python-ruby-php.md"
+      "rationale": "Rust-native PHP toolchain: linter, formatter, static analyzer and architectural `guard` rules in one binary, with auto-fixes and a baseline. Replaces PHPStan, PHP-CS-Fixer and Deptrac; 30 releases, v1.58.2 on 2026-10-19.",
+      "limitations": "Created in October 2024, so younger than PHPStan; its framework-specific extensions (Laravel, Symfony) were not compared rule by rule. Check your framework's coverage before dropping PHPStan."
     },
     {
-      "id": "php-cs-fixer",
-      "name": "PHP-CS-Fixer",
-      "repo": "PHP-CS-Fixer/PHP-CS-Fixer",
-      "category": "PHP",
+      "id": "rumdl",
+      "name": "rumdl",
+      "repo": "rvben/rumdl",
+      "category": "Documentation",
       "last_reviewed": "2026-10-23",
       "sources": [
-        "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/usage.rst",
-        "research/stack-python-ruby-php.md"
+        "https://github.com/rvben/rumdl#readme",
+        "https://rumdl.dev/markdownlint-comparison"
       ],
-      "rationale": "code style check and fix, parallel by default, custom fixers.",
-      "limitations": "Laravel projects should use [Pint](https://github.com/laravel/pint), the same engine with Laravel defaults; run one, not both.",
-      "details": "research/stack-python-ruby-php.md"
-    },
-    {
-      "id": "deptrac",
-      "name": "Deptrac",
-      "repo": "deptrac/deptrac",
-      "category": "PHP",
-      "last_reviewed": "2026-10-23",
-      "sources": [
-        "https://github.com/deptrac/deptrac",
-        "https://packagist.org/packages/qossmic/deptrac",
-        "research/stack-python-ruby-php.md"
-      ],
-      "rationale": "layer dependency rules.",
-      "limitations": "use the `deptrac/deptrac` repository (the old `qossmic/deptrac` is archived); static dependencies only.",
-      "details": "research/stack-python-ruby-php.md"
+      "rationale": "Rust-native Markdown linter and formatter that reads markdownlint configuration, so migration is cheap. `rumdl check` exits 1 on violations, `rumdl fmt` fixes; has a GitHub Action. Chosen over markdownlint-cli2 as the fast single-binary option.",
+      "limitations": "Pre-1.0 (v0.3.0). Compatibility with markdownlint is the project's own claim; custom JavaScript rules written for markdownlint are not expected to carry over."
     }
   ]
 }

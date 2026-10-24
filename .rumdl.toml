@@ -1,0 +1,6 @@
+# Prose is not wrapped, inline HTML is allowed, and the pull request template starts with a section.
+[global]
+disable = ["MD013", "MD033", "MD041", "MD060", "MD076"]
+
+[MD024]
+siblings_only = true

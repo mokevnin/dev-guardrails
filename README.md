@@ -9,6 +9,7 @@ Dev Guardrails is not an Awesome List. It does not list every linter for every l
 - **Opinionated.** One recommended tool per job. Several only when the jobs or the environments really differ.
 - **Curated.** Every tool is checked against the [selection criteria](CONTRIBUTING.md#selection-criteria) before it is listed, and again on a schedule.
 - **Coverage over quantity.** A tool that replaces three narrow checks beats three narrow tools.
+- **Fast native toolchains first.** Modern stacks are converging on Rust-native tools that do lint, format and analysis in one binary (Ruff, Oxlint with oxfmt, Mago, rumdl). We prefer them over a pile of older single-purpose tools when they cover the same ground. Ecosystems without one (Ruby, Java, .NET, Swift) keep their standard tools.
 - **Enforcement over advice.** A tool must fail a build (non-zero exit code) when a standard is violated. Reports that nobody reads do not count.
 - **Agent-friendly.** Non-interactive, machine-readable output, clear diagnostics, and autofix where it is safe. AI coding agents are first-class users of these tools.
 - **Honest about gaps.** A category with no verified recommendation stays empty rather than getting an outdated one.
@@ -28,8 +29,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 ### JavaScript and TypeScript
 
 - **[Knip](https://github.com/webpro-nl/knip)**: unused files, exports and dependencies. *Limits:* monorepos need configuration; never run `--fix` unattended.
-- **[ESLint](https://github.com/eslint/eslint)**: linter for JavaScript, TypeScript, JSX, Vue, Svelte and Angular with `--fix`, JSON/SARIF-capable formatters, `--max-warnings 0` and stable custom rules; use typescript-eslint for type-aware rules. Chosen because no faster tool covers framework templates and custom rules as completely. *Limits:* slow on large repos; typescript-eslint does not support TypeScript 7 yet, so type-aware linting needs TypeScript 6.x. For speed-first repos without template linting see [Oxlint](https://github.com/oxc-project/oxc) (exits 0 on warnings unless `--deny-warnings`). [Details](research/stack-javascript.md).
-- **[Prettier](https://github.com/prettier/prettier)**: formatting for JS, TS, CSS, Markdown, JSON, YAML and more; `prettier --check` fails CI. Chosen as the reference output with the widest language coverage. *Limits:* slower than oxfmt and Biome; oxfmt is 0.x and kept as a candidate to re-review. [Details](research/stack-javascript.md).
+- **[Oxlint and oxfmt](https://github.com/oxc-project/oxc)**: Rust-native linter and formatter from the Oxc toolchain: Oxlint runs ESLint-compatible rules (type-aware ones need TypeScript 7), oxfmt is the Prettier-compatible formatter. One fast toolchain instead of ESLint plus Prettier; releases weekly (oxlint 1.89, oxfmt 0.74 on 2026-10-19). *Limits:* oxfmt is pre-1.0. Oxlint exits 0 on warnings, so pass `--deny-warnings` in CI (tested). Per its docs, Vue, Svelte and Angular template files are not linted and the plugin ecosystem is smaller than ESLint's: keep ESLint only where you depend on those. [Details](research/stack-javascript.md).
 - **[TypeScript](https://github.com/microsoft/TypeScript)**: `tsc --noEmit` with `strict`; version 7 is the native, much faster compiler. *Limits:* the TypeScript 7 compiler API is not ready, so tools that import `typescript` may need TypeScript 6 beside it. `microsoft/typescript-go` is archived because it was merged, not abandoned. [Details](research/stack-javascript.md).
 - **[dependency-cruiser](https://github.com/sverweij/dependency-cruiser)**: import-graph rules (forbidden paths, cycles, orphans, dev-deps in production code) with non-zero exit and JSON output; `--ignore-known` baselines legacy violations. Chosen over eslint-plugin-boundaries because it does not depend on the lint stack. *Limits:* static analysis misses dynamic imports; no autofix. [Details](research/stack-javascript.md).
 
@@ -37,21 +37,18 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 - **[Ruff](https://github.com/astral-sh/ruff)**: linter and formatter that replaces Flake8, isort, pyupgrade and Black. *Limits:* no type checking, no custom-rule plugins. The `S` rules replace Bandit, `D` replaces pydocstyle (archived) and `C901` replaces xenon and radon; pair with vulture for dead code across modules.
 - **[deptry](https://github.com/osprey-oss/deptry)**: unused, missing and transitive dependencies. *Limits:* static analysis misses dynamic imports.
-- **[vulture](https://github.com/jendrikseipp/vulture)**: unused functions, classes and variables across modules, which Ruff cannot see. *Limits:* heuristic; needs a whitelist for framework entry points. [Details](research/stack-python-ruby-php.md).
 - **[import-linter](https://github.com/seddonym/import-linter)**: import contracts (layers, forbidden, independence, protected) that fail CI. *Limits:* checks imports only; [tach](https://github.com/tach-org/tach) is the alternative for public-interface rules. [Details](research/stack-python-ruby-php.md).
 
 ### Go
 
 - **[golangci-lint](https://github.com/golangci/golangci-lint)**: one runner for the Go linters and the formatter, with `golangci-lint custom` for your own analyzers. *Limits:* choose linters deliberately; GPL-3.0.
 - **[govulncheck](https://github.com/golang/vuln)**: reports known vulnerabilities in the Go modules and standard library you actually call, with call stacks, from the official Go vulnerability database. *Limits:* with `-json` and `-format sarif` it exits 0 whatever it finds, so gate on the text output; blind to calls through `reflect`; the GitHub repo is a mirror of `golang.org/x/vuln`. For repos in several languages see the open Vulnerabilities decision. [Details](research/stack-go-rust-jvm-dotnet.md).
-- **[go-test-coverage](https://github.com/vladopajic/go-test-coverage)**: fails the build when total, per-package or per-file test coverage drops below a threshold, locally with no service, and can compare against the base branch. *Limits:* GPL-3.0, one main maintainer; measures coverage, not test quality. [Details](research/stack-go-rust-jvm-dotnet.md).
 
 ### Rust
 
 - **[Clippy](https://github.com/rust-lang/rust-clippy)**: the official linter; run `cargo clippy -- -D warnings`. *Limits:* tied to the toolchain version.
 - **[rustfmt](https://github.com/rust-lang/rustfmt)**: the official formatter; run `cargo fmt --check` in CI. *Limits:* versioned with the Rust toolchain, not through GitHub releases; style options are few by design. [Details](research/stack-go-rust-jvm-dotnet.md).
 - **[cargo-deny](https://github.com/EmbarkStudios/cargo-deny)**: one policy file for RustSec advisories, licences, banned or duplicate crates and allowed registries; non-zero exit on violation. It replaces `cargo-audit` for the advisory check. *Limits:* checks metadata only, not dependency source; needs a maintained `deny.toml`. [Details](research/stack-go-rust-jvm-dotnet.md).
-- **[cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks)**: for libraries you publish, fails on API changes that break semver compared with the last release. *Limits:* libraries only; relies on unstable rustdoc JSON, so a new Rust release can lag. [Details](research/stack-go-rust-jvm-dotnet.md).
 
 ### Ruby
 
@@ -59,9 +56,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 ### PHP
 
-- **[PHPStan](https://github.com/phpstan/phpstan)**: static analysis with levels and a baseline; the widest extension set (Larastan, Symfony, strict rules, dead-code detection). Chosen over Psalm (one active maintainer, 7.0 still in RC). *Limits:* no SARIF; use Larastan for Laravel. [Details](research/stack-python-ruby-php.md).
-- **[PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)**: code style check and fix, parallel by default, custom fixers. *Limits:* Laravel projects should use [Pint](https://github.com/laravel/pint), the same engine with Laravel defaults; run one, not both. [Details](research/stack-python-ruby-php.md).
-- **[Deptrac](https://github.com/deptrac/deptrac)**: layer dependency rules. *Limits:* use the `deptrac/deptrac` repository (the old `qossmic/deptrac` is archived); static dependencies only. [Details](research/stack-python-ruby-php.md).
+- **[Mago](https://github.com/carthage-software/mago)**: Rust-native PHP toolchain: linter, formatter, static analyzer and architectural `guard` rules in one binary, with auto-fixes and a baseline. Replaces PHPStan, PHP-CS-Fixer and Deptrac; 30 releases, v1.58.2 on 2026-10-19. *Limits:* Created in October 2024, so younger than PHPStan; its framework-specific extensions (Laravel, Symfony) were not compared rule by rule. Check your framework's coverage before dropping PHPStan.
 
 ### Java
 
@@ -122,9 +117,9 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 ### Documentation
 
-- **[markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)**: Markdown style and structure. *Limits:* no prose or spelling checks.
 - **[lychee](https://github.com/lycheeverse/lychee)**: broken links. *Limits:* network flakiness; give it a GitHub token and a cache.
 - **[typos](https://github.com/crate-ci/typos)**: low-noise spell checking of source code and docs. *Limits:* finds only known misspellings.
+- **[rumdl](https://github.com/rvben/rumdl)**: Rust-native Markdown linter and formatter that reads markdownlint configuration, so migration is cheap. `rumdl check` exits 1 on violations, `rumdl fmt` fixes; has a GitHub Action. Chosen over markdownlint-cli2 as the fast single-binary option. *Limits:* Pre-1.0 (v0.3.0). Compatibility with markdownlint is the project's own claim; custom JavaScript rules written for markdownlint are not expected to carry over.
 
 <!-- tools:end -->
 
@@ -134,18 +129,18 @@ These categories matter but have **no recommendation yet**: the candidates were 
 
 | Category | Candidates | Why it is still open |
 |---|---|---|
-| JavaScript / TypeScript extras | Oxlint with oxfmt, Biome, publint, arethetypeswrong, size-limit, syncpack, Stylelint, axe-core | ESLint and Prettier are recommended; Oxlint is the fast alternative but exits 0 on warnings unless `--deny-warnings`, and typescript-eslint does not support TypeScript 7 yet. The package-hygiene tools apply only to libraries. |
-| Python types | Pyrefly, pyright, mypy, ty | No clear winner; ty is beta. |
+| JavaScript / TypeScript extras | Biome, publint, arethetypeswrong, size-limit, syncpack, Stylelint, axe-core | Oxlint with oxfmt is recommended. Biome is the other Rust toolchain. The package-hygiene tools apply only to libraries. |
+| Python types | ty, Pyrefly, pyright, mypy | ty (Astral) and Pyrefly (Meta) are both Rust-based; ty is beta, so no clear winner yet. |
 | Ruby types, boundaries, security | Sorbet, Steep, Packwerk, Brakeman | Brakeman is free for non-commercial use only. Type checkers need a clearer comparison. |
-| PHP extras | Rector, composer-dependency-analyser, Psalm | Exit codes and maintenance not confirmed. |
+| PHP extras | Rector, composer-dependency-analyser | Mago is recommended; Rector (automated upgrades) is a different job. |
 | Kotlin, .NET, Elixir | ktlint, detekt, Konsist, Meziantou.Analyzer, ArchUnitNET, Credo, Sobelow, Dialyxir | Stable releases are old or pre-1.0, or confidence is low. |
 | Container images | Trivy, Grype | Trivy's GitHub Action and a release were compromised in March 2026 ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)); no clear winner yet. |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
 | Custom rules with data-flow | Opengrep, Semgrep | Opengrep is a community fork; its cross-file limits and licence trade-offs need a closer look. |
-| Git hooks | prek, hk, pre-commit, Lefthook | prek is the leading candidate (drop-in for pre-commit) but is pre-1.0; hk is the choice of some mise-based projects. |
+| Git hooks | prek, hk, pre-commit, Lefthook | prek and hk are both Rust; prek is a drop-in for pre-commit, hk fits mise-based projects. Both are pre-1.0. |
 | API contracts | Spectral, vacuum, Redocly CLI, Buf | Overlapping rulesets. |
 | SQL style | SQLFluff | Style and migration safety are different jobs; not yet reviewed. |
-| Architecture, other ecosystems | go-arch-lint, arch-go, tach | No clear winner for Go. |
+| Architecture, other ecosystems | go-arch-lint, arch-go, tach | No clear winner for Go; tach is a Rust option for Python. |
 | YAML style | yamllint | Not yet compared with schema validation. |
 | Licences and supply chain | REUSE, Scorecard, Syft, ScanCode Toolkit | Mostly reporting tools; need an enforcement angle. |
 
