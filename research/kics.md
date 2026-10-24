@@ -1,6 +1,6 @@
 # KICS: IaC and Docker Compose security
 
-Reviewed 2026-10-24. **Keep the general IaC category under review; add KICS as a research lead.** The strongest reason to evaluate it is Docker Compose security, rather than another Dockerfile checker. This comparison executes three scanners on six small files; it does not establish comparative detection quality on real projects.
+Reviewed 2026-10-24. **Keep the general IaC category under review; KICS is recorded as research only and is not listed in the README.** The strongest reason to evaluate it is Docker Compose security, rather than another Dockerfile checker. This comparison executes three scanners on six small files; it does not establish comparative detection quality on real projects.
 
 ## Currency and provenance
 
@@ -67,4 +67,4 @@ Trivy defaults to exit 0 even with findings; the experiment also runs without `-
 
 ## Decision and remaining work
 
-Add KICS to the existing under-review row with this evidence, without an adopted `tools.json` entry. Dedicated Compose rules are a meaningful gap worth further evaluation, but six files do not settle the general IaC choice. Before recommending KICS, test real multi-file Compose overrides/interpolation, Terraform modules/locals, parser failures, suppressions and SARIF ingestion; measure false positives and missed hazards on a larger independently designed corpus. The open issue reports above are reasons to test these paths, not assertions reproduced by this experiment.
+Keep this as research only: no README row and no `tools.json` entry. Dedicated Compose rules are a meaningful gap worth further evaluation, but six files do not settle the general IaC choice. Before recommending KICS, test real multi-file Compose overrides/interpolation, Terraform modules/locals, parser failures, suppressions and SARIF ingestion; measure false positives and missed hazards on a larger independently designed corpus. The open issue reports above are reasons to test these paths, not assertions reproduced by this experiment.
