@@ -187,7 +187,7 @@ These categories matter but have **no recommendation yet**: the candidates were 
 | JavaScript dead code and architecture | fallow, knip, dependency-cruiser | fallow is a Rust all-in-one (dead code, cycles, boundaries, duplication) and could replace both of our picks, but it is 7 months old, has 5.6 million npm downloads a month against knip's 69 million, and its plugin coverage is unverified. |
 | JavaScript / TypeScript extras | Biome, publint, arethetypeswrong | Oxlint with oxfmt is recommended; Biome is the other Rust toolchain. publint and arethetypeswrong apply only to published libraries. |
 | Ruby security | Brakeman | Free for non-commercial use only; commercial use needs a paid licence. |
-| PHP dependencies | composer-dependency-analyser | Last release November 2025; `composer audit` is built in. |
+| PHP dependencies | composer-dependency-analyser, composer-unused, ComposerRequireChecker | [Eight executed fixtures](research/composer-dependencies.md) favour the analyser for combined unused, shadow and misplaced dependency checks. Release 1.8.4 predates fixes on master; framework and dynamic-use limits still need evaluation. `composer audit` covers a different job. |
 | Kotlin, .NET, Elixir extras | ktlint, Konsist, Roslynator, Meziantou.Analyzer, ArchUnitNET, Dialyxir | Stable releases are old or pre-1.0, or they overlap the picks above. |
 | Container images | Trivy, Grype | Trivy's GitHub Action and a release were compromised in March 2026 ([advisory](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)); no clear winner yet. |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
