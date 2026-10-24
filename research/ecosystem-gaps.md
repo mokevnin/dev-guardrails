@@ -39,7 +39,7 @@ Research date: 2026-10-23. Method: GitHub API (stars, pushes, releases), registr
 | RuboCop plugins | rubocop-rails / rubocop-rspec / rubocop-performance | rubocop/* | 877 / 859 / 743 | 318M / 304M gem | 2.38.0 (2026-09-20) / 3.10.2 / 1.27.0 | MIT |
 | Advisories | bundler-audit | rubysec/bundler-audit | 2764 | 150M gem | 0.9.3, 2025-11-28 | GPL-3.0 |
 
-**Recommendations**
+**Recommendations:**
 
 - **strong_migrations** for Rails migrations. It raises during `db:migrate` on locking operations and gives the safe alternative. It works on Ruby migration DSL, so it does not overlap with squawk (SQL files). Limits: PostgreSQL, MySQL, MariaDB only; runs at migration time, so CI must run the migrations.
 - **Bullet** for N+1 and unused eager loading. Set `Bullet.raise = true` in test so specs fail (README). Limits: finds only what the test suite exercises.
@@ -70,7 +70,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Advisories | pip-audit | pypa/pip-audit | 1381 | 26.7M | 2.10.1, 2026-06-10 | Apache-2.0 |
 | Types | ty / Pyrefly / mypy / pyright | astral-sh/ty, facebook/pyrefly, python/mypy, microsoft/pyright | 19.9k / 7.1k / 20.7k / 15.7k | 41M / 7.8M / 160M / 40M | ty 0.0.91 (beta), **Pyrefly 1.4.0 (2026-10-15)**, mypy 2.4.0 (tag) | MIT / MIT / MIT / MIT |
 
-**Recommendations**
+**Recommendations:**
 
 - **django-upgrade**: rewrites code to the idioms of your target Django version; `--target-version` and a non-zero exit when it changes files make it a CI check. Narrow but the clear standard (Adam Johnson). Confidence medium-high.
 - **django-migration-linter**: Django-specific backward-incompatible migration detection (`lintmigrations`). It is a different job from squawk, which lints SQL; use it with squawk on `sqlmigrate` output only if you want both. Not run by us. Confidence medium.
@@ -100,7 +100,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Cycles, boundaries | madge / Sheriff / eslint-plugin-boundaries | pahen/madge, softarc-consulting/sheriff, javierbrea/eslint-plugin-boundaries | 10.2k / 325 / 1001 | 11.6M / 533k / 7.4M | madge 8.0.0 (tag, last push 2026-01); Sheriff 0.20.0; boundaries 7.3.0 | MIT |
 | Mutation | Stryker | stryker-mutator/stryker-js | 3271 | 13.3M | 10.1.1, 2026-10-23 | Apache-2.0 |
 
-**Recommendations**
+**Recommendations:**
 
 - **Stylelint**: the CSS/SCSS standard; Oxlint does no CSS, Biome's CSS rules are narrower. Limits: CSS only; add `stylelint --formatter json` for agents. Confidence high.
 - **axe-core** through `@axe-core/playwright` for accessibility in tests (violations fail the test). Static JSX a11y rules already exist inside Oxlint (its `jsx-a11y` plugin is built in per the Oxlint docs); this is the runtime job. Limits: finds roughly the automatable part of WCAG, needs a Playwright suite; MPL-2.0. Confidence high.
@@ -124,7 +124,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Formatting | gofumpt | mvdan/gofumpt | 4101 | 0.12.0, 2026-09-07 | BSD-3-Clause |
 | Coverage | go-test-coverage | vladopajic/go-test-coverage | 242 | 2.20.1 | GPL-3.0 (already rejected) |
 
-**Recommendations**
+**Recommendations:**
 
 - **go-arch-lint** is the better Go architecture tool today (2x the stars, monthly cadence; arch-go moved repositories and is smaller). Both are small, so confidence is low-medium; keep as a proposal with that flag, and note ArchUnit-like Go rules are also possible with ast-grep (listed).
 - **gofumpt**: do not add. `golangci-lint fmt` has `gofumpt` as a formatter (listed in the golangci-lint formatter docs); edit the golangci-lint entry.
@@ -146,7 +146,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Supply chain audits | cargo-vet | mozilla/cargo-vet | 998 | 120k | 0.10.3, 2026-10-22 | Apache-2.0 |
 | Feature matrix | cargo-hack | taiki-e/cargo-hack | 875 | 208k | 0.6.45, 2026-05-30 | Apache-2.0 |
 
-**Recommendations**
+**Recommendations:**
 
 - **cargo-machete** for unused dependencies: fast and widely used (10x cargo-shear), CI exit code via `--with-metadata` and non-zero on findings (docs: unverified). It is regex-based, so it can report false positives, which are handled with a `package.metadata.cargo-machete.ignored` list. cargo-shear is the credible newer alternative (AST-based, by the Oxc author, declared feature-complete, also finds unlinked source files); this is a judgement call, flagged. cargo-udeps needs nightly.
 - **cargo-nextest**: the practitioner standard test runner (about 3x faster, retries, flaky-test detection, JUnit output). It enforces by failing the test run, so it is a speed and signal tool. Optional entry; confidence medium.
@@ -170,7 +170,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 
 (Maven Central search returned stale versions, so these come from GitHub.)
 
-**Recommendations**
+**Recommendations:**
 
 - **NullAway**: add as a companion to the listed error-prone (it runs as an error-prone check, so it is an edit of that entry or a one-line entry). Fails the compile on possible nulls; Uber-scale adopters. Limits: needs `@Nullable` conventions; Kotlin has its own null safety.
 - **detekt** for Kotlin (complexity, smells, potential bugs): the de facto standard, 7k stars, active pushes. Stable release is old (1.23.8, Feb 2025) and 2.0 is in alpha since April; say so in limits. ktlint formatting is already reachable through the listed spotless, so no ktlint entry (one tool per job). Confidence medium.
@@ -191,7 +191,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Formatter | CSharpier | belav/csharpier | 2350 | 21.4M | 1.3.0 | MIT |
 | Mutation | Stryker.NET | stryker-mutator/stryker-net | 2110 | 9.2M | 5.0.0, 2026-09-11 | Apache-2.0 |
 
-**Recommendations**
+**Recommendations:**
 
 - **Roslynator** as the one extra analyzer pack on top of the listed SDK analyzers: 500+ analyzers, builds with `dotnet build -warnaserror`, a NuGet reference so it runs in CI and the IDE. Meziantou is the more opinionated, smaller alternative; the choice between them is a judgement call (confidence medium-low). Limits: analyzers only fail the build when severities are set to error in `.editorconfig`.
 - **ArchUnitNET** over NetArchTest (no release since 2021). Pre-1.0, same API ideas as the listed ArchUnit. Confidence medium.
@@ -219,7 +219,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Dialyzer wrapper | Dialyxir | jeremyjh/dialyxir | 1796 | 2.9M | 1.4.8, 2026-09-05 | Apache-2.0 |
 | Advisories | mix_audit | mirego/mix_audit | 383 | 1.5M | 2.1.5, 2025-06-09 | BSD-3-Clause |
 
-**Recommendations**
+**Recommendations:**
 
 - **Credo**: the standard linter (`mix credo --strict`, JSON output, custom checks). Formatting is built in (`mix format --check-formatted`), as is `mix compile --warnings-as-errors` (and Elixir 1.20 adds more type-system warnings to the compiler). Confidence high.
 - **Sobelow**: the Phoenix security scanner. It is alive (v0.16.0 on 2026-09-30 from the new `sobelow/sobelow` repo), so the earlier "old releases" worry is resolved. `--exit low|medium|high` makes it fail the build, `--format sarif|json` for tooling (README). Limits: Phoenix and Plug only; the new repo has few stars because it was moved. Confidence medium-high.
