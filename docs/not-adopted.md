@@ -19,7 +19,11 @@ Reasons used below:
 | [pinact](https://github.com/suzuki-shunsuke/pinact) | Overlap: `jactionlint --online --fix` pins tags to commit SHAs. | You want pinning without adopting a linter. |
 | [cspell](https://github.com/streetsidesoftware/cspell) | Overlap with typos, which has fewer false positives and needs little setup. | You need project dictionaries or many natural languages. |
 | [detect-secrets](https://github.com/Yelp/detect-secrets) | Stale: last release v1.5.0 on 2024-05-06. | A new release and a comparison with the other secret scanners. |
-| [cocogitto](https://github.com/cocogitto/cocogitto), [committed](https://github.com/crate-ci/committed) | Not clearly better than commitlint. Last release 2026-03-04 and 2026-02-25. | Active development and a single-binary advantage that matters to you. |
+| [cocogitto](https://github.com/cocogitto/cocogitto), [convco](https://github.com/convco/convco), [committed](https://github.com/crate-ci/committed) | Rust Conventional Commits tools, but small (1.2k, 329 and 185 stars) and slower to release; cocogitto's last push is 2026-04. commitlint has about 44 million npm downloads a month. | One of them gains adoption and a release pace close to commitlint's, and you do not want Node. |
+| [commitizen](https://github.com/commitizen-tools/commitizen) | Python tool for commit checks, version bumps and changelogs (3.5k stars, active). Overlaps commitlint plus a release tool. | A Python project with no Node in its toolchain. |
+| [gitlint](https://github.com/jorisroovers/gitlint) | Stale: last release 2023-03, last push 2024-07. | New releases. |
+| [conventional-pre-commit](https://github.com/compilerla/conventional-pre-commit) | A single pre-commit hook (559 stars); does not check a CI range the way commitlint does. | You only need the local hook. |
+| [git-cliff](https://github.com/orhun/git-cliff) | A changelog generator (12k stars), not a linter. | Not applicable. |
 | [Bandit](https://github.com/PyCQA/bandit) | Overlap with the Ruff `S` rules. | You need custom Bandit plugins. |
 | [pydocstyle](https://github.com/PyCQA/pydocstyle) | Archived 2023-11-03; Ruff `D` rules replace it. | None. |
 | [Psalm](https://github.com/vimeo/psalm) | Mago covers static analysis; Psalm 7.0 was still a release candidate when reviewed. | A stable 7.0 and a clear gap in Mago. |

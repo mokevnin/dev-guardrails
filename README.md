@@ -129,7 +129,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`npm run re
 
 ### Git conventions
 
-- **[commitlint](https://github.com/conventional-changelog/commitlint)**: Conventional Commits for a message, a hook or a CI range. *Limits:* needs Node; checks format, not accuracy.
+- **[commitlint](https://github.com/conventional-changelog/commitlint)**: Enforces Conventional Commits on a message, a hook or a CI range (`--from/--to`), with shareable configs. The standard by a wide margin: 18.8k stars, about 44 million npm downloads a month, v21.2.4 on 2026-10-18. Needed if releases or changelogs are generated from commits. *Limits:* Requires Node. Checks format only, not whether the message is accurate. Compared on 2026-10-23 with the Rust options cocogitto (1.2k stars, last push 2026-04), convco (329 stars) and committed (185 stars, last release 2026-02): none has the adoption or the release pace, so Node remains the main cost. Python projects without Node can use commitizen.
 
 ### Documentation
 
