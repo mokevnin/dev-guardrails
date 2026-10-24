@@ -119,6 +119,7 @@ Recommendation: no clear winner, no entry. taplo has the usage but its last rele
 | cargo-semver-checks | 1.7k | n/a | v0.51.0, 2026-10-03 | Apache-2.0 | libraries only (already in not-adopted) |
 
 Recommendations:
+
 - Unused dependencies: cargo-machete as the one pick (10x cargo-shear's downloads, simple, `--fix`). Watch cargo-shear; it is the more accurate, newer one. Confidence: medium-low. Real gap in our Rust section: cargo-deny does not detect unused dependencies.
 - cargo-nextest, cargo-mutants, cargo-vet, cargo-hack: no entry. nextest is a runner (popular and excellent, but test running is not a standards check); mutants is slow; vet needs an audit process; hack is for libraries.
 
