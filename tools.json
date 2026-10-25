@@ -205,6 +205,21 @@
       "details": "research/custom-rules.md"
     },
     {
+      "id": "easement",
+      "name": "easement",
+      "repo": "mokevnin/easement",
+      "category": "Custom rules",
+      "last_reviewed": "2026-10-25",
+      "sources": [
+        "https://github.com/mokevnin/easement#readme",
+        "https://github.com/mokevnin/easement/releases/tag/v0.1.0",
+        "research/custom-rules.md"
+      ],
+      "rationale": "one architecture config (`easement.yml`) for Go, TypeScript/JavaScript, Python and Java: components by path, an allow-list of dependencies, `public` APIs, cycles, and a `because` message shown with each violation. Reads real imports with tree-sitter and resolves them per language. `easement check` exits 1 on drift (run) and has `--format json`; a baseline fails on new violations and on fixed ones left in the file; `--diff origin/main` judges only what a pull request adds.",
+      "limitations": "**maintained by the owner of this repository**; v0.1.0 released 2026-10-25, one maintainer, no outside users yet. No SARIF (run: `--format sarif` exits 2). Imports only, so a call-shape rule needs ast-grep; external packages are not checked. Compared with dependency-cruiser, import-linter, ArchUnit and go-arch-lint, each of which is deeper in its own language; its advantage is one model and one baseline across several. Use those instead if the project is one language.",
+      "details": "research/custom-rules.md"
+    },
+    {
       "id": "database-consistency",
       "name": "database_consistency",
       "repo": "djezzzl/database_consistency",
