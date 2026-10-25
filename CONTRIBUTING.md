@@ -34,6 +34,22 @@ The [pull request template](.github/PULL_REQUEST_TEMPLATE.md) mirrors this list.
 7. **Limits.** State the significant limitations and conditions of use.
 8. **Style.** Follow the README format below and update `tools.json`.
 
+## Research and docs pull requests
+
+Most changes here are not new tools but research (`research/`), patterns (`docs/patterns.md`) and rejections (`docs/not-adopted.md`). They are reviewed on three points:
+
+1. **Run or read.** Say which claims you ran (tool version, date, the command) and which you only read in documentation. A claim you ran outranks one you read.
+2. **Sources.** A version, date, star count or licence links to its source or to the run that produced it.
+3. **Conclusion.** The change ends in a decision: add, reject, or keep under review, with the reason.
+
+A fixture that backs a claim goes in `research/fixtures/<topic>/` with a `run.py` that reproduces it.
+
+## Review and merge
+
+- `mise run check` must pass; CI runs the same set. The first pull request from a new contributor needs a maintainer to approve the workflow run before CI starts.
+- Pull requests are squash-merged, one tool or topic each, so the title becomes the commit message: write it as a short sentence.
+- A maintainer may push small fixes (typos, wording, formatting) to your branch instead of asking for another round.
+
 ## Local checks
 
 This repository uses its own recommendations: [mise](https://mise.jdx.dev/) pins the tools and [hk](https://hk.jdx.dev/) runs the checks.
