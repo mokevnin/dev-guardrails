@@ -43,6 +43,8 @@ Give every suppression a review date and fail the build when it has passed. Some
 
 Run that script on a schedule as well as on pull requests. A date expires on the calendar, not in a diff, so a job that runs only when the suppressed files change can miss it for a long time. Read each suppression from a fixed list of places rather than by walking the whole repository with an exclusion list: an exclusion list is how a scanner reads nothing and still passes.
 
+Dates are for suppressions that hide a security or risk finding: a vulnerability, an infrastructure check, a path excluded from a scanner. A style setting, a word in a spelling allowlist or a host excluded from the link check does not go stale in that way; a reason in a comment is enough.
+
 ## Dependabot cooldown
 
 A `cooldown` with `default-days` in `dependabot.yml` delays updates to freshly published versions, which reduces exposure to compromised releases. jactionlint checks this (`dependabot-cooldown`). Renovate's equivalent is `minimumReleaseAge`.
