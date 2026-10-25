@@ -68,7 +68,7 @@ if (import.meta.main) {
   const next = update(current, readTools())
   if (process.argv.includes('--check')) {
     if (next !== current) {
-      console.error('README.md is out of date: run `npm run readme` and commit the result.')
+      console.error('README.md is out of date: run `pnpm run readme` and commit the result.')
       process.exit(1)
     }
     console.log('README.md is up to date')

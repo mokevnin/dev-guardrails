@@ -22,7 +22,7 @@ Details: [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-a-pull-request).
 - [ ] **Overlap:** overlap with existing recommendations checked.
 - [ ] **Why:** reason to add or replace is explained.
 - [ ] **Limits:** significant limitations stated.
-- [ ] **Style:** `tools.json` updated, `npm run readme` run, `npm run check:registry` passes.
+- [ ] **Style:** `tools.json` updated, `pnpm run readme` run, `pnpm run check:registry` passes.
 
 ### Evidence
 

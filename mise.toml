@@ -1,6 +1,7 @@
 # One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
 [tools]
 node = "24"
+pnpm = "12.15.0"
 hk = "2.8.1"
 pkl = "0.32.2"
 rumdl = "0.3.0"
@@ -9,8 +10,8 @@ lychee = "0.24.2"
 jactionlint = "2.3.0"
 
 [tasks.setup]
-description = "Install npm dependencies and the git hooks"
-run = ["npm ci", "hk install"]
+description = "Install dependencies and the git hooks"
+run = ["pnpm install --frozen-lockfile", "hk install"]
 
 [tasks.check]
 description = "Run every check, the same set CI runs"

@@ -18,7 +18,7 @@ This is **not a universal stack**. Do not install everything here. Pick the entr
 
 ## Recommendations
 
-The entries below are **generated from [`tools.json`](tools.json)** (`npm run readme`), which records the review date, sources, rationale and limitations of each tool. Every entry was first checked on 2026-10-23: that is one sweep, not independent reviews. Where a claim was tested by running the tool, the entry says so; otherwise it rests on documentation and repository activity.
+The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run readme`), which records the review date, sources, rationale and limitations of each tool. Every entry was first checked on 2026-10-23: that is one sweep, not independent reviews. Where a claim was tested by running the tool, the entry says so; otherwise it rests on documentation and repository activity.
 
 <!-- tools:start -->
 

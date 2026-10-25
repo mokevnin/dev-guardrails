@@ -36,7 +36,7 @@ jobs:
           restore-keys: lychee-
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       # Runs rumdl, typos, jactionlint, the registry check, typecheck and lychee through hk.
       - name: Run checks

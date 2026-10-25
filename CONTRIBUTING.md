@@ -56,7 +56,7 @@ This repository uses its own recommendations: [mise](https://mise.jdx.dev/) pins
 
 ```sh
 mise install
-mise run setup   # npm ci and the git hooks
+mise run setup   # pnpm install and the git hooks
 mise run check   # every check, the same set CI runs
 mise run fix     # apply automatic fixes
 ```
@@ -78,7 +78,7 @@ Not every point is required, but they decide close calls. Automated signals (a n
 
 ## Entry format
 
-The README list is **generated from `tools.json`**. Do not edit the entries in `README.md` by hand. Add or change a record, then run `npm ci && npm run readme`.
+The README list is **generated from `tools.json`**. Do not edit the entries in `README.md` by hand. Add or change a record, then run `pnpm install && pnpm run readme`.
 
 | Field | Meaning |
 |---|---|
@@ -93,7 +93,7 @@ The README list is **generated from `tools.json`**. Do not edit the entries in `
 
 Say in `rationale` or `limitations` what you ran and what you only read: a tool you tested is stronger evidence than one described by its README. Longer comparisons go in `research/<topic>.md`.
 
-`npm run check:registry` validates `tools.json` against `tools.schema.json` and fails if `README.md` is out of date. Scripts are TypeScript (`scripts/`), run directly by Node 24 and checked with `npm run typecheck`.
+`pnpm run check:registry` validates `tools.json` against `tools.schema.json` and fails if `README.md` is out of date. Scripts are TypeScript (`scripts/`), run directly by Node 24 and checked with `pnpm run typecheck`.
 
 ## Checks
 

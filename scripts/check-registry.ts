@@ -26,7 +26,7 @@ for (const tool of tools) {
 
 if (errors.length === 0) {
   const readme = readFileSync('README.md', 'utf8')
-  if (update(readme, tools) !== readme) errors.push('README.md is out of date: run `npm run readme` and commit the result.')
+  if (update(readme, tools) !== readme) errors.push('README.md is out of date: run `pnpm run readme` and commit the result.')
 }
 
 if (errors.length > 0) {

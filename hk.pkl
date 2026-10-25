@@ -8,11 +8,11 @@ local fast = new Mapping<String, Step> {
     ["jactionlint"] = Builtins.jactionlint
     ["registry"] {
         glob = List("tools.json", "tools.schema.json", "README.md", "scripts/*.ts", "package.json")
-        check = "npm run --silent check:registry && npm run --silent readme -- --check"
+        check = "pnpm run --silent check:registry && pnpm run --silent readme -- --check"
     }
     ["typecheck"] {
         glob = List("scripts/*.ts", "tsconfig.json")
-        check = "npm run --silent typecheck"
+        check = "pnpm run --silent typecheck"
     }
 }
 
