@@ -16,6 +16,18 @@ Dev Guardrails is not an Awesome List. It does not list every linter for every l
 
 This is **not a universal stack**. Do not install everything here. Pick the entries that match your project.
 
+## Use it in your project
+
+Ask your coding agent, from the root of your repository:
+
+```text
+Apply https://github.com/mokevnin/dev-guardrails to this repository.
+Read and follow https://raw.githubusercontent.com/mokevnin/dev-guardrails/main/docs/adopt.md.
+Show me the plan before you change anything.
+```
+
+The agent inspects the project, picks only the entries that fit, shows you the plan, wires the checks into hooks and CI, and proves that each one can fail. The instructions are in [docs/adopt.md](docs/adopt.md); to do it yourself, pick entries below by language and by cross-cutting category, then use the [setup patterns](docs/patterns.md).
+
 ## Recommendations
 
 The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run readme`), which records the review date, sources, rationale and limitations of each tool. Every entry was first checked on 2026-10-23: that is one sweep, not independent reviews. Where a claim was tested by running the tool, the entry says so; otherwise it rests on documentation and repository activity.
@@ -204,6 +216,7 @@ These categories matter but have **no recommendation yet**: the candidates were 
 - Replacements need a written comparison. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - [`research/`](research/) holds working notes per stack (JavaScript, Python/Ruby/PHP, Go/Rust/JVM/.NET, cross-cutting). They are research leads: several tools there were compared on documentation only and are **not** recommendations until they appear in the list above.
 - Tools we looked at and did not take are in [docs/not-adopted.md](docs/not-adopted.md).
+- Step-by-step instructions for an agent that applies the list to a project are in [docs/adopt.md](docs/adopt.md).
 - Reusable setup patterns (hooks, CI, generated-code gates) are in [docs/patterns.md](docs/patterns.md).
 
 ## License
