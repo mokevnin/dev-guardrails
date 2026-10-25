@@ -58,6 +58,11 @@ Reasons used below:
 | [i18next-cli](https://github.com/i18next/i18next-cli) | i18next only and young (244 stars). | Wider adoption. |
 | [cargo-nextest](https://github.com/nextest-rs/nextest) | A test runner (faster, retries flaky tests), not a guardrail. | Not applicable. |
 | [cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) | Rust coverage floor; diff-cover reads its report and checks changed lines for every language. | You want only a Rust total threshold. |
+| [ArchUnitTS](https://github.com/LukasNiessen/ArchUnitTS), [ts-arch](https://github.com/ts-arch/ts-arch) | Overlap with dependency-cruiser. ArchUnitTS is active (508 stars); ts-arch has had no release since 2024-12. [Details](../research/custom-rules.md). | You want rules as unit tests in the test runner rather than a separate command. |
+| [arch-go](https://github.com/arch-go/arch-go) | Overlap with go-arch-lint, which has twice the stars. arch-go also checks function content and naming. | You want naming and function-size rules in the same tool. |
+| [PyTestArch](https://github.com/zyskarch/pytestarch) | Overlap with import-linter; small (176 stars). | You want architecture rules as pytest tests. |
+| [PHPat](https://github.com/carlosas/phpat) | Overlap: Mago `guard` covers architecture rules in the same binary. | Your framework needs PHPStan and Mago is not used. |
+| [GritQL](https://github.com/biomejs/gritql), [Comby](https://github.com/comby-tools/comby) | Alternatives to ast-grep. GritQL is pre-1.0 (v0.0.3) with its own query language; Comby has had no release since 2022 and matches text patterns, not syntax trees. | GritQL reaches 1.0, or you need Comby's language-agnostic matching. |
 
 ## Held back (Unverified)
 

@@ -63,6 +63,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 - **[golangci-lint](https://github.com/golangci/golangci-lint)**: one runner for the Go linters and the formatter, with `golangci-lint custom` for your own analyzers. *Limits:* choose linters deliberately; GPL-3.0.
 - **[govulncheck](https://github.com/golang/vuln)**: reports known vulnerabilities in the Go modules and standard library you actually call, with call stacks, from the official Go vulnerability database. *Limits:* with `-json` and `-format sarif` it exits 0 whatever it finds, so gate on the text output; blind to calls through `reflect`; the GitHub repo is a mirror of `golang.org/x/vuln`. For repos in several languages see the open Vulnerabilities decision. [Details](research/stack-go-rust-jvm-dotnet.md).
+- **[go-arch-lint](https://github.com/fe3dback/go-arch-lint)**: architecture rules for Go in one `.go-arch-lint.yml`: components by path, and for each the components and vendor packages it may import. `go-arch-lint check` exits 1 on a violation (run) and has `--json`; an optional deep scan also checks method calls and injected dependencies. The Go counterpart of archspec and import-linter. Chosen over arch-go for 2x the stars and a steadier release pace. *Limits:* 616 stars, one main maintainer; no SARIF found. Import-level rules only, so a call-shape rule needs ast-grep. A component with no allowed imports still needs `mayDependOn` or a flag, so a leaf is declared with `anyVendorDeps` (run). [Details](research/ecosystem-gaps.md).
 
 ### Rust
 
@@ -80,6 +81,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 - **[Herb](https://github.com/marcoroth/herb)**: HTML-aware ERB parser with linter and formatter; replaces erb_lint, which has had no release since 2025-01. 600k npm downloads a month. *Limits:* pre-1.0; formatter is experimental; the linter runs through npm. [Details](research/ecosystem-gaps.md).
 - **[Sorbet](https://github.com/sorbet/sorbet)**: fast static type checker for Ruby (used by Stripe and Shopify); with tapioca it types gems and Rails. Chosen over Steep for adoption (158M vs 6.9M gem downloads). *Limits:* needs `sig` annotations and gradual strictness levels; Steep with RBS is the other direction. [Details](research/ecosystem-gaps.md).
 - **[Packwerk](https://github.com/Shopify/packwerk)**: enforces package dependency and privacy rules in a Rails monolith. *Limits:* needs modularisation work; [pks](https://github.com/rubyatscale/pks) is a Rust drop-in claiming 10-20x speed but is very small (10 stars, unverified). [Details](research/ecosystem-gaps.md).
+- **[ArchSpec](https://github.com/crmne/archspec)**: architecture rules in one `Archspec.rb`: components by glob, layers, `cannot_use`, `cannot_call`, naming, cycles and Rails presets (layered, hexagonal, modular monolith, CQRS). Needs no packages, unlike Packwerk. Run: `archspec check` exits 1 on a violation, `--format json` for agents; a todo file lets you adopt it in an existing app. *Limits:* created June 2026, one maintainer, 262 stars; no SARIF found. Static analysis only (Ruby 3.2+, Rubydex). Overlaps Packwerk for package boundaries: use one of them. [Details](research/custom-rules.md).
 
 ### PHP
 
@@ -138,7 +140,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 ### Custom rules
 
-- **[ast-grep](https://github.com/ast-grep/ast-grep)**: project-specific syntax rules as YAML, with tests for the rules themselves (`ast-grep test`). *Limits:* syntax only, no data-flow analysis.
+- **[ast-grep](https://github.com/ast-grep/ast-grep)**: project-specific syntax rules as YAML (`pattern`, `inside`/`has`/`not`, `files`, `fix`), with tests for the rules themselves (`ast-grep test`). Give a rule `severity: error` to fail the build (run: warnings exit 0, errors exit 1); SARIF output for code scanning. Good for import-boundary and banned-call rules agents repeat. *Limits:* one file at a time: no cross-file resolution, types or data flow. Use a dependency or architecture tool for import graphs. [Details](research/custom-rules.md).
 
 ### Secrets
 
@@ -176,7 +178,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 ### Git hooks
 
-- **[hk](https://github.com/jdx/hk)**: Runs Git hooks and project checks from one `hk.pkl` (Pkl) file, in parallel, with read/write file locks so fixers do not collide. The same steps run in the hook (`hk check`, `hk fix`) and in CI (`hk check --all`). Installed and version-pinned through mise (`mise use hk`), which we recommend; v2.8.1 on 2026-10-23, MIT. *Limits:* 1.3k stars, against 8.7k for prek and 8.9k for Lefthook. Does not install linters: they must be on `PATH`, so pin them in `mise.toml`. Config is Pkl, not `.pre-commit-config.yaml`, so the pre-commit hook catalogue is not reused. Hooks can be bypassed (`--no-verify`), so run `hk check --all` in CI. `hk fix` leaves fixes unstaged unless `--stage` is passed; installing hooks globally needs Git 2.54 or newer. The speed benchmark on hk's site is the author's own. [Details](research/rust-native.md).
+- **[hk](https://github.com/jdx/hk)**: Part of the mise ecosystem (same author): mise installs and pins the tools, hk runs them as Git hooks and CI checks from one `hk.pkl` file. About 170 ready-made steps ship in the box (`hk builtins`): Ruff, Biome, Oxlint, rustfmt, golangci-lint, RuboCop, shellcheck, hadolint, typos, zizmor, gitleaks and more, plus file hygiene checks (merge conflicts, large files, private keys). Steps run in parallel with file locks so fixers do not collide, and the same steps serve the hook (`hk check`, `hk fix`) and CI (`hk check --all`). *Limits:* Builtins only run a tool, they do not install it: pin the linters in `mise.toml`. Config is Pkl, so the pre-commit hook catalogue is not reused; prek and Lefthook are far more widely used. Hooks can be bypassed with `--no-verify`, so run `hk check --all` in CI. [Details](research/rust-native.md).
 
 ### Git conventions
 
@@ -205,7 +207,7 @@ These categories matter but have **no recommendation yet**: the candidates were 
 | Image layer efficiency | Dive | CI waste thresholds work, but `--json` bypasses them in v0.13.1. Last release March 2025; unresolved extraction-security and Docker compatibility reports. [Executed checks and alternatives](research/dive.md). |
 | IaC and Kubernetes security | Checkov, Trivy config, kube-linter | Overlapping rules, no clear winner. |
 | Custom rules with data-flow | Opengrep, Semgrep | Opengrep is a community fork; its cross-file limits and licence trade-offs need a closer look. |
-| Architecture, other ecosystems | go-arch-lint, arch-go, tach | No clear winner for Go (go-arch-lint has 616 stars); tach is a Rust option for Python. |
+| Architecture, other ecosystems | arch-go, tach | go-arch-lint is now listed; arch-go is the smaller Go alternative. tach is a Rust option for Python. |
 | YAML style | yamllint | Not yet compared with schema validation. |
 | Licences and supply chain | REUSE, Scorecard, Syft, ScanCode Toolkit | Mostly reporting tools; need an enforcement angle. |
 

@@ -1,0 +1,5 @@
+id: no-console-log
+valid:
+  - logger.info("x")
+invalid:
+  - console.log("x")
