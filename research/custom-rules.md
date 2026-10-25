@@ -90,6 +90,20 @@ Already listed, not repeated here: dependency-cruiser (JS/TS), import-linter (Py
 
 Stars, release dates and licences (all MIT or Apache-2.0) are from the GitHub API on 2026-10-25; the decisions are comparisons by feature set, not runs.
 
+## Polyglot architecture rules
+
+| Tool | Stars | Latest release | Languages |
+|---|---|---|---|
+| [easement](https://github.com/mokevnin/easement) | 0 | v0.1.0, 2026-10-25 | Go, TypeScript/JavaScript, Python, Java |
+
+**Conflict of interest:** easement is maintained by the owner of this repository.
+
+**ran** (v0.1.0, release archive checked against its `.sha256`, on a three-component Go module): `easement check` printed the violation with its `because` text and exited 1; `--format json` returned the violation; `easement baseline` made the next check exit 0; after the offending import was removed, the stale baseline entry made the check exit 1; `--format sarif` exits 2, so there is no SARIF. **read**: the TypeScript, Python and Java resolution, `--diff` and the suppression rules.
+
+It overlaps dependency-cruiser, import-linter, ArchUnit and go-arch-lint, each of which knows its language better (types, annotations, test-runner integration). The case for it is a repository with several of these languages that wants one config and one baseline. For a single-language project, use the tool for that language.
+
+Decision: **add**, with the conflict of interest and its age stated, as schemalens was.
+
 ## Structural search alternatives to ast-grep
 
 | Tool | Stars | Last release | Decision |
