@@ -1,8 +1,8 @@
-# Dev Guardrails
+# Dev Quality Gates
 
 An opinionated, continuously curated list of tools for **enforcing** software development standards.
 
-Dev Guardrails is not an Awesome List. It does not list every linter for every language. For each job it recommends one tool (rarely two), says why, and says where the tool stops working.
+Dev Quality Gates is not an Awesome List. It does not list every linter for every language. For each job it recommends one tool (rarely two), says why, and says where the tool stops working.
 
 ## Principles
 
@@ -21,8 +21,8 @@ This is **not a universal stack**. Do not install everything here. Pick the entr
 Ask your coding agent, from the root of your repository:
 
 ```text
-Apply https://github.com/mokevnin/dev-guardrails to this repository.
-Read and follow https://raw.githubusercontent.com/mokevnin/dev-guardrails/main/docs/adopt.md.
+Apply https://github.com/mokevnin/dev-quality-gates to this repository.
+Read and follow https://raw.githubusercontent.com/mokevnin/dev-quality-gates/main/docs/adopt.md.
 Show me the plan before you change anything.
 ```
 

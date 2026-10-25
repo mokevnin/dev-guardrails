@@ -1,5 +1,5 @@
 {
-  "name": "dev-guardrails",
+  "name": "dev-quality-gates",
   "private": true,
   "type": "module",
   "engines": {

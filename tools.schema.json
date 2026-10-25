@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Dev Guardrails tool registry",
+  "title": "Dev Quality Gates tool registry",
   "type": "object",
   "required": ["tools"],
   "properties": {

@@ -1,6 +1,6 @@
-# Adopt Dev Guardrails in your project
+# Adopt Dev Quality Gates in your project
 
-This page is written for a coding agent that was asked to apply Dev Guardrails to a repository. A person can follow it too.
+This page is written for a coding agent that was asked to apply Dev Quality Gates to a repository. A person can follow it too.
 
 The list is **not a stack to install**. The job is to pick the few entries that fit the project, wire them so that they fail the build, and leave a repository that checks itself.
 
@@ -9,8 +9,8 @@ The list is **not a stack to install**. The job is to pick the few entries that 
 Give your agent this, from the root of your project:
 
 ```text
-Apply https://github.com/mokevnin/dev-guardrails to this repository.
-Read and follow https://raw.githubusercontent.com/mokevnin/dev-guardrails/main/docs/adopt.md.
+Apply https://github.com/mokevnin/dev-quality-gates to this repository.
+Read and follow https://raw.githubusercontent.com/mokevnin/dev-quality-gates/main/docs/adopt.md.
 Show me the plan before you change anything.
 ```
 
@@ -19,7 +19,7 @@ Show me the plan before you change anything.
 Read these, in this order:
 
 1. [`README.md`](../README.md): principles and the recommendations by category. It lists what each tool does and where it stops working.
-2. [`tools.json`](https://raw.githubusercontent.com/mokevnin/dev-guardrails/main/tools.json): the same entries as data (`category`, `repo`, `rationale`, `limitations`, `last_reviewed`, `details`). Use it to filter by category instead of parsing the README.
+2. [`tools.json`](https://raw.githubusercontent.com/mokevnin/dev-quality-gates/main/tools.json): the same entries as data (`category`, `repo`, `rationale`, `limitations`, `last_reviewed`, `details`). Use it to filter by category instead of parsing the README.
 3. [`patterns.md`](patterns.md): when the tools run (hooks, CI), and how to handle exceptions and old code.
 4. Each chosen entry's `details` file in [`research/`](../research/), if it has one.
 

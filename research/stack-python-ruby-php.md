@@ -314,7 +314,7 @@ Place each under the ecosystem heading shown. For Python, Ruby and PHP the READM
 
 ### Python
 
-- **[Pyrefly](https://github.com/facebook/pyrefly)**: type checker with stable releases since 1.0.0 (May 2026), SARIF, JSON and JUnit output, and a baseline for gradual adoption. Chosen over mypy (slow, no SARIF), ty (beta) and zuban (AGPL). *Limits:* any release may add type errors, so pin the version; pyright is the more battle-tested alternative. [Details](https://github.com/mokevnin/dev-guardrails/blob/main/research/stack-python-ruby-php.md).
+- **[Pyrefly](https://github.com/facebook/pyrefly)**: type checker with stable releases since 1.0.0 (May 2026), SARIF, JSON and JUnit output, and a baseline for gradual adoption. Chosen over mypy (slow, no SARIF), ty (beta) and zuban (AGPL). *Limits:* any release may add type errors, so pin the version; pyright is the more battle-tested alternative. [Details](https://github.com/mokevnin/dev-quality-gates/blob/main/research/stack-python-ruby-php.md).
 - **[vulture](https://github.com/jendrikseipp/vulture)**: unused functions, classes and variables across modules, which Ruff cannot see. *Limits:* heuristic; needs a whitelist for framework entry points.
 - **[import-linter](https://github.com/seddonym/import-linter)**: import contracts (layers, forbidden, independence, protected) that fail CI. *Limits:* checks imports only; [tach](https://github.com/tach-org/tach) is the alternative for public-interface rules.
 
