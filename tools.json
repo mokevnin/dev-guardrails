@@ -143,12 +143,12 @@
       "name": "mise",
       "repo": "jdx/mise",
       "category": "Toolchain",
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "sources": [
         "https://github.com/jdx/mise",
         "https://mise.jdx.dev/"
       ],
-      "rationale": "Pins the versions of tools (and hk, and the linters hk runs) in one `mise.toml` and runs tasks, so developers, hooks and CI use identical versions; `mise run check` is the single entry point. By the author of hk and jactionlint; 35.3k stars, MIT.",
+      "rationale": "One tool for the project's whole toolchain, configured in `mise.toml`. It installs and pins tools (node, python, linters, hk; 1,000+ in the registry, from aqua, GitHub releases, npm, pypi, cargo and more) and switches versions per directory. It sets project environment variables and loads `.env` files and secrets. It runs tasks with dependencies and parallel runs under that same toolchain, and `mise lock` records versions, checksums and download URLs. `mise exec` and a GitHub Action give CI the same versions as developers; `mise bootstrap` can set up a whole machine. Same author as hk and jactionlint: `mise run check` is the single entry point here.",
       "limitations": "It is an installer and task runner, not a checker, so it enforces nothing by itself. Tools installed from GitHub releases or language registries still need version pinning and review like any dependency."
     },
     {
