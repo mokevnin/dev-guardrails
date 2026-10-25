@@ -37,7 +37,7 @@ The reason for a suppression is often an argument that can stop being true: "thi
 Give every suppression a review date and fail the build when it has passed. Some tools have this built in: OSV-Scanner's `ignoreUntil` stops ignoring a vulnerability after the date. Others do not: a Checkov inline skip (`checkov:skip=<id>:<comment>`) has no expiry, so a date written there is only a comment. For those, a short script in CI does the job:
 
 - every suppression has a date, in one fixed format (for example `(review YYYY-MM-DD)`);
-- the date is real (`2026-02-31` must fail; JavaScript's `Date` silently reads it as 2 March);
+- the date is real (`2026-02-31` must fail; V8's `Date` silently reads it as 2026-03-03, so check that the parsed date prints back as the same string);
 - the date has not passed;
 - the reason is more than a word, because most tools accept any text, even one character.
 
