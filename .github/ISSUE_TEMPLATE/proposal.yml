@@ -1,0 +1,32 @@
+name: Proposal
+description: Suggest a tool, a replacement, a removal or a correction before opening a pull request.
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Add a tool
+        - Replace a tool
+        - Remove a tool
+        - Outdated information
+        - Docs or research
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Tool and repository
+      description: Link to the official repository.
+  - type: textarea
+    id: why
+    attributes:
+      label: Gap or advantage
+      description: Which standard does it enforce and fail a build on? What does it do better than the current recommendation, or which category is missing?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Last release, recent commits, alternatives you compared. Say what you ran and what you only read.

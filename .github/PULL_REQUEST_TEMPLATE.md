@@ -1,8 +1,17 @@
 ## Change
 
-<!-- Add, replace, update or remove? Which tool and which category? -->
+<!-- One sentence: what changes and why. One tool or one topic per pull request. -->
 
-## Checklist
+## Type
+
+<!-- Keep the one that applies and delete the other sections below. -->
+
+- [ ] Tool: add, replace, update or remove an entry in `tools.json`
+- [ ] Research: a comparison or experiment in `research/`
+- [ ] Docs: `docs/`, `README.md`, `CONTRIBUTING.md`
+- [ ] Tooling: scripts, workflows or lint configuration
+
+## Tool checklist
 
 Details: [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-a-pull-request).
 
@@ -15,7 +24,7 @@ Details: [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-a-pull-request).
 - [ ] **Limits:** significant limitations stated.
 - [ ] **Style:** `tools.json` updated, `npm run readme` run, `npm run check:registry` passes.
 
-## Evidence
+### Evidence
 
 **Repository and docs:**
 
@@ -28,3 +37,12 @@ Details: [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-a-pull-request).
 **Why add or replace:**
 
 **Limitations:**
+
+## Research and docs checklist
+
+Details: [CONTRIBUTING.md](../CONTRIBUTING.md#research-and-docs-pull-requests).
+
+- [ ] **Run or read:** each claim says whether you ran it (with version and date) or only read it.
+- [ ] **Sources:** every version, date and number links to its source or comes from a run described in the text.
+- [ ] **Conclusion:** the change says what to do (add, reject, keep under review), not only what was found.
+- [ ] **Local checks:** `mise run check` passes.
