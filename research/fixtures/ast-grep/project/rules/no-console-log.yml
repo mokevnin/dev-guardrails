@@ -1,0 +1,11 @@
+id: no-console-log
+language: TypeScript
+severity: warning
+message: Use the logger instead of console.log.
+rule:
+  pattern: console.log($$$ARGS)
+  not:
+    inside:
+      kind: catch_clause
+      stopBy: end
+fix: logger.info($$$ARGS)

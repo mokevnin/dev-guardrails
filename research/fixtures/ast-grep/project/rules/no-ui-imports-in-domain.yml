@@ -1,0 +1,11 @@
+id: no-ui-imports-in-domain
+language: TypeScript
+severity: error
+message: Domain code must not import from the UI layer.
+files:
+  - src/domain/**
+rule:
+  kind: import_statement
+  has:
+    kind: string
+    regex: /ui/

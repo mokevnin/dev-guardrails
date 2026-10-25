@@ -1,0 +1,9 @@
+id: no-console-log
+snapshots:
+  console.log("x"):
+    fixed: logger.info("x")
+    labels:
+    - source: console.log("x")
+      style: primary
+      start: 0
+      end: 16
