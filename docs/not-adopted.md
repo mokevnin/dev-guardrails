@@ -63,6 +63,7 @@ Reasons used below:
 | [PyTestArch](https://github.com/zyskarch/pytestarch) | Overlap with import-linter; small (176 stars). | You want architecture rules as pytest tests. |
 | [PHPat](https://github.com/carlosas/phpat) | Overlap: Mago `guard` covers architecture rules in the same binary. | Your framework needs PHPStan and Mago is not used. |
 | [GritQL](https://github.com/biomejs/gritql), [Comby](https://github.com/comby-tools/comby) | Alternatives to ast-grep. GritQL is pre-1.0 (v0.0.3) with its own query language; Comby has had no release since 2022 and matches text patterns, not syntax trees. | GritQL reaches 1.0, or you need Comby's language-agnostic matching. |
+| [React Doctor](https://github.com/millionco/react-doctor) | Overlaps the ESLint/Oxlint React rules and Knip. Licence is a "Modified MIT" with use restrictions (npm: "SEE LICENSE IN LICENSE"). Its score needs a remote API. Findings and exit codes ran on 0.9.18 ([research](../research/stack-javascript.md#react-doctor-reviewed-2026-10-26)). | Its React-specific rules prove to catch what eslint-plugin-react misses, or run as the Oxlint plugin without the remote score. |
 
 ## Held back (Unverified)
 
