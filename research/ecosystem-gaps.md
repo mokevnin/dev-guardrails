@@ -233,7 +233,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
   - Read, not run: `--format ignore_file` writes entries for an ignore file that baselines old warnings; there is no JSON or SARIF format (`mix help dialyzer`).
   - Currency: 1.4.8 on 2026-09-05, commits on 2026-09-21, 74 open issues, Apache-2.0, 2.9M Hex downloads in 90 days.
   - Alternative: **Assay**, incremental Dialyzer with `github`, `sarif`, `ndjson` and `llm` output and a watch mode (README, not run). Better output for agents, but created 2025-12 with 13 stars and 8.6k downloads in 90 days; dialyze, the older wrapper, has had no release since 2019. Re-review Assay as it grows.
-  - Limits: worth it only where the project writes specs; cache the PLT in CI; what only Dialyzer catches shrinks as the compiler's type system grows. Confidence medium-high.
+  - Limits: most useful where the project writes specs (the run covered specs only; Dialyzer also works without them); cache the PLT in CI; what only Dialyzer catches shrinks as the compiler's type system grows. Confidence medium-high.
 - **Reject:** mix_audit (overlap: osv-scanner reads `mix.lock`; `mix hex.audit` covers retired packages, unverified by us).
 
 ## Not researched (flag)
