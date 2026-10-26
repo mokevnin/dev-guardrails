@@ -369,14 +369,15 @@
       "name": "Kubeconform",
       "repo": "yannh/kubeconform",
       "category": "Docker, Terraform and Kubernetes",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-26",
       "sources": [
         "https://github.com/yannh/kubeconform#readme",
         "research/cross-cutting.md"
       ],
       "rationale": "validates Kubernetes manifests against API and CRD schemas.",
-      "limitations": "validity only; last release June 2026.",
-      "details": "research/cross-cutting.md"
+      "limitations": "validity only. One maintainer and about one release a year (0.7.0 in 2025-05, 0.8.0 in 2026-06), with 30 pull requests open on 2026-10-26: quiet for months between bursts, so the push-age and release-age flags are muted; the review date still flags it every 180 days.",
+      "details": "research/cross-cutting.md",
+      "stable_exception": true
     },
     {
       "id": "check-jsonschema",
@@ -890,14 +891,14 @@
       "name": "detekt",
       "repo": "detekt/detekt",
       "category": "Kotlin",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-26",
       "sources": [
         "https://github.com/detekt/detekt",
         "https://github.com/pinterest/ktlint",
         "research/ecosystem-gaps.md"
       ],
       "rationale": "Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF. The de facto standard.",
-      "limitations": "stable release 1.23.8 is from 2025-02 and 2.0 is in alpha; ktlint formatting comes through spotless.",
+      "limitations": "stable release 1.23.8 is from 2025-02 (Gradle 6.8.3 or newer); 2.0 is alpha only (2.0.0-alpha.6, 2026-08-04, Gradle 8.14.3 or newer) and its README recommends it over 1.x, with daily commits. ktlint formatting comes through spotless.",
       "details": "research/ecosystem-gaps.md"
     },
     {

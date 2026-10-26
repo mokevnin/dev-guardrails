@@ -3,8 +3,9 @@
 import { appendFileSync } from 'node:fs'
 import { readTools } from './registry.ts'
 
-// Matches CONTRIBUTING.md: activity older than 30 days is a reason to look closer.
-const PUSH_DAYS = 30
+// CONTRIBUTING.md asks for a closer look at 30 days when a tool is admitted; listed tools are flagged at 90,
+// so a project that releases every few weeks or months does not turn the nightly run red.
+const PUSH_DAYS = 90
 const RELEASE_DAYS = 365
 const REVIEW_DAYS = 180
 
@@ -15,6 +16,7 @@ interface Repo {
 }
 interface Release {
   published_at: string
+  prerelease: boolean
 }
 interface Issue {
   number: number
@@ -46,9 +48,12 @@ for (const tool of readTools()) {
     if (repo.archived) flags.push('ARCHIVED')
     if (repo.full_name.toLowerCase() !== tool.repo.toLowerCase()) flags.push(`renamed to ${repo.full_name}`)
     if (!tool.stable_exception && days(repo.pushed_at) > PUSH_DAYS) flags.push(`no push for ${days(repo.pushed_at)} days`)
-    const release = await api<Release>(`repos/${tool.repo}/releases/latest`)
-    if (!failed(release) && !tool.stable_exception && days(release.published_at) > RELEASE_DAYS) {
-      flags.push(`last release ${days(release.published_at)} days ago`)
+    // The newest release, pre-releases included: `releases/latest` skips them, and a line that is only in pre-release
+    // (detekt 2.0) would look abandoned.
+    const releases = await api<Release[]>(`repos/${tool.repo}/releases?per_page=1`)
+    const release = failed(releases) ? undefined : releases[0]
+    if (release && !tool.stable_exception && days(release.published_at) > RELEASE_DAYS) {
+      flags.push(`last release ${days(release.published_at)} days ago${release.prerelease ? ' (pre-release)' : ''}`)
     }
   }
   if (days(tool.last_reviewed) > REVIEW_DAYS) flags.push(`last reviewed ${days(tool.last_reviewed)} days ago`)
