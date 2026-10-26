@@ -57,7 +57,7 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 | Job | Candidate | Repo | Stars | Downloads (30 d) | Release | Licence |
 |---|---|---|---|---|---|---|
 | Django upgrades | **django-upgrade** | adamchainz/django-upgrade | 1252 | 469k | 1.33.0 (tag), pushed 2026-10-15 | MIT |
-| Django migrations | **django-migration-linter** | 3YOURMIND/django-migration-linter | 623 | 3.4M | 6.0.0, 2026-01-04 | Apache-2.0 |
+| Django migrations | **django-migration-linter** | David-Wobrock/django-migration-linter | 623 | 3.4M | 6.0.0, 2026-01-04 | Apache-2.0 |
 | Django types | django-stubs | typeddjango/django-stubs | 1979 | 10.4M | 6.1.2, 2026-10-05 | MIT |
 | Template lint | djLint | djlint/djLint | 953 | 2.9M | 1.47.0, 2026-10-22 | GPL-3.0 |
 | N+1 | nplusone | jmcarp/nplusone | 1069 | 442k | 1.0.0 (tag), last push 2022-11 | MIT |
@@ -282,7 +282,7 @@ Mark: every entry below was checked by documentation, repository and registry da
 ### Python
 
 - **[django-upgrade](https://github.com/adamchainz/django-upgrade)**: rewrites code to the idioms of your target Django version, and fails CI when files would change. *Limits:* Django only; narrow by design.
-- **[django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)**: flags Django migrations that are not backward compatible with the running code (`lintmigrations`); 3.4M downloads a month. *Limits:* Django only; not verified by running; does not replace squawk for lock analysis on SQL.
+- **[django-migration-linter](https://github.com/David-Wobrock/django-migration-linter)**: flags Django migrations that are not backward compatible with the running code (`lintmigrations`); 3.4M downloads a month. *Limits:* Django only; not verified by running; does not replace squawk for lock analysis on SQL.
 
 ### JavaScript and TypeScript
 
@@ -420,10 +420,10 @@ Categories marked NEW need `CATEGORY_ORDER` changes. Not run by us unless stated
   {
     "id": "django-migration-linter",
     "name": "django-migration-linter",
-    "repo": "3YOURMIND/django-migration-linter",
+    "repo": "David-Wobrock/django-migration-linter",
     "category": "Python",
     "last_reviewed": "2026-10-23",
-    "sources": ["https://github.com/3YOURMIND/django-migration-linter", "https://pypistats.org/packages/django-migration-linter", "research/ecosystem-gaps.md"],
+    "sources": ["https://github.com/David-Wobrock/django-migration-linter", "https://pypistats.org/packages/django-migration-linter", "research/ecosystem-gaps.md"],
     "rationale": "flags Django migrations that are not backward compatible with the running code (`lintmigrations`); 3.4M downloads a month.",
     "limitations": "Django only; does not replace squawk for lock analysis of the generated SQL. Unverified: not run.",
     "details": "research/ecosystem-gaps.md"
