@@ -220,14 +220,20 @@ Confidence: strong_migrations, Bullet, i18n-tasks high; Packwerk medium; Herb an
 |---|---|---|---|---|---|---|
 | Lint, style, consistency | **Credo** | rrrene/credo | 5228 | 4.8M | 1.7.19, 2026-06-25 | MIT |
 | Phoenix security | **Sobelow** | **sobelow/sobelow** (old nccgroup repo stale since 2024) | 66 (new repo) | 1.7M | 0.16.0, 2026-09-30 | Apache-2.0 |
-| Dialyzer wrapper | Dialyxir | jeremyjh/dialyxir | 1796 | 2.9M | 1.4.8, 2026-09-05 | Apache-2.0 |
+| Dialyzer wrapper | **Dialyxir** | jeremyjh/dialyxir | 1796 | 2.9M | 1.4.8, 2026-09-05 | Apache-2.0 |
+| Dialyzer wrapper (incremental) | Assay | Ch4s3/assay | 13 | 8.6k | 0.7.0, 2026-08-13 | MIT |
 | Advisories | mix_audit | mirego/mix_audit | 383 | 1.5M | 2.1.5, 2025-06-09 | BSD-3-Clause |
 
 **Recommendations:**
 
 - **Credo**: the standard linter (`mix credo --strict`, JSON output, custom checks). Formatting is built in (`mix format --check-formatted`), as is `mix compile --warnings-as-errors` (and Elixir 1.20 adds more type-system warnings to the compiler). Confidence high.
 - **Sobelow**: the Phoenix security scanner. It is alive (v0.16.0 on 2026-09-30 from the new `sobelow/sobelow` repo), so the earlier "old releases" worry is resolved. `--exit low|medium|high` makes it fail the build, `--format sarif|json` for tooling (README). Limits: Phoenix and Plug only; the new repo has few stars because it was moved. Confidence medium-high.
-- **Dialyxir: no clear winner.** Dialyzer is slow (PLT builds) and gradual typing in the compiler is evolving; use it if you already do.
+- **Dialyxir: add, for projects that write `@spec`.** It was held back because Dialyzer is slow and the compiler's gradual typing is growing; a run shows where each stands.
+  - Run on 2026-10-24 (Elixir 1.20.1 on OTP 28.5, dialyxir 1.4.8, [fixture](fixtures/dialyxir/run.py)): `mix compile --warnings-as-errors` already fails on `:atom + 1` and on passing an atom to a function inferred to take a number, so Dialyzer is not needed for those. The compiler does not read `@spec`: a function returning a string under `@spec name() :: integer()`, and one that always raises under a spec promising `:ok`, compile cleanly. `mix dialyzer` reports both (`invalid_contract`, `no_return`) and exits 2. The first run took 155 s, almost all of it building the PLT; the second took 3 s. On the same code outside the fixture, `--format github` printed `::warning file=...` workflow annotations.
+  - Read, not run: `--format ignore_file` writes entries for an ignore file that baselines old warnings; there is no JSON or SARIF format (`mix help dialyzer`).
+  - Currency: 1.4.8 on 2026-09-05, commits on 2026-09-21, 74 open issues, Apache-2.0, 2.9M Hex downloads in 90 days.
+  - Alternative: **Assay**, incremental Dialyzer with `github`, `sarif`, `ndjson` and `llm` output and a watch mode (README, not run). Better output for agents, but created 2025-12 with 13 stars and 8.6k downloads in 90 days; dialyze, the older wrapper, has had no release since 2019. Re-review Assay as it grows.
+  - Limits: most useful where the project writes specs (the run covered specs only; Dialyzer also works without them); cache the PLT in CI; what only Dialyzer catches shrinks as the compiler's type system grows. Confidence medium-high.
 - **Reject:** mix_audit (overlap: osv-scanner reads `mix.lock`; `mix hex.audit` covers retired packages, unverified by us).
 
 ## Not researched (flag)
