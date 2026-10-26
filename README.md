@@ -96,7 +96,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 ### Kotlin
 
-- **[detekt](https://github.com/detekt/detekt)**: Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF. The de facto standard. *Limits:* stable release 1.23.8 is from 2025-02 (Gradle 6.8.3 or newer); 2.0 is alpha only (2.0.0-alpha.6, 2026-08-04, Gradle 8.14.3 or newer) and its README recommends it over 1.x, with daily commits. ktlint formatting comes through spotless. [Details](research/ecosystem-gaps.md).
+- **[detekt](https://github.com/detekt/detekt)**: Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF. The de facto standard. *Limits:* stable release 1.23.8 is from 2025-02 (Gradle 6.8.3 or newer); 2.0 is alpha only (2.0.0-alpha.6, 2026-08-04, Gradle 8.14.3 or newer) and its README recommends it over 1.x, with daily commits. 1.23.8 was built against Kotlin 2.0.21 (support for newer Kotlin not checked) and crashed on JDK 25 (issues #9771 and #9772, closed; no 1.x release since), so on a recent JDK plan for 2.0. ktlint formatting comes through spotless. [Details](research/ecosystem-gaps.md).
 
 ### .NET
 
@@ -160,7 +160,7 @@ The entries below are **generated from [`tools.json`](tools.json)** (`pnpm run r
 
 - **[Hadolint](https://github.com/hadolint/hadolint)**: Dockerfile best practices. *Limits:* GPL-3.0; security-focused IaC checks belong to Trivy or Checkov. [Details](research/cross-cutting.md).
 - **[TFLint](https://github.com/terraform-linters/tflint)**: Terraform correctness and provider-specific rules through plugins. *Limits:* `tflint --init` downloads plugins, so pin them; for IaC security add Trivy `config` (if you already run Trivy) or Checkov (no clear winner). [Details](research/cross-cutting.md).
-- **[Kubeconform](https://github.com/yannh/kubeconform)**: validates Kubernetes manifests against API and CRD schemas. *Limits:* validity only. One maintainer and about one release a year (0.7.0 in 2025-05, 0.8.0 in 2026-06), with 30 pull requests open on 2026-10-26: quiet for months between bursts, so the push-age and release-age flags are muted; the review date still flags it every 180 days. [Details](research/cross-cutting.md).
+- **[Kubeconform](https://github.com/yannh/kubeconform)**: validates Kubernetes manifests against API and CRD schemas. *Limits:* validity only. One maintainer and about one release a year (0.7.0 in 2025-05, 0.8.0 in 2026-06), with 30 pull requests open on 2026-10-26: quiet for months between bursts, so the push-age and release-age flags are muted; the review date still flags it every 180 days. No live replacement: kubectl-validate (SIG-CLI, uses the apiserver's validation code) is pre-1.0 with its last release in 2024-05, kubeval's last release is from 2021, datree is archived, and kube-linter and kube-score check policy, not schemas. [Details](research/cross-cutting.md).
 
 ### Config files
 
