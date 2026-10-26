@@ -78,6 +78,18 @@ Recommendation: **`tsc --noEmit` from `typescript@7`** with `strict` on. Skip `@
 
 [Knip](https://github.com/webpro-nl/knip) is already recommended: knip@6.42.1 (2026-10-19), push 2026-10-23, ISC, 12.5k stars. Nothing newer found. Not re-compared. Confidence: high.
 
+### React Doctor (reviewed 2026-10-26)
+
+[millionco/react-doctor](https://github.com/millionco/react-doctor): react-doctor 0.9.18 (2026-10-12), push 2026-10-26, 15.0k stars, 406 open issues, not archived (`gh api`, `npm view`). **Licence is not plain MIT:** GitHub reports `NOASSERTION`, npm says "SEE LICENSE IN LICENSE", and the file is a "Modified MIT" that needs written permission to use the software as AI training or evaluation data or to offer it as a paid hosted product. The README says "MIT-licensed". Ordinary CI use is allowed; the clause matters if you build tooling on it.
+
+What I **ran** (0.9.18, `research/fixtures/react-doctor/run.py`): a two-file app flagged 7 findings (derived state, `dangerouslySetInnerHTML` with children, index keys, click handler without keyboard handler, and others). With an error present it exits 1. With warnings only: exit 0 by default, 1 with `--blocking warning`, 0 with `--blocking none`, 3 with `--warning-exit-code 3`. `--json` gives a structured report (schema version 3), `--scope changed` and `--baseline` report only new issues, `--staged` fits a pre-commit hook. So it can fail a build.
+
+Read, not run: the 0-100 score comes from a remote score API and the supply-chain scan uses Socket.dev; `--no-telemetry` (alias of `--no-score`) turns the score off. Dead-code detection claimed by third-party listings: **not verified** (an unused file in the fixture was not reported in the text output).
+
+Overlap: its lint rules sit on Oxlint, and the hooks, a11y and key rules duplicate eslint-plugin-react-hooks, jsx-a11y and eslint-plugin-react. Dead code overlaps Knip. It also ships `eslint-plugin-react-doctor` and `oxlint-plugin-react-doctor` 0.9.18, so the rules can run inside the recommended linter instead of a second CLI.
+
+Verdict: **not added as a README entry.** Reason: overlap with the lint entry and Knip, a non-standard licence, and a score that depends on a remote service. Worth a second look: the React-specific rules (derived state, effects, rerender) that eslint-plugin-react lacks, via its ESLint or Oxlint plugin. Confidence: medium; I did not compare rule coverage against `@eslint-react/eslint-plugin` or measure speed.
+
 ## 5. Architecture and import boundaries
 
 | Candidate | Last release | Last push | License | Stars |
