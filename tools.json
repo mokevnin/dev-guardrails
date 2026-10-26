@@ -440,15 +440,16 @@
       "name": "govulncheck",
       "repo": "golang/vuln",
       "category": "Go",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-26",
       "sources": [
         "https://go.googlesource.com/vuln/+/v1.7.0/cmd/govulncheck/doc.go",
         "https://proxy.golang.org/golang.org/x/vuln/@latest",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
       "rationale": "reports known vulnerabilities in the Go modules and standard library you actually call, with call stacks, from the official Go vulnerability database.",
-      "limitations": "with `-json` and `-format sarif` it exits 0 whatever it finds, so gate on the text output; blind to calls through `reflect`; the GitHub repo is a mirror of `golang.org/x/vuln`. For repos in several languages see the open Vulnerabilities decision.",
-      "details": "research/stack-go-rust-jvm-dotnet.md"
+      "limitations": "with `-json` and `-format sarif` it exits 0 whatever it finds, so gate on the text output; blind to calls through `reflect`; the GitHub repo is a mirror of `golang.org/x/vuln` whose releases are Go module tags (v1.9.0), not GitHub releases (the latest one there is from 2025-01), so the release-age and push-age flags are muted; commits continued on 2026-10-11. For repos in several languages see the open Vulnerabilities decision.",
+      "details": "research/stack-go-rust-jvm-dotnet.md",
+      "stable_exception": true
     },
     {
       "id": "go-arch-lint",
@@ -469,14 +470,15 @@
       "name": "rustfmt",
       "repo": "rust-lang/rustfmt",
       "category": "Rust",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-26",
       "sources": [
         "https://github.com/rust-lang/rustfmt",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
       "rationale": "the official formatter; run `cargo fmt --check` in CI.",
-      "limitations": "versioned with the Rust toolchain, not through GitHub releases; style options are few by design.",
-      "details": "research/stack-go-rust-jvm-dotnet.md"
+      "limitations": "versioned with the Rust toolchain, not through GitHub releases (the latest one there is from 2023), so the release-age and push-age flags are muted; style options are few by design.",
+      "details": "research/stack-go-rust-jvm-dotnet.md",
+      "stable_exception": true
     },
     {
       "id": "cargo-machete",
@@ -794,11 +796,11 @@
     {
       "id": "django-migration-linter",
       "name": "django-migration-linter",
-      "repo": "3YOURMIND/django-migration-linter",
+      "repo": "David-Wobrock/django-migration-linter",
       "category": "Python",
-      "last_reviewed": "2026-10-23",
+      "last_reviewed": "2026-10-26",
       "sources": [
-        "https://github.com/3YOURMIND/django-migration-linter",
+        "https://github.com/David-Wobrock/django-migration-linter",
         "https://pypistats.org/packages/django-migration-linter",
         "research/ecosystem-gaps.md"
       ],
