@@ -27,7 +27,7 @@ The [pull request template](.github/PULL_REQUEST_TEMPLATE.md) mirrors this list.
 
 1. **Enforcement.** The tool automatically checks a development standard. Say which one.
 2. **Public source.** There is an official public repository and documentation.
-3. **Currency check.** Record the last release, recent meaningful commits, maintainer activity, archived or deprecated status, known successors or forks, and open critical issues. Activity older than 30 days is a reason to look closer, not an automatic rejection; stable tools can be exceptions if you say why. There is no minimum project age: a new tool or fork can beat an old one.
+3. **Currency check.** Record the last release, recent meaningful commits, maintainer activity, archived or deprecated status, known successors or forks, and open critical issues. Activity older than 30 days is a reason to look closer, not an automatic rejection; stable tools can be exceptions if you say why. Once a tool is listed, the scheduled freshness check flags it after 90 days without a push. There is no minimum project age: a new tool or fork can beat an old one.
 4. **Alternatives.** Name the main current alternatives and compare features, rule coverage, speed, integration and configuration.
 5. **Overlap.** Say what it overlaps with among already recommended tools. If it replaces several checks, say which ones. Do not recommend two tools that mostly do the same thing.
 6. **Why this one.** Explain why it should be added or should replace the current recommendation.
@@ -89,7 +89,7 @@ The README list is **generated from `tools.json`**. Do not edit the entries in `
 | `rationale` | One or two sentences: what it enforces and why it was chosen over the alternatives. |
 | `limitations` | What it does not do, in a sentence or two; shown after "Limits:". |
 | `details` | Optional path of a longer comparison in `research/`. |
-| `stable_exception` | Optional `true` for a finished tool with old releases; mutes the push-age and release-age flags. Explain it in `limitations`. |
+| `stable_exception` | Optional `true` for a finished or slow-moving tool with old releases; mutes the push-age and release-age flags, not the review-date flag. Explain it in `limitations`. |
 
 Say in `rationale` or `limitations` what you ran and what you only read: a tool you tested is stronger evidence than one described by its README. Longer comparisons go in `research/<topic>.md`.
 
