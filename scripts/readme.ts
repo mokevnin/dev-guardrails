@@ -43,7 +43,7 @@ export const CATEGORY_ORDER = [
 
 const entry = (tool: Tool): string => {
   const details = tool.details ? ` [Details](${tool.details}).` : ''
-  return `- **[${tool.name}](https://github.com/${tool.repo})**: ${tool.rationale} *Limits:* ${tool.limitations}${details}`
+  return `- **[${tool.name}](https://github.com/${tool.repo})**: ${tool.rationale}${details}`
 }
 
 export function render(tools: Tool[]): string {

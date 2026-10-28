@@ -12,7 +12,7 @@
         "https://github.com/jdx/jactionlint/blob/main/docs/actionlint.md",
         "research/github-actions.md"
       ],
-      "rationale": "lints workflows, composite actions and `dependabot.yml` for correctness, security and policy in one binary. It is a fork of actionlint whose security rules follow the audits of zizmor, so you do not need `actionlint` or `zizmor` next to it by default. `--fix` repairs what has a mechanical fix; with `--online` it also pins tags to commit SHAs.",
+      "rationale": "lints GitHub Actions workflows, composite actions and `dependabot.yml` for correctness, security and policy in one binary. `--fix` repairs what has a mechanical fix; with `--online` it also pins tags to commit SHAs.",
       "limitations": "created in October 2026 and run by one maintainer; parity with zizmor is self-reported. If you need an established second implementation, offline archived-action detection, pre-commit config audits or an LSP, add [zizmor](https://github.com/zizmorcore/zizmor).",
       "details": "research/github-actions.md"
     },
@@ -25,7 +25,7 @@
       "sources": [
         "https://github.com/getplumber/plumber#readme"
       ],
-      "rationale": "CI/CD security scanner for GitLab CI (and GitHub Actions): checks `.gitlab-ci.yml`, resolved includes and project settings such as branch protection, and reports to the terminal, JSON, SARIF and GitLab SAST. Runs locally, in Docker or as a GitLab CI component. The only widely adopted GitLab pipeline scanner found: 829 stars, 30 releases, v0.7.11 on 2026-10-21, MPL-2.0, used by projects such as Delve and Resty.",
+      "rationale": "security scanner for GitLab CI pipelines: checks `.gitlab-ci.yml`, resolved includes and project settings such as branch protection, and reports to the terminal, JSON, SARIF and GitLab SAST.",
       "limitations": "Created 2026-01-19 and pre-1.0. A security and compliance scanner, not a syntax checker: use GitLab's own CI Lint (also `glab ci lint`) for syntax. Its exit codes were not checked here. For GitHub Actions we recommend jactionlint instead."
     },
     {
@@ -50,7 +50,7 @@
         "https://github.com/astral-sh/ty#readme",
         "research/rust-native.md"
       ],
-      "rationale": "Rust-native Python type checker and language server from the authors of Ruff and uv. The most starred of the new checkers (19.9k stars) and downloaded as much as pyright (about 41 million PyPI downloads a month); v0.0.91 on 2026-10-22.",
+      "rationale": "fast Python type checker and language server from the authors of Ruff and uv.",
       "limitations": "Beta: 0.0.x, so new releases can add type errors; pin the version. mypy (160 million downloads) and pyright are the stable, battle-tested choices, and Pyrefly (Meta, stable 1.4, 7.1k stars) is the other Rust option."
     },
     {
@@ -111,7 +111,7 @@
       "sources": [
         "https://commitlint.js.org/"
       ],
-      "rationale": "Enforces Conventional Commits on a message, a hook or a CI range (`--from/--to`), with shareable configs. The standard by a wide margin: 18.8k stars, about 44 million npm downloads a month, v21.2.4 on 2026-10-18. Needed if releases or changelogs are generated from commits.",
+      "rationale": "checks that commit messages follow Conventional Commits, in a hook or over a CI range, with shareable configs.",
       "limitations": "Requires Node. Checks format only, not whether the message is accurate. Compared on 2026-10-23 with the Rust options cocogitto (1.2k stars, last push 2026-04), convco (329 stars) and committed (185 stars, last release 2026-02): none has the adoption or the release pace, so Node remains the main cost. Python projects without Node can use commitizen."
     },
     {
@@ -148,7 +148,7 @@
         "https://github.com/jdx/mise",
         "https://mise.jdx.dev/"
       ],
-      "rationale": "One tool for the project's whole toolchain, configured in `mise.toml`. It installs and pins tools (node, python, linters, hk; 1,000+ in the registry, from aqua, GitHub releases, npm, pypi, cargo and more) and switches versions per directory. It sets project environment variables and loads `.env` files and secrets. It runs tasks with dependencies and parallel runs under that same toolchain, and `mise lock` records versions, checksums and download URLs. `mise exec` and a GitHub Action give CI the same versions as developers; `mise bootstrap` can set up a whole machine. Same author as hk and jactionlint: `mise run check` is the single entry point here.",
+      "rationale": "one tool for the whole project toolchain, configured in `mise.toml`: installs and pins tool versions, switches them per directory, sets environment variables and runs tasks. CI uses the same versions as developers.",
       "limitations": "It is an installer and task runner, not a checker, so it enforces nothing by itself. Tools installed from GitHub releases or language registries still need version pinning and review like any dependency."
     },
     {
@@ -162,7 +162,7 @@
         "https://hk.jdx.dev/",
         "research/rust-native.md"
       ],
-      "rationale": "Part of the mise ecosystem (same author): mise installs and pins the tools, hk runs them as Git hooks and CI checks from one `hk.pkl` file. About 170 ready-made steps ship in the box (`hk builtins`): Ruff, Biome, Oxlint, rustfmt, golangci-lint, RuboCop, shellcheck, hadolint, typos, zizmor, gitleaks and more, plus file hygiene checks (merge conflicts, large files, private keys). Steps run in parallel with file locks so fixers do not collide, and the same steps serve the hook (`hk check`, `hk fix`) and CI (`hk check --all`).",
+      "rationale": "runs linters and formatters as Git hooks and CI checks from one `hk.pkl` file, in parallel. Ships about 170 ready-made steps (Ruff, Oxlint, rustfmt, golangci-lint, RuboCop, shellcheck, hadolint and more) plus file hygiene checks.",
       "limitations": "Builtins only run a tool, they do not install it: pin the linters in `mise.toml`. Config is Pkl, so the pre-commit hook catalogue is not reused; prek and Lefthook are far more widely used. Hooks can be bypassed with `--no-verify`, so run `hk check --all` in CI.",
       "details": "research/rust-native.md"
     },
@@ -200,7 +200,7 @@
         "https://ast-grep.github.io/",
         "research/custom-rules.md"
       ],
-      "rationale": "project-specific syntax rules as YAML (`pattern`, `inside`/`has`/`not`, `files`, `fix`), with tests for the rules themselves (`ast-grep test`). Give a rule `severity: error` to fail the build (run: warnings exit 0, errors exit 1); SARIF output for code scanning. Good for import-boundary and banned-call rules agents repeat.",
+      "rationale": "project-specific syntax rules written as YAML patterns, with tests for the rules themselves and SARIF output. Good for import-boundary and banned-call rules.",
       "limitations": "one file at a time: no cross-file resolution, types or data flow. Use a dependency or architecture tool for import graphs.",
       "details": "research/custom-rules.md"
     },
@@ -215,7 +215,7 @@
         "https://github.com/mokevnin/easement/releases/tag/v0.1.0",
         "research/custom-rules.md"
       ],
-      "rationale": "one architecture config (`easement.yml`) for Go, TypeScript/JavaScript, Python and Java: components by path, an allow-list of dependencies, `public` APIs, cycles, and a `because` message shown with each violation. Reads real imports with tree-sitter and resolves them per language. `easement check` exits 1 on drift (run) and has `--format json`; a baseline fails on new violations and on fixed ones left in the file; `--diff origin/main` judges only what a pull request adds.",
+      "rationale": "one architecture config (`easement.yml`) for Go, TypeScript/JavaScript, Python and Java: components by path, allowed dependencies, public APIs and cycles, with a message shown for each violation. Supports a baseline and checking only what a pull request adds.",
       "limitations": "**maintained by the owner of this repository**; v0.1.0 released 2026-10-25, one maintainer, no outside users yet. No SARIF (run: `--format sarif` exits 2). Imports only, so a call-shape rule needs ast-grep; external packages are not checked. Compared with dependency-cruiser, import-linter, ArchUnit and go-arch-lint, each of which is deeper in its own language; its advantage is one model and one baseline across several. Use those instead if the project is one language.",
       "details": "research/custom-rules.md"
     },
@@ -229,7 +229,7 @@
         "https://github.com/djezzzl/database_consistency#readme",
         "https://rubygems.org/gems/database_consistency"
       ],
-      "rationale": "Ruby and Rails: compares ActiveRecord models with the database schema and reports missing null constraints, foreign keys and unique indexes, redundant indexes, mismatched enums and key types, and broken associations (20+ checkers). The established tool of its kind: v3.1.1 on 2026-10-22, 4.3 million gem downloads, MIT, supported by Pennylane.",
+      "rationale": "compares ActiveRecord models with the database schema and reports missing null constraints, foreign keys and unique indexes, redundant indexes, mismatched enums and key types, and broken associations.",
       "limitations": "ActiveRecord only. Its exit code and machine-readable output were not checked. Go projects can use schemalens, which is modelled on it."
     },
     {
@@ -244,7 +244,7 @@
         "https://github.com/djezzzl/database_consistency",
         "https://atlasgo.io/declarative/diff"
       ],
-      "rationale": "compares a Go model (ent, gorm, bun) with the live PostgreSQL, MySQL or SQLite schema and reports every disagreement as a structured finding, with JSON and SARIF output, a baseline and an agent skill. Checks things a structural diff does not: missing foreign-key indexes, constraints the model assumes but the database does not enforce, nullable columns for required fields.",
+      "rationale": "compares a Go model (ent, gorm, bun) with the live PostgreSQL, MySQL or SQLite schema and reports every disagreement, such as missing foreign-key indexes, unenforced constraints and nullable columns for required fields. JSON and SARIF output, baseline.",
       "limitations": "**maintained by the owner of this repository**; created 2026-10-20, v0.1.x, one maintainer, no outside users yet. Go models only. Compared with database_consistency (the Ruby original, listed above) and Atlas (structural diff and drift, a different job); no Go equivalent was found."
     },
     {
@@ -258,7 +258,7 @@
         "https://oxc.rs/docs/guide/usage/formatter.html",
         "research/stack-javascript.md"
       ],
-      "rationale": "Rust-native linter and formatter from the Oxc toolchain: Oxlint runs ESLint-compatible rules (type-aware ones need TypeScript 7), oxfmt is the Prettier-compatible formatter. One fast toolchain instead of ESLint plus Prettier; releases weekly (oxlint 1.89, oxfmt 0.74 on 2026-10-19).",
+      "rationale": "Rust-native linter (ESLint-compatible rules) and formatter (Prettier-compatible) from the Oxc toolchain. One fast toolchain instead of ESLint plus Prettier.",
       "limitations": "oxfmt is pre-1.0. Oxlint exits 0 on warnings, so pass `--deny-warnings` in CI (tested). Per its docs, Vue, Svelte and Angular template files are not linted and the plugin ecosystem is smaller than ESLint's: keep ESLint only where you depend on those.",
       "details": "research/stack-javascript.md"
     },
@@ -273,7 +273,7 @@
         "https://www.npmjs.com/package/typescript",
         "research/stack-javascript.md"
       ],
-      "rationale": "`tsc --noEmit` with `strict`; version 7 is the native, much faster compiler.",
+      "rationale": "type checking with `tsc --noEmit` and `strict`.",
       "limitations": "the TypeScript 7 compiler API is not ready, so tools that import `typescript` may need TypeScript 6 beside it. `microsoft/typescript-go` is archived because it was merged, not abandoned.",
       "details": "research/stack-javascript.md"
     },
@@ -287,7 +287,7 @@
         "https://github.com/sverweij/dependency-cruiser/blob/main/doc/rules-reference.md",
         "research/stack-javascript.md"
       ],
-      "rationale": "import-graph rules (forbidden paths, cycles, orphans, dev-deps in production code) with non-zero exit and JSON output; `--ignore-known` baselines legacy violations. Chosen over eslint-plugin-boundaries because it does not depend on the lint stack.",
+      "rationale": "import-graph rules (forbidden paths, cycles, orphans, dev dependencies in production code) with non-zero exit and JSON output; `--ignore-known` baselines legacy violations.",
       "limitations": "static analysis misses dynamic imports; no autofix.",
       "details": "research/stack-javascript.md"
     },
@@ -303,7 +303,7 @@
         "https://github.com/mongodb/kingfisher#readme",
         "research/cross-cutting.md"
       ],
-      "rationale": "finds committed secrets in files, git history and pull requests, with optional live validation of credentials. Chosen over Gitleaks because it reads the same kind of TOML rules and `gitleaks:allow` comments and is still released, while Gitleaks has had no release since March 2026 (v8.30.1). Its README says it is maintained by the people behind Gitleaks.",
+      "rationale": "finds committed secrets in files, git history and pull requests, with optional live validation of credentials. Reads Gitleaks-style TOML rules.",
       "limitations": "created February 2026; the stable line is v1.9.0 while v2 is in release-candidate, so pin the version; recall claims are the project's own; TruffleHog (AGPL-3.0) and Kingfisher (Apache-2.0) are the alternatives.",
       "details": "research/cross-cutting.md#1-secrets-scanning"
     },
@@ -333,7 +333,7 @@
         "https://docs.renovatebot.com/config-validation/",
         "https://docs.renovatebot.com/configuration-options/"
       ],
-      "rationale": "Dependency update bot that works on GitHub, GitLab, Bitbucket, Azure DevOps, Gitea and Forgejo, where Dependabot is GitHub-only. Policy lives in one config: pinning, grouping, and `minimumReleaseAge` to hold back freshly published versions. `renovate-config-validator` checks the config in CI. The most used of its kind: 22.8k stars, v44.181.0 on 2026-10-23, 1.7 million npm downloads a month.",
+      "rationale": "dependency update bot for GitHub, GitLab, Bitbucket, Azure DevOps, Gitea and Forgejo. Pinning, grouping and a minimum release age live in one config, which `renovate-config-validator` checks in CI.",
       "limitations": "An update bot, not a gate: it opens pull requests and fails nothing by itself, so pair it with CI checks. AGPL-3.0 (using it, hosted or self-hosted, is fine; modifying and offering it as a service is not). Configuration is large; start from a shared preset. Dependabot is enough for a GitHub-only repository."
     },
     {
@@ -462,7 +462,7 @@
         "https://github.com/fe3dback/go-arch-lint#readme",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "architecture rules for Go in one `.go-arch-lint.yml`: components by path, and for each the components and vendor packages it may import. `go-arch-lint check` exits 1 on a violation (run) and has `--json`; an optional deep scan also checks method calls and injected dependencies. The Go counterpart of archspec and import-linter. Chosen over arch-go for 2x the stars and a steadier release pace.",
+      "rationale": "architecture rules for Go in one `.go-arch-lint.yml`: components by path and the components and vendor packages each may import. Exits 1 on a violation, JSON output.",
       "limitations": "616 stars, one main maintainer; no SARIF found. Import-level rules only, so a call-shape rule needs ast-grep. A component with no allowed imports still needs `mayDependOn` or a flag, so a leaf is declared with `anyVendorDeps` (run).",
       "details": "research/ecosystem-gaps.md"
     },
@@ -491,7 +491,7 @@
         "https://github.com/bnjbvr/cargo-machete#readme",
         "research/rust-native.md"
       ],
-      "rationale": "Finds unused dependencies in Cargo.toml quickly and without compiling, so it runs on stable Rust in CI. The most used of the three tools compared (1.4k stars; cargo-udeps 2.1k stars needs nightly, cargo-shear 577).",
+      "rationale": "finds unused dependencies in Cargo.toml quickly and without compiling, so it runs on stable Rust in CI.",
       "limitations": "Text-based search, so it can report false positives and misses macro-generated uses; ignore them in Cargo.toml metadata. Not a replacement for cargo-deny, which covers advisories and licences."
     },
     {
@@ -505,7 +505,7 @@
         "https://crates.io/crates/cargo-deny",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
-      "rationale": "one policy file for RustSec advisories, licences, banned or duplicate crates and allowed registries; non-zero exit on violation. It replaces `cargo-audit` for the advisory check.",
+      "rationale": "one policy file for RustSec advisories, licences, banned or duplicate crates and allowed registries; non-zero exit on violation.",
       "limitations": "checks metadata only, not dependency source; needs a maintained `deny.toml`.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
@@ -521,7 +521,7 @@
         "https://github.com/uber/NullAway",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
-      "rationale": "bug patterns checked by the Java compiler on every build; raise a check to `ERROR` to fail the build. With [NullAway](https://github.com/uber/NullAway) as a plugin it also enforces null safety from `@Nullable` annotations.",
+      "rationale": "bug patterns checked by the Java compiler on every build; raise a check to `ERROR` to fail the build. With NullAway as a plugin it also enforces null safety from `@Nullable` annotations.",
       "limitations": "Java only; must run on JDK 21 or newer (it can still target older releases); NullAway needs annotations.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
@@ -565,7 +565,7 @@
         "https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
-      "rationale": "built in, no extra package. Set `EnforceCodeStyleInBuild`, `AnalysisMode`, `TreatWarningsAsErrors`, run `dotnet format --verify-no-changes`, and make NuGet Audit warnings NU1903 and NU1904 errors for vulnerable packages.",
+      "rationale": "the analyzers built into the .NET SDK: code style enforced in the build, warnings as errors, `dotnet format --verify-no-changes`, and NuGet Audit warnings for vulnerable packages as errors.",
       "limitations": "rule sets change with SDK versions, so pin `AnalysisLevel`; audit data comes from the GitHub Advisory Database.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
@@ -579,7 +579,7 @@
         "https://github.com/realm/SwiftLint",
         "research/stack-go-rust-jvm-dotnet.md"
       ],
-      "rationale": "style and convention rules built on SwiftSyntax; `--strict` fails on warnings, `--fix` corrects, SARIF/JSON/GitHub reporters, custom rules in config.",
+      "rationale": "style and convention rules built on SwiftSyntax; `--strict` fails on warnings, `--fix` corrects, SARIF/JSON reporters, custom rules in config.",
       "limitations": "it is a linter, not a formatter; pair with `swift-format` or SwiftFormat if you want enforced layout.",
       "details": "research/stack-go-rust-jvm-dotnet.md"
     },
@@ -607,7 +607,7 @@
         "https://github.com/carthage-software/mago#readme",
         "https://mago.carthage.software/"
       ],
-      "rationale": "Rust-native PHP toolchain: linter, formatter, static analyzer and architectural `guard` rules in one binary, with auto-fixes and a baseline. Replaces PHPStan, PHP-CS-Fixer and Deptrac; 30 releases, v1.58.2 on 2026-10-19.",
+      "rationale": "PHP toolchain in one binary: linter, formatter, static analyzer and architectural `guard` rules, with auto-fixes and a baseline.",
       "limitations": "Created in October 2024, so younger than PHPStan; its framework-specific extensions (Laravel, Symfony) were not compared rule by rule. Check your framework's coverage before dropping PHPStan."
     },
     {
@@ -620,7 +620,7 @@
         "https://github.com/rvben/rumdl#readme",
         "https://rumdl.dev/markdownlint-comparison"
       ],
-      "rationale": "Rust-native Markdown linter and formatter that reads markdownlint configuration, so migration is cheap. `rumdl check` exits 1 on violations, `rumdl fmt` fixes; has a GitHub Action. Chosen over markdownlint-cli2 as the fast single-binary option.",
+      "rationale": "Markdown linter and formatter that reads markdownlint configuration. `rumdl check` exits 1 on violations, `rumdl fmt` fixes.",
       "limitations": "Pre-1.0 (v0.3.0). Compatibility with markdownlint is the project's own claim; custom JavaScript rules written for markdownlint are not expected to carry over."
     },
     {
@@ -633,7 +633,7 @@
         "https://github.com/oasdiff/oasdiff#readme",
         "https://github.com/oasdiff/oasdiff/blob/main/BREAKING-CHANGES.md"
       ],
-      "rationale": "Compares two OpenAPI specs and reports the changes that break existing API clients (`breaking`) or all consumer-visible changes (`changelog`), with a GitHub Action and a pre-commit hook. The standard backward-compatibility check for OpenAPI: 1.4k stars, v1.34.1 on 2026-10-21, Apache-2.0; rules are customizable.",
+      "rationale": "compares two OpenAPI specs and reports the changes that break existing API clients (`breaking`) or all consumer-visible changes (`changelog`), with a GitHub Action and a pre-commit hook.",
       "limitations": "OpenAPI only (use Buf for protobuf). The exact option that makes CI fail on breaking changes was not checked here; read its docs. pb33f's openapi-changes is the smaller alternative."
     },
     {
@@ -646,7 +646,7 @@
         "https://github.com/daveshanley/vacuum#readme",
         "https://quobix.com/vacuum/"
       ],
-      "rationale": "Single-binary linter for OpenAPI, AsyncAPI, Arazzo and JSON Schema that reads Spectral-style rulesets, so existing rules carry over. Chosen over Spectral and Redocly CLI as the fast native option with no Node dependency; v0.35.1 on 2026-10-23, MIT.",
+      "rationale": "single-binary linter for OpenAPI, AsyncAPI, Arazzo and JSON Schema that reads Spectral-style rulesets.",
       "limitations": "Smaller community than Spectral (1.1k against 3.2k stars; Spectral and Redocly CLI each have 7 to 10 million npm downloads a month). Spectral compatibility has documented limits (see its README). Exits 2 when a rule times out, so incomplete runs are visible."
     },
     {
@@ -659,7 +659,7 @@
         "https://buf.build/docs/",
         "https://github.com/bufbuild/buf#readme"
       ],
-      "rationale": "Protobuf lint, format and breaking-change detection against a previous version or git ref, in one CLI. The de facto standard for protobuf: 11.5k stars, v1.75.0 on 2026-10-22, Apache-2.0.",
+      "rationale": "Protobuf lint, format and breaking-change detection against a previous version or git ref, in one CLI.",
       "limitations": "Protobuf only. The Buf Schema Registry is an optional hosted service; lint and breaking-change checks run locally against a git ref."
     },
     {
@@ -671,7 +671,7 @@
       "sources": [
         "https://github.com/quarylabs/sqruff#readme"
       ],
-      "rationale": "Rust-native SQL linter and formatter with SQLFluff-style rules, a `--dialect` per project and autofix. Chosen over SQLFluff as the fast single binary; v0.43.0 on 2026-10-22, Apache-2.0.",
+      "rationale": "SQL linter and formatter with SQLFluff-style rules, a `--dialect` per project and autofix.",
       "limitations": "Pre-1.0 and far smaller than SQLFluff (1.4k against 10k stars, 9 million PyPI downloads a month). Check your dialect before switching, and keep SQLFluff if you need its dbt and Jinja templating. Style only: use squawk for migration safety."
     },
     {
@@ -685,7 +685,7 @@
         "https://rubygems.org/gems/strong_migrations",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "stops unsafe Rails migrations (locking indexes, column drops, type changes) while they run and names the safe alternative; 4.4k stars, MIT, active. It checks Ruby migrations, so it does not overlap with squawk.",
+      "rationale": "stops unsafe Rails migrations (locking indexes, column drops, type changes) while they run and names the safe alternative.",
       "limitations": "PostgreSQL, MySQL and MariaDB only; runs only when migrations run, so CI must run them.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -700,7 +700,7 @@
         "https://rubygems.org/gems/bullet",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "detects N+1 queries and unused eager loading; with `Bullet.raise = true` in test the specs fail. The standard Rails tool (7.3k stars, 188M gem downloads).",
+      "rationale": "detects N+1 queries and unused eager loading in Rails; with `Bullet.raise = true` in test the specs fail.",
       "limitations": "finds only what tests exercise.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -715,7 +715,7 @@
         "https://rubygems.org/gems/i18n-tasks",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "`i18n-tasks health` fails on missing, unused and inconsistent translation keys and normalises locale files. The mature Rails option.",
+      "rationale": "`i18n-tasks health` fails on missing, unused and inconsistent translation keys and normalises locale files.",
       "limitations": "Ruby and Rails; last release 2025-11.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -730,7 +730,7 @@
         "https://www.npmjs.com/package/@herb-tools/linter",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "HTML-aware ERB parser with linter and formatter; replaces erb_lint, which has had no release since 2025-01. 600k npm downloads a month.",
+      "rationale": "HTML-aware ERB parser with linter and formatter; replaces erb_lint.",
       "limitations": "pre-1.0; formatter is experimental; the linter runs through npm.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -745,7 +745,7 @@
         "https://rubygems.org/gems/sorbet-runtime",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "fast static type checker for Ruby (used by Stripe and Shopify); with tapioca it types gems and Rails. Chosen over Steep for adoption (158M vs 6.9M gem downloads).",
+      "rationale": "static type checker for Ruby; with tapioca it types gems and Rails.",
       "limitations": "needs `sig` annotations and gradual strictness levels; Steep with RBS is the other direction.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -775,7 +775,7 @@
         "https://rubygems.org/gems/archspec",
         "research/custom-rules.md"
       ],
-      "rationale": "architecture rules in one `Archspec.rb`: components by glob, layers, `cannot_use`, `cannot_call`, naming, cycles and Rails presets (layered, hexagonal, modular monolith, CQRS). Needs no packages, unlike Packwerk. Run: `archspec check` exits 1 on a violation, `--format json` for agents; a todo file lets you adopt it in an existing app.",
+      "rationale": "architecture rules for Ruby in one `Archspec.rb`: components by glob, layers, `cannot_use`, `cannot_call`, naming, cycles and Rails presets. Exits 1 on a violation, JSON output, a todo file for existing apps.",
       "limitations": "created June 2026, one maintainer, 262 stars; no SARIF found. Static analysis only (Ruby 3.2+, Rubydex). Overlaps Packwerk for package boundaries: use one of them.",
       "details": "research/custom-rules.md"
     },
@@ -805,7 +805,7 @@
         "https://pypistats.org/packages/django-migration-linter",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "flags Django migrations that are not backward compatible with the running code (`lintmigrations`); 3.4M downloads a month.",
+      "rationale": "flags Django migrations that are not backward compatible with the running code (`lintmigrations`).",
       "limitations": "Django only; not verified by running; does not replace squawk for lock analysis on SQL.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -821,7 +821,7 @@
         "https://github.com/QuiiBz/sherif",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "Rust tool that enforces one version of each dependency and consistent ranges across a monorepo; 11M downloads a month.",
+      "rationale": "enforces one version of each dependency and consistent ranges across a monorepo.",
       "limitations": "monorepos only; package-manager catalogs reduce the need; sherif is the narrower alternative.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -836,7 +836,7 @@
         "https://www.npmjs.com/package/stylelint",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "CSS, SCSS and CSS-in-JS linter with autofix and custom rules; 44M downloads a month. Oxlint does no CSS.",
+      "rationale": "CSS, SCSS and CSS-in-JS linter with autofix and custom rules.",
       "limitations": "CSS only.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -852,7 +852,7 @@
         "https://www.npmjs.com/package/@axe-core/playwright",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "accessibility rules that fail tests when run through `@axe-core/playwright` (53M downloads a month). Static JSX checks are in Oxlint.",
+      "rationale": "accessibility rules that fail tests when run through `@axe-core/playwright`.",
       "limitations": "finds only the automatable part of WCAG; needs a browser test suite; MPL-2.0.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -882,7 +882,7 @@
         "https://packagist.org/packages/rector/rector",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "automated upgrades and refactoring sets; `--dry-run` in CI shows pending changes. A different job from Mago.",
+      "rationale": "automated upgrades and refactoring sets for PHP; `--dry-run` in CI shows pending changes.",
       "limitations": "depends on the rule sets you choose; fail-on-diff behaviour read from the docs only.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -897,7 +897,7 @@
         "https://github.com/pinterest/ktlint",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF. The de facto standard.",
+      "rationale": "Kotlin static analysis for complexity, smells and bugs, with baselines and SARIF.",
       "limitations": "stable release 1.23.8 is from 2025-02 (Gradle 6.8.3 or newer); 2.0 is alpha only (2.0.0-alpha.6, 2026-08-04, Gradle 8.14.3 or newer) and its README recommends it over 1.x, with daily commits. 1.23.8 was built against Kotlin 2.0.21 (support for newer Kotlin not checked) and crashed on JDK 25 (issues #9771 and #9772, closed; no 1.x release since), so on a recent JDK plan for 2.0. ktlint formatting comes through spotless.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -915,7 +915,7 @@
         "research/ecosystem-gaps.md",
         "research/fixtures/ex-slop/run.py"
       ],
-      "rationale": "the standard Elixir linter (consistency, readability, refactoring opportunities, custom checks); use with `mix format --check-formatted` and `mix compile --warnings-as-errors`. Where agents write the code, add the [ExSlop](https://github.com/elixir-vibe/ex_slop) plugin: Credo checks for what code generators over-produce (blanket `rescue`, `try` around a function that has a safe variant, N+1 queries, narrator docs and comments, roundabout `Enum` pipelines). Its findings fail the same `mix credo` run and come out in its JSON and SARIF (tested).",
+      "rationale": "the Elixir linter (consistency, readability, refactoring opportunities, custom checks). With the ExSlop plugin it also flags what code generators over-produce, such as blanket `rescue` and narrator comments.",
       "limitations": "style and smell rules, not type checking. ExSlop is young (created 2026-03, v0.4.x, one organisation); its `plugins:` line enables nothing when `.credo.exs` has an explicit `checks.enabled` list, so append `ExSlop.recommended_checks()` there instead.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -930,7 +930,7 @@
         "https://hex.pm/packages/sobelow",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "security scanner for Phoenix; `--exit` fails the build at a confidence level, SARIF output. Active again (0.16.0, 2026-09-30) after moving to this repository.",
+      "rationale": "security scanner for Phoenix; `--exit` fails the build at a confidence level, SARIF output.",
       "limitations": "Phoenix and Plug only; heuristic findings need a `.sobelow-skips` file.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -946,7 +946,7 @@
         "research/ecosystem-gaps.md",
         "research/fixtures/dialyxir/run.py"
       ],
-      "rationale": "runs Dialyzer from Mix: success-typing analysis, including the check that each `@spec` matches its code (invalid contracts, functions with no local return). The Elixir 1.20 compiler infers types and fails on plain type errors, but does not read `@spec` (tested). `mix dialyzer` exits 2 on a warning, `--format github` annotates pull requests and an ignore file baselines old warnings.",
+      "rationale": "runs Dialyzer from Mix: success-typing analysis, including the check that each `@spec` matches its code. `--format github` annotates pull requests and an ignore file baselines old warnings.",
       "limitations": "most useful where the project writes `@spec`; Dialyzer also works without specs, which the test did not cover. The first run builds the PLT (about 2.5 minutes for a toy project in the test), later runs take seconds, so cache the PLT in CI. No JSON or SARIF output; Assay offers both and incremental runs, but we did not run it and it is far smaller. What only Dialyzer catches shrinks as the compiler's type system grows.",
       "details": "research/ecosystem-gaps.md"
     },
@@ -960,7 +960,7 @@
         "https://github.com/Bachmann1234/diff_cover#readme",
         "research/ecosystem-gaps.md"
       ],
-      "rationale": "Language-independent coverage gate: reads Cobertura, Clover, JaCoCo and lcov reports and fails when the coverage of the lines changed in a pull request is under a threshold, which is stricter in practice than a global floor. Works for any stack that can emit one of those formats; about 24 million PyPI downloads a month, v10.6.0 on 2026-09-22, Apache-2.0.",
+      "rationale": "coverage gate for any stack: reads Cobertura, Clover, JaCoCo and lcov reports and fails when the lines changed in a pull request are covered below a threshold.",
       "limitations": "Needs a coverage report from your test runner (coverage.py, vitest/c8, JaCoCo, llvm-cov, go-cover, and so on). Not a replacement for each ecosystem's own total threshold; set both. The exact flag and exit code were not checked here. Smaller community (849 stars) than the coverage tools it reads."
     }
   ]

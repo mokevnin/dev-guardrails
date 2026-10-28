@@ -86,8 +86,8 @@ The README list is **generated from `tools.json`**. Do not edit the entries in `
 | `category` | The README heading. A new one must also be added to `CATEGORY_ORDER` in `scripts/readme.ts`. |
 | `last_reviewed` | Date (`YYYY-MM-DD`) you did the currency check. |
 | `sources` | URLs or repository paths used for the decision. |
-| `rationale` | One or two sentences: what it enforces and why it was chosen over the alternatives. |
-| `limitations` | What it does not do, in a sentence or two; shown after "Limits:". |
+| `rationale` | One or two sentences: what the tool does. No versions, star counts, download numbers or maintenance notes; those belong in `limitations` or `research/`. Shown in the README. |
+| `limitations` | What it does not do, in a sentence or two. Kept in `tools.json`, not shown in the README. |
 | `details` | Optional path of a longer comparison in `research/`. |
 | `stable_exception` | Optional `true` for a finished or slow-moving tool with old releases; mutes the push-age and release-age flags, not the review-date flag. Explain it in `limitations`. |
 
